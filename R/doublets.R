@@ -1,3 +1,23 @@
+#' @importFrom Seurat DefaultAssay
+#' @importFrom Seurat as.SingleCellExperiment
+#' @importFrom stringr str_c
+#' @importFrom scDblFinder scDblFinder
+#' @importFrom dplyr count
+#' @importFrom dplyr mutate
+#' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 aes
+#' @importFrom ggplot2 geom_point
+#' @importFrom ggplot2 geom_bar
+#' @importFrom ggplot2 geom_hline
+#' @importFrom ggplot2 geom_vline
+#' @importFrom ggplot2 ggtitle
+#' @importFrom ggplot2 xlab
+#' @importFrom ggplot2 ylab
+#' @importFrom ggplot2 theme_classic
+#' @importFrom ggplot2 theme
+#' @importFrom ggplot2 geom_text
+#' @importFrom ggplot2 scale_fill_manual
+
 PredictDoublets <- function(seuratObj, start = 1, stop = 100)
 {
   #Adds an user-defined number of scDblFinder runs to the Seurat metadata
@@ -24,7 +44,7 @@ AddDoubletRuns <- function(seuratObj, datasetName, nRuns = 100, nSteps = 4){
 
 AddDoubletListings <- function(seuratObj, nRuns = 100){
   #Counts how mnay time each cell was predicted to be a doublet and adds this information to the Seurat metadata
-  isDoublet <- as.data.frame(lapply(1:nRuns, 
+  isDoublet <- as.data.frame(lapply(1:nRuns,
                                     function(x)str_count(seuratObj@meta.data[[str_c("unit.class", x)]], "doublet")))
   seuratObj$doublet.listings <- rowSums(isDoublet)
   return(seuratObj)
@@ -61,8 +81,8 @@ PlotAcceptedDoublets <- function(doubletCounts, cutoff, reverseCumSum, meanDoubl
   TEXT_SIZE <- 7
   df <- AcceptedDoubletsPIDF(doubletCounts, cutoff, reverseCumSum, meanDoublets)
   dev.new(width =  8.1, height = 9, noRStudioGD = TRUE)
-  plots <- list(ggplot(df, aes(x = Listings, y = arcs)) + 
-                  geom_point(stat = "identity", color = c(rep("red", cutoff - 1), 
+  plots <- list(ggplot(df, aes(x = Listings, y = arcs)) +
+                  geom_point(stat = "identity", color = c(rep("red", cutoff - 1),
                                                           "purple", rep("blue", nRuns - cutoff))) +
                   ggtitle("Identification of doublet prediction significance cutoff") +
                   xlab("Difference of the reverse cumulative sum and the mean number of predicted doublets per run") +
@@ -71,9 +91,9 @@ PlotAcceptedDoublets <- function(doubletCounts, cutoff, reverseCumSum, meanDoubl
                   geom_hline(aes(yintercept = 0), color="pink", size = 0.5) +
                   theme_classic() +
                   theme(plot.title = element_text(hjust = 0.5), text = element_text(size = TEXT_SIZE + 2)) +
-                  geom_text(data = data.frame(cutoff), aes(x = cutoff, label = str_c("x = ", cutoff)), 
+                  geom_text(data = data.frame(cutoff), aes(x = cutoff, label = str_c("x = ", cutoff)),
                             y = 150, angle = -10, size = 3),
-                ggplot(df, aes(x = Listings, y = Count, fill = Outcome)) + 
+                ggplot(df, aes(x = Listings, y = Count, fill = Outcome)) +
                   geom_bar(stat = "identity") +
                   scale_fill_manual(values = c("navy", "aliceblue")) +
                   ggtitle("Predicted doublets after 100 scDblFinder runs") +
@@ -103,7 +123,7 @@ Jaccard <- function(a, b) {
 }
 
 RunsJaccards <- function(runs, nRuns = 100)
-  return(lapply(1:nRuns, function(x) 
+  return(lapply(1:nRuns, function(x)
     sort(sapply(1:nRuns, function(y) Jaccard(runs[[x]], runs[[y]])))[1:(nRuns - 1)]))
 
 DoubletsJaccardsPIDF <- function(seuratObj, nRuns = 100){
@@ -114,9 +134,9 @@ DoubletsJaccardsPIDF <- function(seuratObj, nRuns = 100){
   maxJaccards <- sapply(runsJaccards, function(x) max(x))
   meanJaccards <- sapply(runsJaccards, function(x) mean(x))
   minJaccards <- sapply(runsJaccards, function(x) min(x))
-  df <- data.frame(Index = 1:nRuns, 
-                   Consensus = consensusJaccards, 
-                   Maximum = maxJaccards, 
+  df <- data.frame(Index = 1:nRuns,
+                   Consensus = consensusJaccards,
+                   Maximum = maxJaccards,
                    Mean = meanJaccards,
                    Minimum = minJaccards)
   return(df)
@@ -125,7 +145,7 @@ DoubletsJaccardsPIDF <- function(seuratObj, nRuns = 100){
 PlotDoubletsJaccards <- function(seuratObj, nRuns = 100){
   df <- DoubletsJaccardsPIDF(seuratObj, nRuns)
   dev.new(width =  8.1, height = 9, noRStudioGD = TRUE)
-  ggplot(df, aes(x = Index, y = Consensus)) + 
+  ggplot(df, aes(x = Index, y = Consensus)) +
     geom_point(color = "purple", shape = 2) +
     geom_point(aes(y = Maximum), color = "navy", shape = 0) +
     geom_point(aes(y = Mean), color = "royalblue", shape = 1) +
