@@ -33,7 +33,7 @@ Imports:
     patchwork (>= 1.1.2),
     NMF (>= 0.25),
     ggalluvial (>= 0.12.3),
-    randomcoloR (>= 1.1.0.1)
+    randomcoloR (>= 1.1.0.1),
 Remotes:
     karthik/wesanderson (>= 0.3.6),
     bioc::3.15/slingshot (>= 2.6.0),
