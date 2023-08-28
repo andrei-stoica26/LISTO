@@ -14,7 +14,7 @@ NULL
 NULL
 #' @import harmony
 NULL
-#' @import griGraphics
+#' @import gridGraphics
 NULL
 #' @import slingshot
 NULL
