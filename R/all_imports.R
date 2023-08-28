@@ -1,20 +1,70 @@
-#' @importFrom Seurat CreateSeuratObject
-#' @importFrom Seurat DefaultAssay
-#' @importFrom Seurat as.SingleCellExperiment
-#' @importFrom stringr str_c
-#' @importFrom scDblFinder scDblFinder
-#' @importFrom dplyr count
-#' @importFrom dplyr mutate
-#' @importFrom ggplot2 ggplot
-#' @importFrom ggplot2 aes
-#' @importFrom ggplot2 geom_point
-#' @importFrom ggplot2 geom_bar
-#' @importFrom ggplot2 geom_hline
-#' @importFrom ggplot2 geom_vline
-#' @importFrom ggplot2 ggtitle
-#' @importFrom ggplot2 xlab
-#' @importFrom ggplot2 ylab
-#' @importFrom ggplot2 theme_classic
-#' @importFrom ggplot2 theme
-#' @importFrom ggplot2 geom_text
-#' @importFrom ggplot2 scale_fill_manual
+#' @import stringr
+NULL
+#' @import Seurat
+NULL
+#' @import scDblFinder
+NULL
+#' @import ggplot2
+NULL
+#' @import ggplotify
+NULL
+#' @import gridExtra
+NULL
+#' @import wesanderson
+NULL
+#' @import harmony
+NULL
+#' @import griGraphics
+NULL
+#' @import slingshot
+NULL
+#' @import scales
+NULL
+#' @import DOSE
+NULL
+#' @import clusterProfiler
+NULL
+#' @import viridis
+NULL
+#' @import RColorBrewer
+NULL
+#' @import hash
+NULL
+#' @import corrplot
+NULL
+#' @import sgof
+NULL
+#' @import tradeSeq
+NULL
+#' @import rbioapi
+NULL
+#' @import multienrichjam
+NULL
+#' @import SeuratWrappers
+NULL
+#' @import scCustomize
+NULL
+#' @import ggrepel
+NULL
+#' @import hpoPlot
+NULL
+#' @import SingleCellSignalR
+NULL
+#' @import pheatmap
+NULL
+#' @import CellChat
+NULL
+#' @import ComplexUpset
+NULL
+#' @import Nebulosa
+NULL
+#' @import patchwork
+NULL
+#' @import NMF
+NULL
+#' @import ggalluvial
+NULL
+#' @import randomcoloR
+NULL
+#' @import geneSynonym
+NULL
