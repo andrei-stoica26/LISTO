@@ -1,9 +1,8 @@
 Package: LISTO
 Type: Package
-Title: LISTO - a Seurat-based scRNA-seq analysis tool
+Title: A Seurat-based Single Cell Analysis Tool
 Version: 1.0.0
-Author: Andrei Stoica
-Maintainer: Andrei Stoica
+Authors@R: person("Andrei", "Stoica", , "andrei-florian.stoica@st-hildas.ox.ac.uk", role = c("aut", "cre"))
 Description: Seurat-compatible tools for the analysis of cancer scRNA-seq data
 License: What license is it under?
 Encoding: UTF-8
