@@ -1,3 +1,10 @@
+#' @import stringr
+#' @import scDblFinder
+#' @import ggplot2
+#' @import gridExtra
+#' @import grid
+#' @export
+
 PredictDoublets <- function(seuratObj, start = 1, stop = 100)
 {
   #Adds an user-defined number of scDblFinder runs to the Seurat metadata

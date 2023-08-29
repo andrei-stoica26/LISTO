@@ -1,3 +1,6 @@
+#' @import stringr
+#' @import Seurat
+
 SeuratsList <- function(files, conditions, minCells = 10)
   lapply(1:length(files), function(i){
     message(str_c("Adding Seurat object: ", conditions[i])," from file: ", files[i], ".")
