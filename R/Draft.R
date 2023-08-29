@@ -1,8 +1,7 @@
 #library(roxygen2)
-#roxygenise()
+#w
 
 
 #devtools::install_github("andrei-stoica26/LISTO", force = T)
-#library(LISTO)
 
 
