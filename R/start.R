@@ -1,5 +1,4 @@
-#' @import stringr
-#' @import Seurat
+#' @export
 
 SeuratsList <- function(files, conditions, minCells = 10)
   lapply(1:length(files), function(i){

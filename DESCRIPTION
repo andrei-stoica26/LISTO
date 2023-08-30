@@ -45,4 +45,6 @@ Remotes:
     bioc::3.15/SingleCellSignalR,
     sqjin/CellChat,
     bioc::3.15/Nebulosa,
-    oganm/geneSynonym
+    oganm/geneSynonym,
+    cole-trapnell-lab/monocle3,
+    bioc::3.15/DropletUtils

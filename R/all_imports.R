@@ -68,3 +68,14 @@ NULL
 NULL
 #' @import geneSynonym
 NULL
+#' @import monocle3
+NULL
+#' @import primes
+NULL
+#' @import parallel
+NULL
+#' @import Matrix
+NULL
+#' @import DropletUtils
+NULL
+#' @export
