@@ -47,4 +47,6 @@ Remotes:
     bioc::3.15/Nebulosa,
     oganm/geneSynonym,
     cole-trapnell-lab/monocle3,
-    bioc::3.15/DropletUtils
+    bioc::3.15/DropletUtils,
+    bioc::3.15/STRINGdb,
+    bioc::3.15/ReactomeGSA
