@@ -1,6 +1,6 @@
 #' @export
 
-#Functions for getting corrlations between the expression of genes
+#Functions for getting correlations between the expression of genes
 
 GetStandardCorrelations <- function(seuratObj, standard, method = "spearman"){
   geneIndices <- 1:length(rownames(seuratObj))
