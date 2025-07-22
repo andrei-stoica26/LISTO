@@ -1,0 +1,7 @@
+.Rbuildignore
+.Rhistory
+.Rproj.user
+R/.recipes.R
+R/.test_code.R
+henna.Rproj
+inst/doc
