@@ -11,7 +11,8 @@ markerListPhyper(
   colStr = "avg_log2FC",
   isHighTop = TRUE,
   extraCutoff = 0,
-  pvalThr = 0.05
+  pvalThr = 0.05,
+  verbose = TRUE
 )
 }
 \arguments{
@@ -32,6 +33,8 @@ present in the marker list, and if \code{isHighTop} is \code{FALSE}, it must
 be higher that all cutoffs present in the marker list.}
 
 \item{pvalThr}{p-value threshold.}
+
+\item{verbose}{Whether the output should be verbose.}
 }
 \value{
 A data frame.
