@@ -12,7 +12,7 @@ sharedMarkersPlot(
   joinColumn = "avg_log2FC",
   thresh1 = 1.5,
   thresh2 = 1.5,
-  title = paste0("Shared markers — ", name1, " and ", name2),
+  title = paste0("Shared markers - ", name1, " and ", name2),
   ...
 )
 }

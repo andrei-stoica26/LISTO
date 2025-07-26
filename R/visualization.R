@@ -28,7 +28,7 @@ sharedMarkersPlot <- function(markerList1,
                               joinColumn = 'avg_log2FC',
                               thresh1 = 1.5,
                               thresh2 = 1.5,
-                              title = paste0('Shared markers — ', name1,
+                              title = paste0('Shared markers - ', name1,
                                         ' and ', name2),
                               ...){
     sharedDF <- sharedMarkers(markerList1[[name1]],
