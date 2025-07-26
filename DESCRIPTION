@@ -10,6 +10,7 @@ Description: LISTO is an evolving tool for assessing overlaps of marker lists.
 License: MIT + file LICENSE
 Imports:
     hammers,
+    henna,
     Seurat,
     sgof,
     stats
