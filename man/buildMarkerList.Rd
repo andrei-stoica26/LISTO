@@ -10,7 +10,8 @@ buildMarkerList(
   invert = FALSE,
   logfcThreshold = 0,
   ids1 = sort(unique(seuratObj[[]][[idClass]])),
-  ids2 = NULL
+  ids2 = NULL,
+  ...
 )
 }
 \arguments{
@@ -26,6 +27,8 @@ buildMarkerList(
 
 \item{ids2}{Selected class groups used for comparison. Ignored
 if \code{invert} is \code{TRUE}.}
+
+\item{...}{Additional arguments passed to FindMarkers.}
 }
 \value{
 A list of marker data frames.

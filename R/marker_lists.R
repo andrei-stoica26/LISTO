@@ -15,6 +15,7 @@ NULL
 #' @param ids1 Selected class groups.
 #' @param ids2 Selected class groups used for comparison. Ignored
 #' if \code{invert} is \code{TRUE}.
+#' @param ... Additional arguments passed to FindMarkers.
 #'
 #' @return A list of marker data frames.
 #'
@@ -25,7 +26,8 @@ buildMarkerList <- function(seuratObj,
                             invert = FALSE,
                             logfcThreshold = 0,
                             ids1 = sort(unique(seuratObj[[]][[idClass]])),
-                            ids2 = NULL){
+                            ids2 = NULL,
+                            ...){
     originalIds1 <- ids1
     allIdentities <- sort(unique(seuratObj[[]][[idClass]]))
     diffs <- lapply(ids1, function(x) setdiff(allIdentities, x))
@@ -48,14 +50,14 @@ buildMarkerList <- function(seuratObj,
                                only.pos=TRUE,
                                logfc.threshold=logfcThreshold,
                                min.pct=0,
-                               densify=TRUE)
+                               ...)
         if (nrow(markers)){
             markers <- bfCorrectDF(markers, length(originalIds1),
                                             colStr='p_val_adj')
             if(nrow(markers))
                 markers$pct.ratio <- markers$pct.1 / markers$pct.2
         }
-
+        gc()
         return(markers)
     }, originalIds1, ids1, ids2, SIMPLIFY=FALSE)
     names(markerList) <- originalIds1
