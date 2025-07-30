@@ -49,9 +49,13 @@ buildMarkerList <- function(seuratObj,
                                logfc.threshold=logfcThreshold,
                                min.pct=0,
                                densify=TRUE)
-        if (nrow(markers))
-            return(hammers::bfCorrectDF(markers, length(originalIds1),
-                                        colStr='p_val_adj'))
+        if (nrow(markers)){
+            markers <- bfCorrectDF(markers, length(originalIds1),
+                                            colStr='p_val_adj')
+            if(nrow(markers))
+                markers$pct.ratio <- markers$pct.1 / markers$pct.2
+        }
+
         return(markers)
     }, originalIds1, ids1, ids2, SIMPLIFY=FALSE)
     names(markerList) <- originalIds1
