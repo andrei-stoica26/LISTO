@@ -18,24 +18,22 @@ markerListPhyper <- function(markerList1, markerList2, nGenes,
                              extraCutoff = 0,
                              pvalThr = 0.05,
                              verbose = TRUE){
-    df <- pairDF(names(markerList1), names(markerList2))
-    df$pval <- apply(df, 1,
-                     function(x){
-                         markerNames1 <- x[1]
-                         markerNames2 <- x[2]
-                         if (verbose)
-                             message('Assessing overlap between marker sets: ',
+    df <- expand.grid(names(markerList1), names(markerList2))
+    df$pval <- vapply(seq(nrow(df)),
+                      function(i){
+                          markerNames1 <- df[i, 1]
+                          markerNames2 <- df[i, 2]
+                          if (verbose)
+                              message('Assessing overlap between marker sets: ',
                                      markerNames1, ' and ', markerNames2, '...')
-                         markerSetsPhyper(
-                             markerList1[[markerNames1]],
-                             markerList2[[markerNames2]],
-                             nGenes,
-                             colStr,
-                             isHighTop,
-                             extraCutoff)
-
-                         }
-                     )
+                          markerSetsPhyper(
+                              markerList1[[markerNames1]],
+                              markerList2[[markerNames2]],
+                              nGenes,
+                              colStr,
+                              isHighTop,
+                              extraCutoff)
+                          }, numeric(1))
     df <- byCorrectDF(df, pvalThr)
     return(df)
 }

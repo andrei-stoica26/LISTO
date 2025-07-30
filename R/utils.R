@@ -84,21 +84,3 @@ markerSetsPhyper <- function(markers1, markers2, nGenes,
     pval <- median(BY(pvals)$Adjusted.pvalues)
     return(pval)
 }
-
-#' Create a data frame from vector pairs
-#'
-#' This function creates a data frame from vector pairs.
-#'
-#' @param v Character vector.
-#' @param w Character vector.
-#'
-#' @return A data frame with two columns.
-#'
-#' @noRd
-#'
-pairDF <- function(v, w){
-    df <- data.frame(Group1 = unlist(lapply(v, function(x) rep(x, length(w)))),
-                     Group2 = rep(w, length(v)))
-    return(df)
-}
-
