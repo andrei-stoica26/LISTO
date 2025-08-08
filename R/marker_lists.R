@@ -11,7 +11,7 @@ NULL
 #' @param seuratObj A Seurat object.
 #' @param idClass Identity class.
 #' @param invert Whether to compute downregulated markers.
-#' @param logfcThreshold Fold change threshold for testing.
+#' @param logFCThr Fold change threshold for testing.
 #' @param ids1 Selected class groups.
 #' @param ids2 Selected class groups used for comparison. Ignored
 #' if \code{invert} is \code{TRUE}.
@@ -24,7 +24,7 @@ NULL
 buildMarkerList <- function(seuratObj,
                             idClass = 'seurat_clusters',
                             invert = FALSE,
-                            logfcThreshold = 0,
+                            logFCThr = 0,
                             ids1 = sort(unique(seuratObj[[]][[idClass]])),
                             ids2 = NULL,
                             ...){
@@ -48,7 +48,7 @@ buildMarkerList <- function(seuratObj,
                                ident.1=id1,
                                ident.2=id2,
                                only.pos=TRUE,
-                               logfc.threshold=logfcThreshold,
+                               logfc.threshold=logFCThr,
                                min.pct=0,
                                ...)
         if (nrow(markers)){

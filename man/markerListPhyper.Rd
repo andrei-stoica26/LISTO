@@ -8,6 +8,8 @@ markerListPhyper(
   markerList1,
   markerList2,
   nGenes,
+  logFCThr = 0,
+  pct1Thr = 0,
   colStr = "avg_log2FC",
   isHighTop = TRUE,
   extraCutoff = 0,
@@ -22,6 +24,15 @@ markerListPhyper(
 
 \item{nGenes}{Number of genes in the dataset.}
 
+\item{logFCThr}{Value of average log2 fold-change above which markers will
+be retained.}
+
+\item{pct1Thr}{Value of fraction of cells expressing the marker above which
+markers will be retained.
+Assess the overlap of two lists of marker data frames.
+
+This function assesses the overlap of two lists of marker data frames.}
+
 \item{colStr}{Numeric column.}
 
 \item{isHighTop}{Whether higher values in the numeric column correspond to
@@ -32,7 +43,7 @@ If \code{isHighTop} is \code{TRUE}, it must be lower than all the cutoffs
 present in the marker list, and if \code{isHighTop} is \code{FALSE}, it must
 be higher that all cutoffs present in the marker list.}
 
-\item{pvalThr}{p-value threshold.}
+\item{pvalThr}{p-value threshold to be used by the Bonferroni correction.}
 
 \item{verbose}{Whether the output should be verbose.}
 }

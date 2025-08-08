@@ -8,7 +8,7 @@ buildMarkerList(
   seuratObj,
   idClass = "seurat_clusters",
   invert = FALSE,
-  logfcThreshold = 0,
+  logFCThr = 0,
   ids1 = sort(unique(seuratObj[[]][[idClass]])),
   ids2 = NULL,
   ...
@@ -21,7 +21,7 @@ buildMarkerList(
 
 \item{invert}{Whether to compute downregulated markers.}
 
-\item{logfcThreshold}{Fold change threshold for testing.}
+\item{logFCThr}{Fold change threshold for testing.}
 
 \item{ids1}{Selected class groups.}
 

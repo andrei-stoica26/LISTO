@@ -9,10 +9,12 @@ sharedMarkersPlot(
   markerList2,
   name1,
   name2,
+  markers = NULL,
   joinColumn = "avg_log2FC",
   thresh1 = 1.5,
   thresh2 = 1.5,
-  title = paste0("Shared markers - ", name1, " and ", name2),
+  title = "Shared markers",
+  markersHullColor = "purple",
   ...
 )
 }
@@ -25,11 +27,17 @@ sharedMarkersPlot(
 
 \item{name2}{Name of second marker data frame.}
 
+\item{markers}{Names of markers to be displayed on the plot.
+If \code{NULL}, the markers will be chosen based on the thresholds.}
+
 \item{thresh1}{Join column threshold for the first marker data frame.}
 
 \item{thresh2}{Join column threshold for the second marker data frame.}
 
-\item{title}{Plot title}
+\item{title}{Plot title.}
+
+\item{markersHullColor}{Color of the hull determined by \code{markers}.
+Ignored if \code{markers} is \code{NULL}.}
 
 \item{...}{Additional arguments passed to \code{henna::hullPlot}.}
 }
