@@ -15,6 +15,8 @@ sharedMarkersPlot(
   thresh2 = 1.5,
   title = "Shared markers",
   markersHullColor = "purple",
+  isNeg1 = FALSE,
+  isNeg2 = FALSE,
   ...
 )
 }
@@ -38,6 +40,10 @@ If \code{NULL}, the markers will be chosen based on the thresholds.}
 
 \item{markersHullColor}{Color of the hull determined by \code{markers}.
 Ignored if \code{markers} is \code{NULL}.}
+
+\item{isNeg1}{Whether the first marker set represents negative markers.}
+
+\item{isNeg2}{Whether the second marker set represents negative markers.}
 
 \item{...}{Additional arguments passed to \code{henna::hullPlot}.}
 }

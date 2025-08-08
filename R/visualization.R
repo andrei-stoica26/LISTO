@@ -19,6 +19,8 @@ NULL
 #' @param title Plot title.
 #' @param markersHullColor Color of the hull determined by \code{markers}.
 #' Ignored if \code{markers} is \code{NULL}.
+#' @param isNeg1 Whether the first marker set represents negative markers.
+#' @param isNeg2 Whether the second marker set represents negative markers.
 #' @param ... Additional arguments passed to \code{henna::hullPlot}.
 #'
 #' @return A list of marker data frames.
@@ -35,9 +37,18 @@ sharedMarkersPlot <- function(markerList1,
                               thresh2 = 1.5,
                               title = 'Shared markers',
                               markersHullColor = 'purple',
+                              isNeg1 = FALSE,
+                              isNeg2 = FALSE,
                               ...){
+
     sharedDF <- sharedMarkers(markerList1[[name1]],
                               markerList2[[name2]])
+
+    if(isNeg1)
+        name1 <- paste0(name1, ' (downregulated)')
+    if(isNeg2)
+        name2 <- paste0(name2, ' (downregulated)')
+
     if (is.null(markers)){
         labelDF <- sharedDF[sharedDF[, 1] > thresh1 &
                                 sharedDF[, 2] > thresh2, ]
@@ -47,10 +58,10 @@ sharedMarkersPlot <- function(markerList1,
                       yInt=thresh2,
                       xLab=paste0(joinColumn, ' (', name1, ')'),
                       yLab=paste0(joinColumn, ' (', name2, ')'),
-                      legendLabs=as.factor(c('Non-top markers',
-                                             'Shared top markers',
-                                             paste0('Top markers only for ', name2),
-                                             paste0('Top markers only for ', name1))),
+                      legendLabs=as.factor(c('Non-top',
+                                             'Shared',
+                                             paste0('Top only for ', name2),
+                                             paste0('Top only for ', name1))),
                       labelDF=labelDF,
                       ...
         )
