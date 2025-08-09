@@ -1,14 +1,73 @@
-#' Assess the overlap of two lists of marker data frames.
+#' Generate cutoffs for assessing marker overlaps
 #'
-#' This function assesses the overlap of two lists of marker data frames.
+#' This function generates cutoffs for assessing marker overlaps.
 #'
+#' @param markers1 Data frame.
+#' @param markers2 Data frame.
+#' @param colStr Numeric column.
+#' @param isHighTop Whether higher values in the numeric column correspond to
+#' top markers.
+#' @param extraCutoff Cutoff to be placed at one end of the cutoff list.
+#' If \code{isHighTop} is \code{TRUE}, it must be lower than all the cutoffs
+#' present in the marker list, and if \code{isHighTop} is \code{FALSE}, it must
+#' be higher that all cutoffs present in the marker list.
+#' @param maxNCutoffs Maximum number of cutoffs. If the two input data frames
+#' contain more cutoffs than this value, only \code{maxNCutoffs} linearly
+#' spaced cutoffs will be selected from the original cutoff list.
+#'
+#' @return A numeric vector.
+#'
+#' @keywords internal
+#'
+generateCutoffs <- function(markers1,
+                            markers2,
+                            colStr = 'avg2_logFC',
+                            isHighTop = TRUE,
+                            extraCutoff = 0,
+                            maxNCutoffs = 10000){
+    values1 <- markers1[[colStr]]
+    values2 <- markers2[[colStr]]
+    cutoffs <- unique(c(values1, values2))
+    if (isHighTop)
+        cutoffs <- cutoffs[cutoffs < min(max(values1), max(values2))] else
+            cutoffs <- cutoffs[cutoffs > max(min(values1), min(values2))]
+    cutoffs <- c(cutoffs, extraCutoff)
+    cutoffs <- sort(cutoffs, decreasing=isHighTop)
+    nCutoffs <- length(cutoffs)
+    if (nCutoffs > maxNCutoffs){
+        message('Too many cutoffs found in the input data frames. Only ',
+                maxNCutoffs, ' will be used')
+        cutoffs <- cutoffs[seq(1, nCutoffs, length.out=maxNCutoffs)]
+    }
+    return(cutoffs)
+}
 
-
-#' @param logFCThr Value of average log2 fold-change above which markers will
-#' be retained.
-#' @param pct1Thr Value of fraction of cells expressing the marker above which
-#' markers will be retained.
-
+#' Assess the overlap of two marker data frames.
+#'
+#' This function assesses the overlap of two marker data frames.
+#'
+#' @inheritParams generateCutoffs
+#' @param nGenes Number of genes in the dataset.
+#'
+#' @return A numeric value (hypergeometric p-value).
+#'
+#' @export
+#'
+markerSetsPhyper <- function(markers1, markers2, nGenes,
+                             colStr = 'avg_log2FC',
+                             isHighTop = TRUE,
+                             extraCutoff = 0,
+                             maxNCutoffs = 10000){
+    cutoffs <- generateCutoffs(markers1, markers2, colStr, isHighTop,
+                               extraCutoff, maxNCutoffs)
+    pvals <- vapply(cutoffs, function(cutoff){
+        markerNames1 <- rownames(markers1[markers1[[colStr]] > cutoff, ])
+        markerNames2 <- rownames(markers2[markers2[[colStr]] > cutoff, ])
+        pval <- setsPhyper(markerNames1, markerNames2, nGenes)
+    }, numeric(1))
+    pval <- median(BY(pvals)$Adjusted.pvalues)
+    return(pval)
+}
 
 
 #' Assess the overlap of two lists of marker data frames.
@@ -18,6 +77,10 @@
 #' @param markerList1 List of data frames.
 #' @param markerList2 List of data frames.
 #' @inheritParams markerSetsPhyper
+#' @param logFCThr Value of average log2 fold-change above which markers will
+#' be retained.
+#' @param pct1Thr Value of fraction of cells expressing the marker above which
+#' markers will be retained.
 #' @inheritParams filterMarkerList
 #' @param pvalThr p-value threshold to be used by the Bonferroni correction.
 #' @param verbose Whether the output should be verbose.
@@ -32,6 +95,7 @@ markerListPhyper <- function(markerList1, markerList2, nGenes,
                              colStr = 'avg_log2FC',
                              isHighTop = TRUE,
                              extraCutoff = 0,
+                             maxNCutoffs = 10000,
                              pvalThr = 0.05,
                              verbose = TRUE){
 
@@ -44,12 +108,12 @@ markerListPhyper <- function(markerList1, markerList2, nGenes,
         markerList1 <- lapply(nLists, function(i){
             x <- markerList1[[i]]
             x <- x[x$avg_log2FC > logFCThr & x$pct.1 > pct1Thr, ]
-            message(nrow(x), ' markers retained for ',
-                    names(markerList1)[1], '.')
+            if (verbose)
+                message(nrow(x), ' markers retained for ',
+                        names(markerList1)[1], '.')
             return(x)
         })
     }
-
 
     df$pval <- vapply(seq(nrow(df)),
                       function(i){
@@ -64,7 +128,8 @@ markerListPhyper <- function(markerList1, markerList2, nGenes,
                               nGenes,
                               colStr,
                               isHighTop,
-                              extraCutoff)
+                              extraCutoff,
+                              maxNCutoffs)
                           }, numeric(1))
     df <- byCorrectDF(df, pvalThr)
     return(df)

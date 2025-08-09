@@ -13,6 +13,7 @@ markerListPhyper(
   colStr = "avg_log2FC",
   isHighTop = TRUE,
   extraCutoff = 0,
+  maxNCutoffs = 10000,
   pvalThr = 0.05,
   verbose = TRUE
 )
@@ -28,10 +29,7 @@ markerListPhyper(
 be retained.}
 
 \item{pct1Thr}{Value of fraction of cells expressing the marker above which
-markers will be retained.
-Assess the overlap of two lists of marker data frames.
-
-This function assesses the overlap of two lists of marker data frames.}
+markers will be retained.}
 
 \item{colStr}{Numeric column.}
 
@@ -42,6 +40,10 @@ top markers.}
 If \code{isHighTop} is \code{TRUE}, it must be lower than all the cutoffs
 present in the marker list, and if \code{isHighTop} is \code{FALSE}, it must
 be higher that all cutoffs present in the marker list.}
+
+\item{maxNCutoffs}{Maximum number of cutoffs. If the two input data frames
+contain more cutoffs than this value, only \code{maxNCutoffs} linearly
+spaced cutoffs will be selected from the original cutoff list.}
 
 \item{pvalThr}{p-value threshold to be used by the Bonferroni correction.}
 
