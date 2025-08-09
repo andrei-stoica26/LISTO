@@ -103,6 +103,7 @@ markerListPhyper <- function(markerList1, markerList2, nGenes,
                              verbose = FALSE){
 
     df <- expand.grid(names(markerList1), names(markerList2))
+    colnames(df) <- c('Group1', 'Group2')
     if (logFCThr > 0 | pct1Thr > 0){
         markerList1 <- filterMarkerList(markerList1, logFCThr, pct1Thr)
         markerList2 <- filterMarkerList(markerList2, logFCThr, pct1Thr)
