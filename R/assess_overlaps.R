@@ -14,6 +14,7 @@
 #' @param maxNCutoffs Maximum number of cutoffs. If the two input data frames
 #' contain more cutoffs than this value, only \code{maxNCutoffs} linearly
 #' spaced cutoffs will be selected from the original cutoff list.
+#' @param verbose Whether the output should be verbose.
 #'
 #' @return A numeric vector.
 #'
@@ -24,7 +25,8 @@ generateCutoffs <- function(markers1,
                             colStr = 'avg2_logFC',
                             isHighTop = TRUE,
                             extraCutoff = 0,
-                            maxNCutoffs = 10000){
+                            maxNCutoffs = 500,
+                            verbose = FALSE){
     values1 <- markers1[[colStr]]
     values2 <- markers2[[colStr]]
     cutoffs <- unique(c(values1, values2))
@@ -35,7 +37,8 @@ generateCutoffs <- function(markers1,
     cutoffs <- sort(cutoffs, decreasing=isHighTop)
     nCutoffs <- length(cutoffs)
     if (nCutoffs > maxNCutoffs){
-        message('Too many cutoffs found in the input data frames. Only ',
+        if(verbose)
+            message('Too many cutoffs found in the input data frames. Only ',
                 maxNCutoffs, ' will be used')
         cutoffs <- cutoffs[seq(1, nCutoffs, length.out=maxNCutoffs)]
     }
@@ -57,9 +60,10 @@ markerSetsPhyper <- function(markers1, markers2, nGenes,
                              colStr = 'avg_log2FC',
                              isHighTop = TRUE,
                              extraCutoff = 0,
-                             maxNCutoffs = 10000){
+                             maxNCutoffs = 500,
+                             verbose = FALSE){
     cutoffs <- generateCutoffs(markers1, markers2, colStr, isHighTop,
-                               extraCutoff, maxNCutoffs)
+                               extraCutoff, maxNCutoffs, verbose)
     pvals <- vapply(cutoffs, function(cutoff){
         markerNames1 <- rownames(markers1[markers1[[colStr]] > cutoff, ])
         markerNames2 <- rownames(markers2[markers2[[colStr]] > cutoff, ])
@@ -83,7 +87,6 @@ markerSetsPhyper <- function(markers1, markers2, nGenes,
 #' markers will be retained.
 #' @inheritParams filterMarkerList
 #' @param pvalThr p-value threshold to be used by the Bonferroni correction.
-#' @param verbose Whether the output should be verbose.
 #'
 #' @return A data frame.
 #'
@@ -95,9 +98,9 @@ markerListPhyper <- function(markerList1, markerList2, nGenes,
                              colStr = 'avg_log2FC',
                              isHighTop = TRUE,
                              extraCutoff = 0,
-                             maxNCutoffs = 10000,
+                             maxNCutoffs = 500,
                              pvalThr = 0.05,
-                             verbose = TRUE){
+                             verbose = FALSE){
 
     df <- expand.grid(names(markerList1), names(markerList2))
     if (logFCThr > 0 | pct1Thr > 0){
@@ -119,9 +122,8 @@ markerListPhyper <- function(markerList1, markerList2, nGenes,
                       function(i){
                           markerNames1 <- df[i, 1]
                           markerNames2 <- df[i, 2]
-                          if (verbose)
-                              message('Assessing overlap between marker sets: ',
-                                     markerNames1, ' and ', markerNames2, '...')
+                          message('Assessing overlap between marker sets: ',
+                                markerNames1, ' and ', markerNames2, '...')
                           markerSetsPhyper(
                               markerList1[[markerNames1]],
                               markerList2[[markerNames2]],
@@ -129,7 +131,8 @@ markerListPhyper <- function(markerList1, markerList2, nGenes,
                               colStr,
                               isHighTop,
                               extraCutoff,
-                              maxNCutoffs)
+                              maxNCutoffs,
+                              verbose)
                           }, numeric(1))
     df <- byCorrectDF(df, pvalThr)
     return(df)

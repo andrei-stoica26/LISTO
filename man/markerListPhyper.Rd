@@ -13,9 +13,9 @@ markerListPhyper(
   colStr = "avg_log2FC",
   isHighTop = TRUE,
   extraCutoff = 0,
-  maxNCutoffs = 10000,
+  maxNCutoffs = 500,
   pvalThr = 0.05,
-  verbose = TRUE
+  verbose = FALSE
 )
 }
 \arguments{

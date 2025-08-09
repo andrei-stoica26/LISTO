@@ -10,7 +10,8 @@ generateCutoffs(
   colStr = "avg2_logFC",
   isHighTop = TRUE,
   extraCutoff = 0,
-  maxNCutoffs = 10000
+  maxNCutoffs = 500,
+  verbose = FALSE
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ be higher that all cutoffs present in the marker list.}
 \item{maxNCutoffs}{Maximum number of cutoffs. If the two input data frames
 contain more cutoffs than this value, only \code{maxNCutoffs} linearly
 spaced cutoffs will be selected from the original cutoff list.}
+
+\item{verbose}{Whether the output should be verbose.}
 }
 \value{
 A numeric vector.
