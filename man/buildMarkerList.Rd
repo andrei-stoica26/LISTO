@@ -9,6 +9,7 @@ buildMarkerList(
   idClass = "seurat_clusters",
   invert = FALSE,
   logFCThr = 0,
+  minPct = 0,
   ids1 = sort(unique(seuratObj[[]][[idClass]])),
   ids2 = NULL,
   ...
@@ -23,6 +24,9 @@ buildMarkerList(
 
 \item{logFCThr}{Fold change threshold for testing.}
 
+\item{minPct}{The minimum fraction of in-cluster cells in which tested
+genes need to be expressed.}
+
 \item{ids1}{Selected class groups.}
 
 \item{ids2}{Selected class groups used for comparison. Ignored
@@ -34,7 +38,7 @@ if \code{invert} is \code{TRUE}.}
 A list of marker data frames.
 }
 \description{
-This function finds upregulated or downregulate markers for Seurat object
+This function finds upregulated or downregulated markers for Seurat object
 for a given identity class and performs an additional Bonferroni correction for
 multiple testing.
 }

@@ -4,7 +4,7 @@ NULL
 
 #' Find markers for Seurat identity class
 #'
-#' This function finds upregulated or downregulate markers for Seurat object
+#' This function finds upregulated or downregulated markers for Seurat object
 #' for a given identity class and performs an additional Bonferroni correction for
 #' multiple testing.
 #'
@@ -12,6 +12,8 @@ NULL
 #' @param idClass Identity class.
 #' @param invert Whether to compute downregulated markers.
 #' @param logFCThr Fold change threshold for testing.
+#' @param minPct The minimum fraction of in-cluster cells in which tested
+#' genes need to be expressed.
 #' @param ids1 Selected class groups.
 #' @param ids2 Selected class groups used for comparison. Ignored
 #' if \code{invert} is \code{TRUE}.
@@ -25,6 +27,7 @@ buildMarkerList <- function(seuratObj,
                             idClass = 'seurat_clusters',
                             invert = FALSE,
                             logFCThr = 0,
+                            minPct = 0,
                             ids1 = sort(unique(seuratObj[[]][[idClass]])),
                             ids2 = NULL,
                             ...){
@@ -49,7 +52,7 @@ buildMarkerList <- function(seuratObj,
                                ident.2=id2,
                                only.pos=TRUE,
                                logfc.threshold=logFCThr,
-                               min.pct=0,
+                               min.pct=minPct,
                                ...)
         if (nrow(markers)){
             markers <- bfCorrectDF(markers, length(originalIds1),
