@@ -10,6 +10,7 @@ buildMarkerList(
   invert = FALSE,
   logFCThr = 0,
   minPct = 0,
+  minPctRatio = 0,
   ids1 = sort(unique(seuratObj[[]][[idClass]])),
   ids2 = NULL,
   ...
@@ -26,6 +27,9 @@ buildMarkerList(
 
 \item{minPct}{The minimum fraction of in-cluster cells in which tested
 genes need to be expressed.}
+
+\item{minPctRatio}{The minimum ratio of in-cluster cells over out-cluster cells
+in which a retained gene must be expressed.}
 
 \item{ids1}{Selected class groups.}
 
