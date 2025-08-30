@@ -62,7 +62,7 @@ buildMarkerList <- function(seuratObj,
                                             colStr='p_val_adj')
             if(nrow(markers)){
                 markers$pct.ratio <- markers$pct.1 / markers$pct.2
-                markers <- markers[pct.ratio >= minPctRatio, ]
+                markers <- markers[markers$pct.ratio >= minPctRatio, ]
             }
 
         }
