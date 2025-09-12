@@ -6,13 +6,13 @@
 \usage{
 sharedMarkersPlot(
   markerList1,
-  markerList2,
   name1,
   name2,
-  markers = NULL,
+  markerList2 = NULL,
+  markerNames = NULL,
   joinColumn = "avg_log2FC",
-  thresh1 = 1.5,
-  thresh2 = 1.5,
+  thresh1 = 0,
+  thresh2 = 0,
   title = "Shared markers",
   markersHullColor = "purple",
   isNeg1 = FALSE,
@@ -23,13 +23,13 @@ sharedMarkersPlot(
 \arguments{
 \item{markerList1}{List of data frames.}
 
-\item{markerList2}{List of data frames.}
-
 \item{name1}{Name of first marker data frame.}
 
 \item{name2}{Name of second marker data frame.}
 
-\item{markers}{Names of markers to be displayed on the plot.
+\item{markerList2}{List of data frames.}
+
+\item{markerNames}{Names of markers to be displayed on the plot.
 If \code{NULL}, the markers will be chosen based on the thresholds.}
 
 \item{thresh1}{Join column threshold for the first marker data frame.}

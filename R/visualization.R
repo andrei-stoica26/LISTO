@@ -11,7 +11,7 @@ NULL
 #' @inheritParams markerListPhyper
 #' @param name1 Name of first marker data frame.
 #' @param name2 Name of second marker data frame.
-#' @param markers Names of markers to be displayed on the plot.
+#' @param markerNames Names of markers to be displayed on the plot.
 #' If \code{NULL}, the markers will be chosen based on the thresholds.
 #' @inheritParams sharedMarkers
 #' @param thresh1 Join column threshold for the first marker data frame.
@@ -28,18 +28,21 @@ NULL
 #' @export
 #'
 sharedMarkersPlot <- function(markerList1,
-                              markerList2,
                               name1,
                               name2,
-                              markers = NULL,
+                              markerList2 = NULL,
+                              markerNames = NULL,
                               joinColumn = 'avg_log2FC',
-                              thresh1 = 1.5,
-                              thresh2 = 1.5,
+                              thresh1 = 0,
+                              thresh2 = 0,
                               title = 'Shared markers',
                               markersHullColor = 'purple',
                               isNeg1 = FALSE,
                               isNeg2 = FALSE,
                               ...){
+
+    if(is.null(markerList2))
+        markerList2 <- markerList1
 
     sharedDF <- sharedMarkers(markerList1[[name1]],
                               markerList2[[name2]])
@@ -49,7 +52,7 @@ sharedMarkersPlot <- function(markerList1,
     if(isNeg2)
         name2 <- paste0(name2, ' (downregulated)')
 
-    if (is.null(markers)){
+    if (is.null(markerNames)){
         labelDF <- sharedDF[sharedDF[, 1] > thresh1 &
                                 sharedDF[, 2] > thresh2, ]
         p <- hullPlot(sharedDF,
@@ -67,8 +70,8 @@ sharedMarkersPlot <- function(markerList1,
         )
 
     }else{
-        foundMarkers <- intersect(rownames(sharedDF), markers)
-        message(length(foundMarkers), ' among the ', length(markers),
+        foundMarkers <- intersect(rownames(sharedDF), markerNames)
+        message(length(foundMarkers), ' among the ', length(markerNames),
                 ' markers are shared by the ', name1, ' and ',
                 name2, ' markers.')
         labelDF <- sharedDF[foundMarkers, ]
