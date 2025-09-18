@@ -28,8 +28,8 @@ buildMarkerList(
 \item{minPct}{The minimum fraction of in-cluster cells in which tested
 genes need to be expressed.}
 
-\item{minPctRatio}{The minimum ratio of in-cluster cells over out-cluster cells
-in which a retained gene must be expressed.}
+\item{minPctRatio}{The minimum ratio of in-cluster cells over out-cluster
+cells in which a retained gene must be expressed.}
 
 \item{ids1}{Selected class groups.}
 
@@ -43,6 +43,6 @@ A list of marker data frames.
 }
 \description{
 This function finds upregulated or downregulated markers for Seurat object
-for a given identity class and performs an additional Bonferroni correction for
-multiple testing.
+for a given identity class and performs an additional Bonferroni correction
+for multiple testing.
 }

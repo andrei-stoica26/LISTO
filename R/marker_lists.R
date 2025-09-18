@@ -5,8 +5,8 @@ NULL
 #' Find markers for Seurat identity class
 #'
 #' This function finds upregulated or downregulated markers for Seurat object
-#' for a given identity class and performs an additional Bonferroni correction for
-#' multiple testing.
+#' for a given identity class and performs an additional Bonferroni correction
+#' for multiple testing.
 #'
 #' @param seuratObj A Seurat object.
 #' @param idClass Identity class.
@@ -14,8 +14,8 @@ NULL
 #' @param logFCThr Fold change threshold for testing.
 #' @param minPct The minimum fraction of in-cluster cells in which tested
 #' genes need to be expressed.
-#' @param minPctRatio The minimum ratio of in-cluster cells over out-cluster cells
-#' in which a retained gene must be expressed.
+#' @param minPctRatio The minimum ratio of in-cluster cells over out-cluster
+#' cells in which a retained gene must be expressed.
 #' @param ids1 Selected class groups.
 #' @param ids2 Selected class groups used for comparison. Ignored
 #' if \code{invert} is \code{TRUE}.

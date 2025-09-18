@@ -52,6 +52,6 @@ A list of marker data frames.
 }
 \description{
 This function finds upregulated or downregulate markers for Seurat object
-for a given identity class and performs an additional Bonferroni correction for
-multiple testing.
+for a given identity class and performs an additional Bonferroni correction
+for multiple testing.
 }

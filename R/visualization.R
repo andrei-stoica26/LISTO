@@ -5,8 +5,8 @@ NULL
 #' Find markers for Seurat identity class
 #'
 #' This function finds upregulated or downregulate markers for Seurat object
-#' for a given identity class and performs an additional Bonferroni correction for
-#' multiple testing.
+#' for a given identity class and performs an additional Bonferroni correction
+#' for multiple testing.
 #'
 #' @inheritParams markerListPhyper
 #' @param name1 Name of first marker data frame.
