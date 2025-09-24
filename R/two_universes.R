@@ -188,10 +188,10 @@ pvalOverlapMNk <- function(intMN, intAN, intBM, k){
 #' @return The probability of intersection of the two gene subsets.
 #'
 #' @examples
-#' pSubMNSets(LETTERS[seq(19)],
-#' LETTERS[seq(6, 26)],
-#' LETTERS[seq(4, 10)],
-#' LETTERS[seq(7, 15)])
+#' pOverlapMN(LETTERS[seq(4, 10)],
+#' LETTERS[seq(7, 15)],
+#' LETTERS[seq(19)],
+#' LETTERS[seq(6, 26)])
 #'
 #' @export
 #'

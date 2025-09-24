@@ -2,7 +2,7 @@
 
 export(buildMarkerList)
 export(factorialPrimePowers)
-export(markerListOverlap)
+export(markersListOverlap)
 export(markersPairOverlap)
 export(pOverlapMN)
 export(pOverlapMNk)

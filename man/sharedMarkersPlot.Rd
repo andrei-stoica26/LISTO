@@ -21,12 +21,18 @@ sharedMarkersPlot(
 )
 }
 \arguments{
+\item{markerList1}{List of marker data frames.}
+
 \item{name1}{Name of first marker data frame.}
 
 \item{name2}{Name of second marker data frame.}
 
+\item{markerList2}{List of marker data frames.}
+
 \item{markerNames}{Names of markers to be displayed on the plot.
 If \code{NULL}, the markers will be chosen based on the thresholds.}
+
+\item{joinColumn}{Column based on which marker data frames will be joined.}
 
 \item{thresh1}{Join column threshold for the first marker data frame.}
 

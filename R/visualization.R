@@ -8,11 +8,12 @@ NULL
 #' for a given identity class and performs an additional Bonferroni correction
 #' for multiple testing.
 #'
-#' @inheritParams markersPairOverlap
+#' @inheritParams markersListOverlap
 #' @param name1 Name of first marker data frame.
 #' @param name2 Name of second marker data frame.
 #' @param markerNames Names of markers to be displayed on the plot.
 #' If \code{NULL}, the markers will be chosen based on the thresholds.
+#' @param joinColumn Column based on which marker data frames will be joined.
 #' @inheritParams sharedMarkers
 #' @param thresh1 Join column threshold for the first marker data frame.
 #' @param thresh2 Join column threshold for the second marker data frame.

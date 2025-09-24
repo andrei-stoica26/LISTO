@@ -26,9 +26,9 @@ of sets M and N.
 A thin wrapper around \code{pOverlapMNk}.
 }
 \examples{
-pSubMNSets(LETTERS[seq(19)],
-LETTERS[seq(6, 26)],
-LETTERS[seq(4, 10)],
-LETTERS[seq(7, 15)])
+pOverlapMN(LETTERS[seq(4, 10)],
+LETTERS[seq(7, 15)],
+LETTERS[seq(19)],
+LETTERS[seq(6, 26)])
 
 }

@@ -155,18 +155,18 @@ filterMarkerList <- function(markerList, logFCThr = 0, pct1Thr = 0)
 #'
 #' @export
 #'
-markerListOverlap <- function(markerList1,
-                              markerList2,
-                              genes1,
-                              genes2 = NULL,
-                              logFCThr = 0,
-                              pct1Thr = 0,
-                              colStr = 'avg_log2FC',
-                              isHighTop = TRUE,
-                              extraCutoff = 0,
-                              maxNCutoffs = 500,
-                              pvalThr = 0.05,
-                              verbose = FALSE){
+markersListOverlap <- function(markerList1,
+                               markerList2,
+                               genes1,
+                               genes2 = NULL,
+                               logFCThr = 0,
+                               pct1Thr = 0,
+                               colStr = 'avg_log2FC',
+                               isHighTop = TRUE,
+                               extraCutoff = 0,
+                               maxNCutoffs = 500,
+                               pvalThr = 0.05,
+                               verbose = FALSE){
 
     df <- expand.grid(names(markerList1), names(markerList2))
     colnames(df) <- c('Group1', 'Group2')
