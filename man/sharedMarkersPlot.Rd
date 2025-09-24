@@ -21,13 +21,9 @@ sharedMarkersPlot(
 )
 }
 \arguments{
-\item{markerList1}{List of data frames.}
-
 \item{name1}{Name of first marker data frame.}
 
 \item{name2}{Name of second marker data frame.}
-
-\item{markerList2}{List of data frames.}
 
 \item{markerNames}{Names of markers to be displayed on the plot.
 If \code{NULL}, the markers will be chosen based on the thresholds.}

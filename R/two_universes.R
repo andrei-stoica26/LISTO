@@ -120,7 +120,7 @@ powerProduct <- function(primes, exponents)
 #'
 #' @keywords internal
 #'
-vSubsetOverlapProbMNkNumerator <- function(intMN, intAN, intBM, k)
+vpOverlapMNkNumerator <- function(intMN, intAN, intBM, k)
     return(vSum(vChoose(intAN, k), vChoose(intMN - intAN, intBM - k)))
 
 #' Compute the probability that two subsets of sets M and N intersect in k
@@ -129,18 +129,18 @@ vSubsetOverlapProbMNkNumerator <- function(intMN, intAN, intBM, k)
 #' This function computes the probability that two subsets of sets M and N
 #' intersect in k points.
 #'
-#' @inheritParams vSubsetOverlapProbMNkNumerator
+#' @inheritParams vpOverlapMNkNumerator
 #'
 #' @return The probability that two subsets of sets M and N intersect in k
 #' points.
 #'
 #' @examples
-#' subsetOverlapProbMNk(8, 6, 4, 2)
+#' pOverlapMNk(8, 6, 4, 2)
 #'
 #' @export
 #'
-subsetOverlapProbMNk <- function(intMN, intAN, intBM, k){
-    exponents <- vSum(vSubsetOverlapProbMNkNumerator(intMN, intAN, intBM, k),
+pOverlapMNk <- function(intMN, intAN, intBM, k){
+    exponents <- vSum(vpOverlapMNkNumerator(intMN, intAN, intBM, k),
                       -1 * vChoose(intMN, intBM))
     primes <- generate_n_primes(length(exponents))
     return(powerProduct(primes, exponents))
@@ -152,23 +152,23 @@ subsetOverlapProbMNk <- function(intMN, intAN, intBM, k){
 #' This function computes the probability that two subsets of sets M and N
 #' intersect in at least k points.
 #'
-#' @inheritParams vSubsetOverlapProbMNkNumerator
+#' @inheritParams vpOverlapMNkNumerator
 #'
 #' @return The probability that two subsets of sets M and N intersect in
 #' at least k points.
 #'
 #' @examples
-#' subsetOverlapPvalMNk(300, 23, 24, 6)
+#' pvalOverlapMNk (300, 23, 24, 6)
 #'
 #' @export
 #'
-subsetOverlapPvalMNk <- function(intMN, intAN, intBM, k){
+pvalOverlapMNk <- function(intMN, intAN, intBM, k){
     denom <- -1 * vChoose(intMN, intBM)
     exponents <- do.call(vSum,
                          lapply(seq(k, min(intAN, intBM)),
                                 function(i) vSum(
-                                    vSubsetOverlapProbMNkNumerator(
-                                        intMN, intAN, intBM, i), denom)))
+                                    vpOverlapMNkNumerator(intMN, intAN,
+                                                      intBM, i), denom)))
     primes <- generate_n_primes(length(exponents))
     return(powerProduct(primes, exponents))
 }
@@ -178,63 +178,31 @@ subsetOverlapPvalMNk <- function(intMN, intAN, intBM, k){
 #' This function computes the probability of intersection of two gene subsets
 #' of sets M and N.
 #'
-#' @details A thin wrapper around \code{subsetOverlapProbMNk}.
+#' @details A thin wrapper around \code{pOverlapMNk}.
 #'
-#' @param m A gene set.
-#' @param n A gene set.
 #' @param a A subset of gene set M.
 #' @param b A subset of gene set N.
+#' @param m A gene set.
+#' @param n A gene set.
 #'
 #' @return The probability of intersection of the two gene subsets.
 #'
 #' @examples
-#' geneOverlapProbMNk(LETTERS[seq(19)],
+#' pSubMNSets(LETTERS[seq(19)],
 #' LETTERS[seq(6, 26)],
 #' LETTERS[seq(4, 10)],
 #' LETTERS[seq(7, 15)])
 #'
 #' @export
 #'
-geneOverlapProbMNk <- function(m, n, a, b){
+pOverlapMN <- function(a, b, m, n){
     if (length(setdiff(a, m)))
         stop('`a` must be a subset of `m`.')
     if (length(setdiff(b, n)))
         stop('`b` must be a subset of `n`.')
-    return(subsetOverlapProbMNk(length(intersect(m, n)),
-                                length(intersect(a, n)),
-                                length(intersect(b, m)),
-                                length(intersect(a, b))
+    return(pOverlapMNk(length(intersect(m, n)),
+                       length(intersect(a, n)),
+                       length(intersect(b, m)),
+                       length(intersect(a, b))
     ))
 }
-
-#' Compute the p-value of intersection of two gene subsets of sets M and N
-#'
-#' This function computes the p-value of intersection of two gene subsets
-#' of sets M and N.
-#'
-#' @details A thin wrapper around \code{subsetOverlapPvalMNk}.
-#'
-#' @inheritParams geneOverlapProbMNk
-#'
-#' @return The probability of intersection of the two gene subsets.
-#'
-#' @examples
-#' geneOverlapPvalMNk(LETTERS[seq(19)],
-#' LETTERS[seq(6, 26)],
-#' LETTERS[seq(4, 10)],
-#' LETTERS[seq(7, 15)])
-#'
-#' @export
-#'
-geneOverlapPvalMNk <- function(m, n, a, b){
-    if (length(setdiff(a, m)))
-        stop('`a` must be a subset of `m`.')
-    if (length(setdiff(b, n)))
-        stop('`b` must be a subset of `n`.')
-    return(subsetOverlapPvalMNk(length(intersect(m, n)),
-                                length(intersect(a, m)),
-                                length(intersect(b, n)),
-                                length(intersect(a, b))
-    ))
-}
-
