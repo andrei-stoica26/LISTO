@@ -93,7 +93,7 @@ vChoose <- function(n, k)
 #' @examples
 #' powerProduct(c(2, 3, 5), c(4, 2, 6))
 #'
-#' @export
+#' @noRd
 #'
 powerProduct <- function(primes, exponents)
     return(prod(mapply(function(x, y) x ^ y, primes, exponents)))
@@ -172,3 +172,69 @@ subsetOverlapPvalMNk <- function(intMN, intAN, intBM, k){
     primes <- generate_n_primes(length(exponents))
     return(powerProduct(primes, exponents))
 }
+
+#' Compute the probability of intersection of two gene subsets of sets M and N
+#'
+#' This function computes the probability of intersection of two gene subsets
+#' of sets M and N.
+#'
+#' @details A thin wrapper around \code{subsetOverlapProbMNk}.
+#'
+#' @param m A gene set.
+#' @param n A gene set.
+#' @param a A subset of gene set M.
+#' @param b A subset of gene set N.
+#'
+#' @return The probability of intersection of the two gene subsets.
+#'
+#' @examples
+#' geneOverlapProbMNk(LETTERS[seq(19)],
+#' LETTERS[seq(6, 26)],
+#' LETTERS[seq(4, 10)],
+#' LETTERS[seq(7, 15)])
+#'
+#' @export
+#'
+geneOverlapProbMNk <- function(m, n, a, b){
+    if (length(setdiff(a, m)))
+        stop('`a` must be a subset of `m`.')
+    if (length(setdiff(b, n)))
+        stop('`b` must be a subset of `n`.')
+    return(subsetOverlapProbMNk(length(intersect(m, n)),
+                                length(intersect(a, n)),
+                                length(intersect(b, m)),
+                                length(intersect(a, b))
+    ))
+}
+
+#' Compute the p-value of intersection of two gene subsets of sets M and N
+#'
+#' This function computes the p-value of intersection of two gene subsets
+#' of sets M and N.
+#'
+#' @details A thin wrapper around \code{subsetOverlapPvalMNk}.
+#'
+#' @inheritParams geneOverlapProbMNk
+#'
+#' @return The probability of intersection of the two gene subsets.
+#'
+#' @examples
+#' geneOverlapPvalMNk(LETTERS[seq(19)],
+#' LETTERS[seq(6, 26)],
+#' LETTERS[seq(4, 10)],
+#' LETTERS[seq(7, 15)])
+#'
+#' @export
+#'
+geneOverlapPvalMNk <- function(m, n, a, b){
+    if (length(setdiff(a, m)))
+        stop('`a` must be a subset of `m`.')
+    if (length(setdiff(b, n)))
+        stop('`b` must be a subset of `n`.')
+    return(subsetOverlapPvalMNk(length(intersect(m, n)),
+                                length(intersect(a, m)),
+                                length(intersect(b, n)),
+                                length(intersect(a, b))
+    ))
+}
+

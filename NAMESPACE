@@ -2,9 +2,10 @@
 
 export(buildMarkerList)
 export(factorialPrimePowers)
+export(geneOverlapProbMNk)
+export(geneOverlapPvalMNk)
 export(markerListPhyper)
 export(markerSetsPhyper)
-export(powerProduct)
 export(setsPhyper)
 export(sharedMarkers)
 export(sharedMarkersPlot)
