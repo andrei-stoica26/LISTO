@@ -63,10 +63,9 @@ markerDFPairPval <- function(markers1,
                              markers2,
                              colStr,
                              cutoffs,
-                             nDatasets = c(1, 2),
+                             nDatasets = c('1', '2'),
                              ...){
 
-    nDatasets <- match.arg(nDatasets, c(1, 2))
     if(nDatasets == 1)
         pvalFun <- eval(as.name('pvalOverlap')) else
             pvalFun <- eval(as.name('pvalOverlapMN'))
@@ -107,20 +106,20 @@ markerDFPairOverlap <- function(markers1,
                                extraCutoff, maxNCutoffs, verbose)
 
     if(is.null(genes2))
-        return(markersPairPval(markers1,
-                               markers2,
-                               colStr,
-                               cutoffs,
-                               pvalOverlap,
-                               length(genes1)))
+        return(markerDFPairPval(markers1,
+                                markers2,
+                                colStr,
+                                cutoffs,
+                                1,
+                                length(genes1)))
 
-    return(markersPairPval(markers1,
-                           markers2,
-                           colStr,
-                           cutoffs,
-                           pvalOverlapMN,
-                           genes1,
-                           genes2))
+    return(markerDFPairPval(markers1,
+                            markers2,
+                            colStr,
+                            cutoffs,
+                            2,
+                            genes1,
+                            genes2))
 
 }
 
@@ -182,7 +181,7 @@ markerDFListOverlap <- function(markerList1,
                           markerNames2 <- df[i, 2]
                           message('Assessing overlap between marker sets: ',
                                 markerNames1, ' and ', markerNames2, '...')
-                          markersPairOverlap(
+                          markerDFPairOverlap(
                               markerList1[[markerNames1]],
                               markerList2[[markerNames2]],
                               genes1,

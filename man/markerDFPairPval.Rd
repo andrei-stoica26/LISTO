@@ -4,7 +4,14 @@
 \alias{markerDFPairPval}
 \title{Compute the p-value of overlap for two marker data frames}
 \usage{
-markerDFPairPval(markers1, markers2, colStr, cutoffs, nDatasets = c(1, 2), ...)
+markerDFPairPval(
+  markers1,
+  markers2,
+  colStr,
+  cutoffs,
+  nDatasets = c("1", "2"),
+  ...
+)
 }
 \arguments{
 \item{markers1}{Data frame of markers with at least one numeric column.}
