@@ -27,6 +27,7 @@ generateCutoffs <- function(markers1,
                             extraCutoff = 0,
                             maxNCutoffs = 500,
                             verbose = FALSE){
+
     values1 <- markers1[[colStr]]
     values2 <- markers2[[colStr]]
     cutoffs <- unique(c(values1, values2))
@@ -58,12 +59,12 @@ generateCutoffs <- function(markers1,
 #'
 #' @keywords internal
 #'
-markersPairPval <- function(markers1,
-                            markers2,
-                            colStr,
-                            cutoffs,
-                            nDatasets = c(1, 2),
-                            ...){
+markerDFPairPval <- function(markers1,
+                             markers2,
+                             colStr,
+                             cutoffs,
+                             nDatasets = c(1, 2),
+                             ...){
 
     nDatasets <- match.arg(nDatasets, c(1, 2))
     if(nDatasets == 1)
@@ -92,15 +93,15 @@ markersPairPval <- function(markers1,
 #'
 #' @export
 #'
-markersPairOverlap <- function(markers1,
-                               markers2,
-                               genes1,
-                               genes2 = NULL,
-                               colStr = 'avg_log2FC',
-                               isHighTop = TRUE,
-                               extraCutoff = 0,
-                               maxNCutoffs = 500,
-                               verbose = FALSE){
+markerDFPairOverlap <- function(markers1,
+                                markers2,
+                                genes1,
+                                genes2 = NULL,
+                                colStr = 'avg_log2FC',
+                                isHighTop = TRUE,
+                                extraCutoff = 0,
+                                maxNCutoffs = 500,
+                                verbose = FALSE){
 
     cutoffs <- generateCutoffs(markers1, markers2, colStr, isHighTop,
                                extraCutoff, maxNCutoffs, verbose)
@@ -147,7 +148,7 @@ filterMarkerList <- function(markerList, logFCThr = 0, pct1Thr = 0)
 #'
 #' @param markerList1 List of marker data frames.
 #' @param markerList2 List of marker data frames.
-#' @inheritParams markersPairOverlap
+#' @inheritParams markerDFPairOverlap
 #' @inheritParams filterMarkerList
 #' @param pvalThr p-value threshold to be used by the Bonferroni correction.
 #'
@@ -155,18 +156,18 @@ filterMarkerList <- function(markerList, logFCThr = 0, pct1Thr = 0)
 #'
 #' @export
 #'
-markersListOverlap <- function(markerList1,
-                               markerList2,
-                               genes1,
-                               genes2 = NULL,
-                               logFCThr = 0,
-                               pct1Thr = 0,
-                               colStr = 'avg_log2FC',
-                               isHighTop = TRUE,
-                               extraCutoff = 0,
-                               maxNCutoffs = 500,
-                               pvalThr = 0.05,
-                               verbose = FALSE){
+markerDFListOverlap <- function(markerList1,
+                                markerList2,
+                                genes1,
+                                genes2 = NULL,
+                                logFCThr = 0,
+                                pct1Thr = 0,
+                                colStr = 'avg_log2FC',
+                                isHighTop = TRUE,
+                                extraCutoff = 0,
+                                maxNCutoffs = 500,
+                                pvalThr = 0.05,
+                                verbose = FALSE){
 
     df <- expand.grid(names(markerList1), names(markerList2))
     colnames(df) <- c('Group1', 'Group2')

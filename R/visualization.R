@@ -8,7 +8,7 @@ NULL
 #' for a given identity class and performs an additional Bonferroni correction
 #' for multiple testing.
 #'
-#' @inheritParams markersListOverlap
+#' @inheritParams markerDFListOverlap
 #' @param name1 Name of first marker data frame.
 #' @param name2 Name of second marker data frame.
 #' @param markerNames Names of markers to be displayed on the plot.
