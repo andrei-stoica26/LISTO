@@ -30,6 +30,8 @@ markerDFListOverlap(
 \item{genes2}{Genes in the second dataset. If \code{NULL} (as default), no
 second dataset will be used.}
 
+\item{nCores}{Number of cores. Only used if \code{nDatasets} is 2.}
+
 \item{logFCThr}{Value of average log2 fold-change above which markers will
 be retained.}
 

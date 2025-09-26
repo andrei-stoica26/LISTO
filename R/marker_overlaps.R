@@ -108,6 +108,7 @@ markerDFPairPval <- function(markers1,
 #' This function assesses the overlap of two marker data frames.
 #'
 #' @inheritParams generateCutoffs
+#' @inheritParams markerDFPairPval
 #' @param genes1 Genes in the first dataset.
 #' @param genes2 Genes in the second dataset. If \code{NULL} (as default), no
 #' second dataset will be used.

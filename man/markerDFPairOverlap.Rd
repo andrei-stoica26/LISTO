@@ -27,6 +27,8 @@ markerDFPairOverlap(
 \item{genes2}{Genes in the second dataset. If \code{NULL} (as default), no
 second dataset will be used.}
 
+\item{nCores}{Number of cores. Only used if \code{nDatasets} is 2.}
+
 \item{colStr}{Numeric column.}
 
 \item{isHighTop}{Whether higher values in the numeric column correspond to
