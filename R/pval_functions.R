@@ -57,8 +57,8 @@ pvalOverlapMN <- function(a, b, m, n){
     if (length(setdiff(b, n)))
         stop('`b` must be a subset of `n`.')
     return(pvalOverlapMNk(length(intersect(m, n)),
-                          length(intersect(a, m)),
-                          length(intersect(b, n)),
+                          length(intersect(a, n)),
+                          length(intersect(b, m)),
                           length(intersect(a, b))
     ))
 }
