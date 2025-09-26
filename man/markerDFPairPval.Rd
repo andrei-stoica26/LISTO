@@ -25,7 +25,7 @@ markerDFPairPval(
 
 \item{nDatasets}{Number of datasets.}
 
-\item{nCores}{Number of cores.}
+\item{nCores}{Number of cores. Only used if \code{nDatasets} is 2.}
 
 \item{...}{Additional parameters passed to \code{pvalOverlap} or
 \code{pvalOverlapMN}.}

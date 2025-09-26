@@ -57,7 +57,7 @@ generateCutoffs <- function(markers1,
 #' @inheritParams generateCutoffs
 #' @param cutoffs Cutoffs for assessing marker overlaps.
 #' @param nDatasets Number of datasets.
-#' @param nCores Number of cores.
+#' @param nCores Number of cores. Only used if \code{nDatasets} is 2.
 #' @param ... Additional parameters passed to \code{pvalOverlap} or
 #' \code{pvalOverlapMN}.
 #'
@@ -77,7 +77,7 @@ markerDFPairPval <- function(markers1,
         pvalFun <- eval(as.name('pvalOverlap')) else
             pvalFun <- eval(as.name('pvalOverlapMN'))
 
-    if (nCores == 1){
+    if (nCores == 1 | nDatasets == 1){
         pvals <- vapply(cutoffs, function(cutoff){
             markerNames1 <- rownames(markers1[markers1[[colStr]] > cutoff, ])
             markerNames2 <- rownames(markers2[markers2[[colStr]] > cutoff, ])
@@ -85,32 +85,19 @@ markerDFPairPval <- function(markers1,
         }, numeric(1))
 
     } else{
-        message('Computing in parallel. Using ', nCores, ' cores.')
         clust <- makeCluster(nCores)
         pvalFunArgs <- list(...)
-
-        if (length(pvalFunArgs) == 1){
-            allGenes <- pvalFunArgs[[1]]
-            clusterExport(clust, c('markers1', 'markers2', 'cutoffs', 'allGenes'),
-                          envir=environment())
-            pvals <- parSapply(clust, cutoffs, function(cutoff){
-                markerNames1 <- rownames(markers1[markers1[[colStr]] > cutoff, ])
-                markerNames2 <- rownames(markers2[markers2[[colStr]] > cutoff, ])
-                pval <- pvalFun(markerNames1, markerNames2, allGenes)
+        allGenes1 <- pvalFunArgs[[1]]
+        allGenes2 <- pvalFunArgs[[2]]
+        clusterExport(clust, c('markers1', 'markers2', 'cutoffs',
+                               'allGenes1', 'allGenes2'), envir=environment())
+        pvals <- parSapply(clust, cutoffs, function(cutoff){
+            markerNames1 <- rownames(markers1[markers1[[colStr]] > cutoff, ])
+            markerNames2 <- rownames(markers2[markers2[[colStr]] > cutoff, ])
+            pval <- pvalFun(markerNames1, markerNames2, allGenes1, allGenes2)
             })
-        } else {
-            allGenes1 <- pvalFunArgs[[1]]
-            allGenes2 <- pvalFunArgs[[2]]
-            clusterExport(clust, c('markers1', 'markers2', 'cutoffs',
-                                   'allGenes1', 'allGenes2'), envir=environment())
-            pvals <- parSapply(clust, cutoffs, function(cutoff){
-                markerNames1 <- rownames(markers1[markers1[[colStr]] > cutoff, ])
-                markerNames2 <- rownames(markers2[markers2[[colStr]] > cutoff, ])
-                pval <- pvalFun(markerNames1, markerNames2, allGenes1, allGenes2)
-            })
-        }
         stopCluster(clust)
-    }
+        }
 
     pval <- median(BY(pvals)$Adjusted.pvalues)
     return(pval)
@@ -215,6 +202,10 @@ markerDFListOverlap <- function(markerList1,
         markerList1 <- filterMarkerList(markerList1, logFCThr, pct1Thr)
         markerList2 <- filterMarkerList(markerList2, logFCThr, pct1Thr)
     }
+
+    if (is.null(genes2) & nCores > 1)
+        message('Parallelization is not supported for single-dataset ',
+                'overlap assessments. `nCores` will be ignored.')
 
     df$pval <- vapply(seq(nrow(df)),
                       function(i){
