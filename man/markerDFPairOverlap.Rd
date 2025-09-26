@@ -9,6 +9,7 @@ markerDFPairOverlap(
   markers2,
   genes1,
   genes2 = NULL,
+  nCores = 1,
   colStr = "avg_log2FC",
   isHighTop = TRUE,
   extraCutoff = 0,

@@ -10,6 +10,7 @@ markerDFPairPval(
   colStr,
   cutoffs,
   nDatasets = c("1", "2"),
+  nCores = 1,
   ...
 )
 }
@@ -24,10 +25,13 @@ markerDFPairPval(
 
 \item{nDatasets}{Number of datasets.}
 
-\item{...}{Additional parameters passed to \code{pvalFun}}
+\item{nCores}{Number of cores.}
+
+\item{...}{Additional parameters passed to \code{pvalOverlap} or
+\code{pvalOverlapMN}.}
 }
 \value{
-A p-value
+A p-value.
 }
 \description{
 This function computes the p-value of overlap for two marker data frames.

@@ -9,6 +9,7 @@ markerDFListOverlap(
   markerList2,
   genes1,
   genes2 = NULL,
+  nCores = 1,
   logFCThr = 0,
   pct1Thr = 0,
   colStr = "avg_log2FC",

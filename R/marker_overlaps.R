@@ -1,3 +1,7 @@
+#' @importFrom parallel clusterExport makeCluster parSapply stopCluster
+#'
+NULL
+
 #' Generate cutoffs for assessing marker overlaps
 #'
 #' This function generates cutoffs for assessing marker overlaps.
@@ -53,9 +57,11 @@ generateCutoffs <- function(markers1,
 #' @inheritParams generateCutoffs
 #' @param cutoffs Cutoffs for assessing marker overlaps.
 #' @param nDatasets Number of datasets.
-#' @param ... Additional parameters passed to \code{pvalFun}
+#' @param nCores Number of cores.
+#' @param ... Additional parameters passed to \code{pvalOverlap} or
+#' \code{pvalOverlapMN}.
 #'
-#' @return A p-value
+#' @return A p-value.
 #'
 #' @keywords internal
 #'
@@ -64,17 +70,48 @@ markerDFPairPval <- function(markers1,
                              colStr,
                              cutoffs,
                              nDatasets = c('1', '2'),
+                             nCores = 1,
                              ...){
 
     if(nDatasets == 1)
         pvalFun <- eval(as.name('pvalOverlap')) else
             pvalFun <- eval(as.name('pvalOverlapMN'))
 
-    pvals <- vapply(cutoffs, function(cutoff){
-        markerNames1 <- rownames(markers1[markers1[[colStr]] > cutoff, ])
-        markerNames2 <- rownames(markers2[markers2[[colStr]] > cutoff, ])
-        pval <- pvalFun(markerNames1, markerNames2, ...)
-    }, numeric(1))
+    if (nCores == 1){
+        pvals <- vapply(cutoffs, function(cutoff){
+            markerNames1 <- rownames(markers1[markers1[[colStr]] > cutoff, ])
+            markerNames2 <- rownames(markers2[markers2[[colStr]] > cutoff, ])
+            pval <- pvalFun(markerNames1, markerNames2, ...)
+        }, numeric(1))
+
+    } else{
+        message('Computing in parallel. Using ', nCores, ' cores.')
+        clust <- makeCluster(nCores)
+        pvalFunArgs <- list(...)
+
+        if (length(pvalFunArgs) == 1){
+            allGenes <- pvalFunArgs[[1]]
+            clusterExport(clust, c('markers1', 'markers2', 'cutoffs', 'allGenes'),
+                          envir=environment())
+            pvals <- parSapply(clust, cutoffs, function(cutoff){
+                markerNames1 <- rownames(markers1[markers1[[colStr]] > cutoff, ])
+                markerNames2 <- rownames(markers2[markers2[[colStr]] > cutoff, ])
+                pval <- pvalFun(markerNames1, markerNames2, allGenes)
+            })
+        } else {
+            allGenes1 <- pvalFunArgs[[1]]
+            allGenes2 <- pvalFunArgs[[2]]
+            clusterExport(clust, c('markers1', 'markers2', 'cutoffs',
+                                   'allGenes1', 'allGenes2'), envir=environment())
+            pvals <- parSapply(clust, cutoffs, function(cutoff){
+                markerNames1 <- rownames(markers1[markers1[[colStr]] > cutoff, ])
+                markerNames2 <- rownames(markers2[markers2[[colStr]] > cutoff, ])
+                pval <- pvalFun(markerNames1, markerNames2, allGenes1, allGenes2)
+            })
+        }
+        stopCluster(clust)
+    }
+
     pval <- median(BY(pvals)$Adjusted.pvalues)
     return(pval)
 }
@@ -96,6 +133,7 @@ markerDFPairOverlap <- function(markers1,
                                 markers2,
                                 genes1,
                                 genes2 = NULL,
+                                nCores = 1,
                                 colStr = 'avg_log2FC',
                                 isHighTop = TRUE,
                                 extraCutoff = 0,
@@ -111,6 +149,7 @@ markerDFPairOverlap <- function(markers1,
                                 colStr,
                                 cutoffs,
                                 1,
+                                nCores,
                                 length(genes1)))
 
     return(markerDFPairPval(markers1,
@@ -118,6 +157,7 @@ markerDFPairOverlap <- function(markers1,
                             colStr,
                             cutoffs,
                             2,
+                            nCores,
                             genes1,
                             genes2))
 
@@ -159,6 +199,7 @@ markerDFListOverlap <- function(markerList1,
                                 markerList2,
                                 genes1,
                                 genes2 = NULL,
+                                nCores = 1,
                                 logFCThr = 0,
                                 pct1Thr = 0,
                                 colStr = 'avg_log2FC',
@@ -186,6 +227,7 @@ markerDFListOverlap <- function(markerList1,
                               markerList2[[markerNames2]],
                               genes1,
                               genes2,
+                              nCores,
                               colStr,
                               isHighTop,
                               extraCutoff,
