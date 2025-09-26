@@ -164,13 +164,13 @@ pOverlapMNk <- function(intMN, intAN, intBM, k){
 #'
 pvalOverlapMNk <- function(intMN, intAN, intBM, k){
     denom <- -1 * vChoose(intMN, intBM)
-    exponents <- do.call(vSum,
-                         lapply(seq(k, min(intAN, intBM)),
-                                function(i) vSum(
-                                    vpOverlapMNkNumerator(intMN, intAN,
-                                                      intBM, i), denom)))
-    primes <- generate_n_primes(length(exponents))
-    return(powerProduct(primes, exponents))
+    pval <- sum(vapply(seq(k, min(intAN, intBM)), function(i){
+        exponents <- vSum(vpOverlapMNkNumerator(intMN, intAN,
+                                                intBM, i), denom)
+        primes <- generate_n_primes(length(exponents))
+        return(powerProduct(primes, exponents))
+    }, numeric(1)))
+    return(pval)
 }
 
 #' Compute the probability of intersection of two gene subsets of sets M and N
