@@ -11,12 +11,14 @@ sharedMarkersPlot(
   markerList2 = NULL,
   markerNames = NULL,
   joinColumn = "avg_log2FC",
-  thresh1 = 1.2,
-  thresh2 = 1.2,
+  thresh1 = NULL,
+  thresh2 = NULL,
   title = "Shared markers",
   markersHullColor = "purple",
   isNeg1 = FALSE,
   isNeg2 = FALSE,
+  nameSuffix1 = NULL,
+  nameSuffix2 = NULL,
   ...
 )
 }
@@ -46,6 +48,10 @@ Ignored if \code{markers} is \code{NULL}.}
 \item{isNeg1}{Whether the first marker set represents negative markers.}
 
 \item{isNeg2}{Whether the second marker set represents negative markers.}
+
+\item{nameSuffix1}{Suffix appended to \code{name1} on axes and legend.}
+
+\item{nameSuffix2}{Suffix appended to \code{name2} on axes and legend.}
 
 \item{...}{Additional arguments passed to \code{henna::hullPlot}.}
 }

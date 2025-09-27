@@ -22,6 +22,8 @@ NULL
 #' Ignored if \code{markers} is \code{NULL}.
 #' @param isNeg1 Whether the first marker set represents negative markers.
 #' @param isNeg2 Whether the second marker set represents negative markers.
+#' @param nameSuffix1 Suffix appended to \code{name1} on axes and legend.
+#' @param nameSuffix2 Suffix appended to \code{name2} on axes and legend.
 #' @param ... Additional arguments passed to \code{henna::hullPlot}.
 #'
 #' @return A list of marker data frames.
@@ -34,12 +36,14 @@ sharedMarkersPlot <- function(markerList1,
                               markerList2 = NULL,
                               markerNames = NULL,
                               joinColumn = 'avg_log2FC',
-                              thresh1 = 1.2,
-                              thresh2 = 1.2,
+                              thresh1 = NULL,
+                              thresh2 = NULL,
                               title = 'Shared markers',
                               markersHullColor = 'purple',
                               isNeg1 = FALSE,
                               isNeg2 = FALSE,
+                              nameSuffix1 = NULL,
+                              nameSuffix2 = NULL,
                               ...){
 
     if(is.null(markerList2))
@@ -47,6 +51,9 @@ sharedMarkersPlot <- function(markerList1,
 
     sharedDF <- sharedMarkers(markerList1[[name1]],
                               markerList2[[name2]])
+
+    name1 <- paste0(name1, nameSuffix1)
+    name2 <- paste0(name2, nameSuffix2)
 
     if(isNeg1)
         name1 <- paste0(name1, ' (downregulated)')
