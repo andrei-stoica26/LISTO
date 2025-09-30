@@ -5,16 +5,16 @@
 \title{Join the data frames of two enrichment results}
 \usage{
 joinER(
-  er1,
-  er2,
+  df1,
+  df2,
   sharedCols = c("Description", "BgRatio"),
-  specificCols = c("GeneRatio", "p.adjust", "geneID", "Count")
+  specificCols = c("p.adjust", "geneID")
 )
 }
 \arguments{
-\item{er1}{An \code{enrichResult} object.}
+\item{df1}{The \code{result} data frame of an \code{enrichResult} object.}
 
-\item{er2}{An \code{enrichResult} object.}
+\item{df2}{The \code{result} data frame of an \code{enrichResult} object.}
 
 \item{sharedCols}{Columns from the \code{enrichResult} objects used for the
 join that have the same values for each term shared by the two objects.}
@@ -30,11 +30,11 @@ Genes enriched for terms.
 This function joins the data frames of two \code{enrichResult} objects.
 }
 \examples{
-m1 <- genesER(c('AURKA', 'PTTG2', 'MKI67', 'RRM2'),
+m1 <- genesER(c('AURKA', 'PTTG2', 'MKI67', 'RRM2', 'BUB1', 'KIF20C'),
 'human')
-m2 <- genesER(c('AURKA', 'TOP2A', 'CENPF', 'BIRC5'),
+m2 <- genesER(c('AURKA', 'TOP2A', 'CENPF', 'BIRC5', 'BUB1', 'KIF20C'),
 'human')
-df <- joinER(m1, m2)
+df <- joinER(m1@result, m2@result)
 
 
 }

@@ -152,8 +152,8 @@ termGenes <- function(er, terms, negTerms = NULL){
 #'
 #' This function joins the data frames of two \code{enrichResult} objects.
 #'
-#' @param er1 An \code{enrichResult} object.
-#' @param er2 An \code{enrichResult} object.
+#' @param df1 The \code{result} data frame of an \code{enrichResult} object.
+#' @param df2 The \code{result} data frame of an \code{enrichResult} object.
 #' @param sharedCols Columns from the \code{enrichResult} objects used for the
 #' join that have the same values for each term shared by the two objects.
 #' @param specificCols Columns from the \code{enrichResult} objects used for the
@@ -163,20 +163,19 @@ termGenes <- function(er, terms, negTerms = NULL){
 #' @return Genes enriched for terms.
 #'
 #' @examples
-#' m1 <- genesER(c('AURKA', 'PTTG2', 'MKI67', 'RRM2'),
+#' m1 <- genesER(c('AURKA', 'PTTG2', 'MKI67', 'RRM2', 'BUB1', 'KIF20C'),
 #' 'human')
-#' m2 <- genesER(c('AURKA', 'TOP2A', 'CENPF', 'BIRC5'),
+#' m2 <- genesER(c('AURKA', 'TOP2A', 'CENPF', 'BIRC5', 'BUB1', 'KIF20C'),
 #' 'human')
-#' df <- joinER(m1, m2)
+#' df <- joinER(m1@result, m2@result)
 #'
 #'
 #' @export
 #'
-joinER <- function(er1,
-                   er2,
+joinER <- function(df1,
+                   df2,
                    sharedCols = c('Description', 'BgRatio'),
-                   specificCols = c('GeneRatio', 'p.adjust',
-                                    'geneID', 'Count')){
+                   specificCols = c('p.adjust', 'geneID')){
     if (length(setdiff(sharedCols, c('ID', 'Description', 'BgRatio'))))
         stop('`sharedCols` must be included in ',
              'c("ID", "Description", "BgRatio")')
@@ -186,8 +185,6 @@ joinER <- function(er1,
              'c("GeneRatio", "pvalue", "p.adjust", ',
              '"qvalue", "geneID", "Count")')
 
-    df1 <- er1@result
-    df2 <- er2@result
     sharedIDs <- intersect(rownames(df1), rownames(df2))
 
     dfTemp1 <- df1[sharedIDs, specificCols]
