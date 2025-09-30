@@ -11,6 +11,7 @@ markerDFPairPval(
   cutoffs,
   nDatasets = c("1", "2"),
   nCores = 1,
+  mtMethod = c("by", "bh"),
   ...
 )
 }
@@ -26,6 +27,9 @@ markerDFPairPval(
 \item{nDatasets}{Number of datasets.}
 
 \item{nCores}{Number of cores. Only used if \code{nDatasets} is 2.}
+
+\item{mtMethod}{Multiple testing correction method. Choose between
+Benjamini-Yekutieli ('by') and Benjamini-Hochberg ('bh').}
 
 \item{...}{Additional parameters passed to \code{pvalOverlap} or
 \code{pvalOverlapMN}.}

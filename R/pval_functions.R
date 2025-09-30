@@ -1,5 +1,3 @@
-#' @importFrom hammers bfCorrectDF byCorrectDF
-#' @importFrom sgof BY
 #' @importFrom stats median phyper
 #'
 NULL

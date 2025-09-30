@@ -16,8 +16,9 @@ markerDFListOverlap(
   isHighTop = TRUE,
   extraCutoff = 0,
   maxNCutoffs = 500,
-  pvalThr = 0.05,
-  verbose = FALSE
+  mtMethod = c("by", "bh"),
+  verbose = FALSE,
+  ...
 )
 }
 \arguments{
@@ -52,9 +53,13 @@ be higher that all cutoffs present in the marker list.}
 contain more cutoffs than this value, only \code{maxNCutoffs} linearly
 spaced cutoffs will be selected from the original cutoff list.}
 
-\item{pvalThr}{p-value threshold to be used by the Bonferroni correction.}
+\item{mtMethod}{Multiple testing correction method. Options are
+Bonferroni ('bf'), Benjamini-Hochberg('bh'), and the default
+Benjamini-Yekutieli ('by').}
 
 \item{verbose}{Whether the output should be verbose.}
+
+\item{...}{Additional arguments passed to \code{hammers::mtCorrectDF}.}
 }
 \value{
 A data frame.

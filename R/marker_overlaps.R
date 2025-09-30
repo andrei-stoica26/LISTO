@@ -1,3 +1,4 @@
+#' @importFrom hammers mtCorrectDF
 #' @importFrom parallel clusterExport makeCluster parSapply stopCluster
 #'
 NULL
@@ -58,6 +59,8 @@ generateCutoffs <- function(markers1,
 #' @param cutoffs Cutoffs for assessing marker overlaps.
 #' @param nDatasets Number of datasets.
 #' @param nCores Number of cores. Only used if \code{nDatasets} is 2.
+#' @param mtMethod Multiple testing correction method. Choose between
+#' Benjamini-Yekutieli ('by') and Benjamini-Hochberg ('bh').
 #' @param ... Additional parameters passed to \code{pvalOverlap} or
 #' \code{pvalOverlapMN}.
 #'
@@ -71,6 +74,7 @@ markerDFPairPval <- function(markers1,
                              cutoffs,
                              nDatasets = c('1', '2'),
                              nCores = 1,
+                             mtMethod = c('by', 'bh'),
                              ...){
 
     if(nDatasets == 1)
@@ -99,7 +103,7 @@ markerDFPairPval <- function(markers1,
         stopCluster(clust)
         }
 
-    pval <- median(BY(pvals)$Adjusted.pvalues)
+    pval <- mtCorrectV(pvals, mtMethod, 'median')
     return(pval)
 }
 
@@ -126,7 +130,10 @@ markerDFPairOverlap <- function(markers1,
                                 isHighTop = TRUE,
                                 extraCutoff = 0,
                                 maxNCutoffs = 500,
+                                mtMethod = c('by', 'bh'),
                                 verbose = FALSE){
+
+    mtMethod <- match.arg(mtMethod, c('by', 'bh'))
 
     cutoffs <- generateCutoffs(markers1, markers2, colStr, isHighTop,
                                extraCutoff, maxNCutoffs, verbose)
@@ -138,6 +145,7 @@ markerDFPairOverlap <- function(markers1,
                                 cutoffs,
                                 1,
                                 nCores,
+                                mtMethod,
                                 length(genes1)))
 
     return(markerDFPairPval(markers1,
@@ -146,6 +154,7 @@ markerDFPairOverlap <- function(markers1,
                             cutoffs,
                             2,
                             nCores,
+                            mtMethod,
                             genes1,
                             genes2))
 
@@ -177,7 +186,10 @@ filterMarkerList <- function(markerList, logFCThr = 0, pct1Thr = 0)
 #' @param markerList2 List of marker data frames.
 #' @inheritParams markerDFPairOverlap
 #' @inheritParams filterMarkerList
-#' @param pvalThr p-value threshold to be used by the Bonferroni correction.
+#' @param mtMethod Multiple testing correction method. Options are
+#' Bonferroni ('bf'), Benjamini-Hochberg('bh'), and the default
+#' Benjamini-Yekutieli ('by').
+#' @param ... Additional arguments passed to \code{hammers::mtCorrectDF}.
 #'
 #' @return A data frame.
 #'
@@ -194,8 +206,11 @@ markerDFListOverlap <- function(markerList1,
                                 isHighTop = TRUE,
                                 extraCutoff = 0,
                                 maxNCutoffs = 500,
-                                pvalThr = 0.05,
-                                verbose = FALSE){
+                                mtMethod = c('by', 'bh'),
+                                verbose = FALSE,
+                                ...){
+
+    mtMethod <- match.arg(mtMethod, c('by', 'bh'))
 
     df <- expand.grid(names(markerList1), names(markerList2))
     colnames(df) <- c('Group1', 'Group2')
@@ -224,8 +239,10 @@ markerDFListOverlap <- function(markerList1,
                               isHighTop,
                               extraCutoff,
                               maxNCutoffs,
+                              mtMethod,
                               verbose)
                           }, numeric(1))
-    df <- byCorrectDF(df, pvalThr)
+
+    df <- mtCorrectDF(df, mtMethod, ...)
     return(df)
 }

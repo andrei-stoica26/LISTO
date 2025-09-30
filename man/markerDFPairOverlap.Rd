@@ -14,6 +14,7 @@ markerDFPairOverlap(
   isHighTop = TRUE,
   extraCutoff = 0,
   maxNCutoffs = 500,
+  mtMethod = c("by", "bh"),
   verbose = FALSE
 )
 }
@@ -42,6 +43,9 @@ be higher that all cutoffs present in the marker list.}
 \item{maxNCutoffs}{Maximum number of cutoffs. If the two input data frames
 contain more cutoffs than this value, only \code{maxNCutoffs} linearly
 spaced cutoffs will be selected from the original cutoff list.}
+
+\item{mtMethod}{Multiple testing correction method. Choose between
+Benjamini-Yekutieli ('by') and Benjamini-Hochberg ('bh').}
 
 \item{verbose}{Whether the output should be verbose.}
 }
