@@ -36,7 +36,7 @@ cells in which a retained gene must be expressed.}
 \item{ids2}{Selected class groups used for comparison. Ignored
 if \code{invert} is \code{TRUE}.}
 
-\item{...}{Additional arguments passed to FindMarkers.}
+\item{...}{Additional arguments passed to \code{Seurat::FindMarkers}.}
 }
 \value{
 A list of marker data frames.

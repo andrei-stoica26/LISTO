@@ -19,7 +19,7 @@ NULL
 #' @param ids1 Selected class groups.
 #' @param ids2 Selected class groups used for comparison. Ignored
 #' if \code{invert} is \code{TRUE}.
-#' @param ... Additional arguments passed to FindMarkers.
+#' @param ... Additional arguments passed to \code{Seurat::FindMarkers}.
 #'
 #' @return A list of marker data frames.
 #'
@@ -58,8 +58,8 @@ buildMarkerList <- function(seuratObj,
                                min.pct=minPct,
                                ...)
         if (nrow(markers)){
-            markers <- bfCorrectDF(markers, length(originalIds1),
-                                            colStr='p_val_adj')
+            markers <- mtCorrectDF(markers, 'bf', colStr='p_val_adj',
+                                   nTests=length(originalIds1))
             if(nrow(markers)){
                 markers$pct.ratio <- markers$pct.1 / markers$pct.2
                 markers <- markers[markers$pct.ratio >= minPctRatio, ]
