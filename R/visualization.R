@@ -9,17 +9,13 @@ NULL
 #' for multiple testing.
 #'
 #' @inheritParams markerDFListOverlap
-#' @param name1 Name of first marker data frame.
-#' @param name2 Name of second marker data frame.
+#' @inheritParams sharedMarkers
+#' @param markerObj A list of two named marker data frames.
+#' @param title Plot title.
 #' @param markerNames Names of markers to be displayed on the plot.
 #' If \code{NULL}, the markers will be chosen based on the thresholds.
-#' @param joinColumn Column based on which marker data frames will be joined.
-#' @inheritParams sharedMarkers
 #' @param thresh1 Join column threshold for the first marker data frame.
 #' @param thresh2 Join column threshold for the second marker data frame.
-#' @param title Plot title.
-#' @param markersHullColor Color of the hull determined by \code{markers}.
-#' Ignored if \code{markers} is \code{NULL}.
 #' @param isNeg1 Whether the first marker set represents negative markers.
 #' @param isNeg2 Whether the second marker set represents negative markers.
 #' @param nameSuffix1 Suffix appended to \code{name1} on axes and legend.
@@ -30,68 +26,54 @@ NULL
 #'
 #' @export
 #'
-sharedMarkersPlot <- function(markerList1,
-                              name1,
-                              name2,
-                              markerList2 = NULL,
+sharedMarkersPlot <- function(markerObj,
+                              title = NULL,
                               markerNames = NULL,
-                              joinColumn = 'avg_log2FC',
+                              joinCol = 'avg_log2FC',
                               thresh1 = NULL,
                               thresh2 = NULL,
-                              title = 'Shared markers',
-                              markersHullColor = 'purple',
                               isNeg1 = FALSE,
                               isNeg2 = FALSE,
                               nameSuffix1 = NULL,
                               nameSuffix2 = NULL,
                               ...){
 
-    if(is.null(markerList2))
-        markerList2 <- markerList1
+    sharedDF <- sharedMarkers(markerObj[[1]], markerObj[[2]])
 
-    sharedDF <- sharedMarkers(markerList1[[name1]],
-                              markerList2[[name2]])
-
-    name1 <- paste0(name1, nameSuffix1)
-    name2 <- paste0(name2, nameSuffix2)
+    name1 <- paste0(names(markerObj)[1], nameSuffix1)
+    name2 <- paste0(names(markerObj)[2], nameSuffix2)
 
     if(isNeg1)
         name1 <- paste0(name1, ' (downregulated)')
     if(isNeg2)
         name2 <- paste0(name2, ' (downregulated)')
 
-    if (is.null(markerNames)){
+    if (is.null(markerNames))
         labelDF <- sharedDF[sharedDF[, 1] > thresh1 &
-                                sharedDF[, 2] > thresh2, ]
-        p <- hullPlot(sharedDF,
-                      title,
-                      xInt=thresh1,
-                      yInt=thresh2,
-                      xLab=paste0(joinColumn, ' (', name1, ')'),
-                      yLab=paste0(joinColumn, ' (', name2, ')'),
-                      legendLabs=as.factor(c('Non-top',
-                                             'Shared',
-                                             paste0('Top only for ', name2),
-                                             paste0('Top only for ', name1))),
-                      labelDF=labelDF,
-                      ...
-        )
+                                sharedDF[, 2] > thresh2, ] else {
+                                    foundMarkers <- intersect(
+                                        rownames(sharedDF), markerNames)
+                                    message(length(foundMarkers),
+                                            ' among the ',
+                                            length(markerNames),
+                                            ' markers are shared by the ',
+                                            name1, ' and ',
+                                            name2, ' markers.')
+                                    labelDF <- sharedDF[foundMarkers, ]
+                                }
 
-    }else{
-        foundMarkers <- intersect(rownames(sharedDF), markerNames)
-        message(length(foundMarkers), ' among the ', length(markerNames),
-                ' markers are shared by the ', name1, ' and ',
-                name2, ' markers.')
-        labelDF <- sharedDF[foundMarkers, ]
-        p <- hullPlot(labelDF,
-                      title,
-                      xLab=paste0(joinColumn, ' (', name1, ')'),
-                      yLab=paste0(joinColumn, ' (', name2, ')'),
-                      legendLabs='Shared markers',
-                      labelDF=labelDF,
-                      palette=markersHullColor,
-                      ...
-        )
-    }
+    p <- hullPlot(sharedDF,
+                  title,
+                  xInt=thresh1,
+                  yInt=thresh2,
+                  xLab=paste0(joinColumn, ' (', name1, ')'),
+                  yLab=paste0(joinColumn, ' (', name2, ')'),
+                  legendLabs=as.factor(c('Non-top',
+                                         'Shared',
+                                         paste0('Top only for ', name2),
+                                         paste0('Top only for ', name1))),
+                  labelDF=labelDF,
+                  ...
+                  )
     return(p)
 }

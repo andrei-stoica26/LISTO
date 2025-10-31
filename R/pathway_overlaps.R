@@ -23,7 +23,7 @@
 #'
 #' @export
 #'
-erDFPathwayOverlap <- function(joinDF, mtMethod = c('by', 'bf', 'bh'), ...){
+erDFPathwayOverlap <- function(df, mtMethod = c('by', 'bf', 'bh'), ...){
     mtMethod <- match.arg(mtMethod, c('by', 'bf', 'bh'))
     pvals <- vapply(df$Description, function(x) {
         rowDF <- df[df$Description==x, ]

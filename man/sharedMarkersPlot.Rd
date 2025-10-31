@@ -5,16 +5,12 @@
 \title{Find markers for Seurat identity class}
 \usage{
 sharedMarkersPlot(
-  markerList1,
-  name1,
-  name2,
-  markerList2 = NULL,
+  markerObj,
+  title = NULL,
   markerNames = NULL,
-  joinColumn = "avg_log2FC",
+  joinCol = "avg_log2FC",
   thresh1 = NULL,
   thresh2 = NULL,
-  title = "Shared markers",
-  markersHullColor = "purple",
   isNeg1 = FALSE,
   isNeg2 = FALSE,
   nameSuffix1 = NULL,
@@ -23,27 +19,18 @@ sharedMarkersPlot(
 )
 }
 \arguments{
-\item{markerList1}{List of marker data frames.}
+\item{markerObj}{A list of two named marker data frames.}
 
-\item{name1}{Name of first marker data frame.}
-
-\item{name2}{Name of second marker data frame.}
-
-\item{markerList2}{List of marker data frames.}
+\item{title}{Plot title.}
 
 \item{markerNames}{Names of markers to be displayed on the plot.
 If \code{NULL}, the markers will be chosen based on the thresholds.}
 
-\item{joinColumn}{Column based on which marker data frames will be joined.}
+\item{joinCol}{Column based on which the marker data frames will be joined.}
 
 \item{thresh1}{Join column threshold for the first marker data frame.}
 
 \item{thresh2}{Join column threshold for the second marker data frame.}
-
-\item{title}{Plot title.}
-
-\item{markersHullColor}{Color of the hull determined by \code{markers}.
-Ignored if \code{markers} is \code{NULL}.}
 
 \item{isNeg1}{Whether the first marker set represents negative markers.}
 
