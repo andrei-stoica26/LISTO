@@ -3,7 +3,7 @@
 #' This function compute the overlaps of different pathways for
 #' two \code{enrichResult} objects.
 #'
-#' @param joinDF A data frame joining two \code{enrichResult} objects generated
+#' @param df A data frame joining two \code{enrichResult} objects generated
 #' with \code{joinER}
 #' @param mtMethod Multiple testing correction method. Choices are
 #' Bonferroni ('bf'), Benjamini-Hochberg('bh'), and the default

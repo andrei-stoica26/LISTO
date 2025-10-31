@@ -38,7 +38,7 @@ sharedMarkersPlot <- function(markerObj,
                               nameSuffix2 = NULL,
                               ...){
 
-    sharedDF <- sharedMarkers(markerObj[[1]], markerObj[[2]])
+    sharedDF <- sharedMarkers(markerObj[[1]], markerObj[[2]], joinCol)
 
     name1 <- paste0(names(markerObj)[1], nameSuffix1)
     name2 <- paste0(names(markerObj)[2], nameSuffix2)
@@ -66,8 +66,8 @@ sharedMarkersPlot <- function(markerObj,
                   title,
                   xInt=thresh1,
                   yInt=thresh2,
-                  xLab=paste0(joinColumn, ' (', name1, ')'),
-                  yLab=paste0(joinColumn, ' (', name2, ')'),
+                  xLab=paste0(joinCol, ' (', name1, ')'),
+                  yLab=paste0(joinCol, ' (', name2, ')'),
                   legendLabs=as.factor(c('Non-top',
                                          'Shared',
                                          paste0('Top only for ', name2),

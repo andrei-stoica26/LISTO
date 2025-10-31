@@ -1,3 +1,7 @@
+#' @importFrom stats setNames
+#'
+NULL
+
 #' Extract two marker data frames from two named marker lists
 #'
 #' This function receives two named marker lists as input (they can be

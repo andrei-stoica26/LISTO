@@ -7,15 +7,15 @@
 erDFPathwayOverlap(df, mtMethod = c("by", "bf", "bh"), ...)
 }
 \arguments{
+\item{df}{A data frame joining two \code{enrichResult} objects generated
+with \code{joinER}}
+
 \item{mtMethod}{Multiple testing correction method. Choices are
 Bonferroni ('bf'), Benjamini-Hochberg('bh'), and the default
 Benjamini-Yekutieli ('by').}
 
 \item{...}{Additional arguments passed to the multiple testing correction
 function. See \code{?hammers::mtCorrectDF} for information.}
-
-\item{joinDF}{A data frame joining two \code{enrichResult} objects generated
-with \code{joinER}}
 }
 \value{
 A data frame of pathways with significant gene overlaps.
