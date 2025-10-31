@@ -2,11 +2,11 @@
 #'
 NULL
 
-#' Find markers for Seurat identity class
+#' Plots marker shared between two marker data frames
 #'
-#' This function finds upregulated or downregulate markers for Seurat object
-#' for a given identity class and performs an additional Bonferroni correction
-#' for multiple testing.
+#' This function plots markers shared between two marker data frames.
+#'
+#' @details A wrapper around \code{henna::hullPlot}
 #'
 #' @inheritParams markerDFListOverlap
 #' @inheritParams sharedMarkers
@@ -22,7 +22,7 @@ NULL
 #' @param nameSuffix2 Suffix appended to \code{name2} on axes and legend.
 #' @param ... Additional arguments passed to \code{henna::hullPlot}.
 #'
-#' @return A list of marker data frames.
+#' @return A ggplot object.
 #'
 #' @export
 #'

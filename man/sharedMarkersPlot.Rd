@@ -2,7 +2,7 @@
 % Please edit documentation in R/visualization.R
 \name{sharedMarkersPlot}
 \alias{sharedMarkersPlot}
-\title{Find markers for Seurat identity class}
+\title{Plots marker shared between two marker data frames}
 \usage{
 sharedMarkersPlot(
   markerObj,
@@ -43,10 +43,11 @@ If \code{NULL}, the markers will be chosen based on the thresholds.}
 \item{...}{Additional arguments passed to \code{henna::hullPlot}.}
 }
 \value{
-A list of marker data frames.
+A ggplot object.
 }
 \description{
-This function finds upregulated or downregulate markers for Seurat object
-for a given identity class and performs an additional Bonferroni correction
-for multiple testing.
+This function plots markers shared between two marker data frames.
+}
+\details{
+A wrapper around \code{henna::hullPlot}
 }
