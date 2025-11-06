@@ -9,6 +9,7 @@ buildMarkerList(
   idClass = "seurat_clusters",
   ids1 = allGroups(seuratObj, idClass),
   ids2 = allComplements(seuratObj, idClass, ids1),
+  resNames = ids1,
   invert = FALSE,
   logFCThr = 0,
   minPct = 0,
@@ -25,6 +26,8 @@ buildMarkerList(
 
 \item{ids2}{Selected class groups used for comparison. Defaults to the
 complements of \code{ids1}.}
+
+\item{resNames}{Names of the output object.}
 
 \item{invert}{Whether to compute downregulated markers rather than
 upregulated ones (that is, swap \code{ids1} and \code{ids2})}

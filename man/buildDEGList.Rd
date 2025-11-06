@@ -9,6 +9,7 @@ buildDEGList(
   idClass = "seurat_clusters",
   ids1 = allGroups(seuratObj, idClass),
   ids2 = allComplements(seuratObj, idClass, ids1),
+  resNames = ids1,
   logFCThr = 0,
   minPct = 0,
   minPctRatio = 0,
@@ -24,6 +25,8 @@ buildDEGList(
 
 \item{ids2}{Selected class groups used for comparison. Defaults to the
 complements of \code{ids1}.}
+
+\item{resNames}{Names of the output object.}
 
 \item{logFCThr}{Fold change threshold for testing.}
 

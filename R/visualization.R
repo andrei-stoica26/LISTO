@@ -1,4 +1,4 @@
-#' @importFrom henna hullPlot
+#' @importFrom henna hullPlot volcanoPlot
 #'
 NULL
 

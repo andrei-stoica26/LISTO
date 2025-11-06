@@ -71,6 +71,7 @@ buildMarkerListCore <- function(seuratObj,
 #' @inheritParams buildMarkerListCore
 #' @param ids2 Selected class groups used for comparison. Defaults to the
 #' complements of \code{ids1}.
+#' @param resNames Names of the output object.
 #' @param invert Whether to compute downregulated markers rather than
 #' upregulated ones (that is, swap \code{ids1} and \code{ids2})
 #'
@@ -82,6 +83,7 @@ buildMarkerList <- function(seuratObj,
                             idClass = 'seurat_clusters',
                             ids1 = allGroups(seuratObj, idClass),
                             ids2 = allComplements(seuratObj, idClass, ids1),
+                            resNames = ids1,
                             invert = FALSE,
                             logFCThr = 0,
                             minPct = 0,
@@ -107,7 +109,7 @@ buildMarkerList <- function(seuratObj,
                                        length(labels1), ...)
         return(markers)
         }, labels1, labels2, ids1, ids2, SIMPLIFY=FALSE)
-    names(markerList) <- paste0(labels1, '_', labels2)
+    names(markerList) <- resNames
     markerList <- markerList[vapply(markerList, function(x) nrow(x) > 0,
                                     logical(1))]
     return(markerList)
@@ -135,6 +137,7 @@ buildDEGList <- function(seuratObj,
                          idClass = 'seurat_clusters',
                          ids1 = allGroups(seuratObj, idClass),
                          ids2 = allComplements(seuratObj, idClass, ids1),
+                         resNames = ids1,
                          logFCThr = 0,
                          minPct = 0,
                          minPctRatio = 0,
@@ -151,7 +154,7 @@ buildDEGList <- function(seuratObj,
                                        length(labels1), ...)
         return(markers)
     }, labels1, labels2, ids1, ids2, SIMPLIFY=FALSE)
-    names(markerList) <- paste0(labels1, '_', labels2)
+    names(markerList) <- resNames
     markerList <- markerList[vapply(markerList, function(x) nrow(x) > 0,
                                     logical(1))]
     return(markerList)
@@ -171,12 +174,13 @@ buildDEGList <- function(seuratObj,
 #'
 buildPairedMarkerList <- function(seuratObj,
                                   idClass = 'seurat_clusters',
-                                  logFCThr = 0,
-                                  minPct = 0,
-                                  minPctRatio = 0,
                                   ids1 = allGroups(seuratObj, idClass),
                                   ids2 = allComplements(seuratObj, idClass,
                                                         ids1),
+                                  resNames = ids1,
+                                  logFCThr = 0,
+                                  minPct = 0,
+                                  minPctRatio = 0,
                                   ...){
     originalIds1 <- ids1
     originalIds2 <- ids2
@@ -199,6 +203,6 @@ buildPairedMarkerList <- function(seuratObj,
                              paste0(label2, ' vs. ', label1))
         return(setNames(list(markers1, markers2), markerPairNames))
     }, labels1, labels2, ids1, ids2, SIMPLIFY=FALSE)
-    names(markerList) <- paste0(labels1, '_', labels2)
+    names(markerList) <- resNames
     return(markerList)
 }

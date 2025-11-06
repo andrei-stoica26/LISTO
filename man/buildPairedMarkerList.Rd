@@ -7,11 +7,12 @@
 buildPairedMarkerList(
   seuratObj,
   idClass = "seurat_clusters",
+  ids1 = allGroups(seuratObj, idClass),
+  ids2 = allComplements(seuratObj, idClass, ids1),
+  resNames = ids1,
   logFCThr = 0,
   minPct = 0,
   minPctRatio = 0,
-  ids1 = allGroups(seuratObj, idClass),
-  ids2 = allComplements(seuratObj, idClass, ids1),
   ...
 )
 }
@@ -20,6 +21,13 @@ buildPairedMarkerList(
 
 \item{idClass}{Identity class.}
 
+\item{ids1}{Selected class groups.}
+
+\item{ids2}{Selected class groups used for comparison. Defaults to the
+complements of \code{ids1}.}
+
+\item{resNames}{Names of the output object.}
+
 \item{logFCThr}{Fold change threshold for testing.}
 
 \item{minPct}{The minimum fraction of in-cluster cells in which tested
@@ -27,11 +35,6 @@ genes need to be expressed.}
 
 \item{minPctRatio}{The minimum ratio of in-cluster cells over out-cluster
 cells in which a retained gene must be expressed.}
-
-\item{ids1}{Selected class groups.}
-
-\item{ids2}{Selected class groups used for comparison. Defaults to the
-complements of \code{ids1}.}
 
 \item{...}{Additional arguments passed to \code{Seurat::FindMarkers}.}
 }
