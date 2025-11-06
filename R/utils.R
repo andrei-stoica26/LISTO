@@ -23,6 +23,53 @@ markerDFPair <- function(markerList1, markerList2, name1, name2)
     return(setNames(list(markerList1[[name1]], markerList2[[name2]]),
                     c(name1, name2)))
 
+#' Return all groups for an identity class in a Seurat object
+#'
+#' This function returns all groups for an identity class in a Seurat object.
+#'
+#' @param seuratObj A Seurat object.
+#' @param idClass Identity class.
+#'
+#' @return A character vector list of identity classes.
+#'
+#' @keywords internal
+#'
+allGroups <- function(seuratObj, idClass)
+    return(sort(unique(seuratObj[[]][[idClass]])))
+
+#' Return all groups for an identity class in a Seurat object
+#'
+#' This function returns all groups for an identity class in a Seurat object.
+#'
+#' @inheritParams allGroups
+#' @param ids1 Selected class groups.
+#'
+#' @return A character vector list of identity classes.
+#'
+#' @keywords internal
+#'
+allComplements <- function(seuratObj, idClass, id1)
+    return(lapply(ids1, function(x) setdiff(allGroups(seuratObj, idClass), x)))
+
+#' Join the elements of each vector in a list into a character
+#'
+#' This function joins the elements of each vector in a list into a character.
+#'
+#' @param v Vector list.
+#' @param joinChar Character used when joining the elements of each vector in
+#' a list.
+#'
+#' @return A character vector.
+#'
+#' @examples
+#' v <- list(c(1, 2, 3), c(3, 4, 5), c('apple', 'banana'))
+#' listToChar(v)
+#'
+#' @export
+#'
+listToChar <- function (v, joinChar=', ')
+    return(vapply(v, function(x) paste0(x, collapse=joinChar), character(1)))
+
 #' Join two marker data frames
 #'
 #' This function joins two marker data frames.

@@ -8,15 +8,14 @@ NULL
 #' for a given identity class and performs an additional Bonferroni correction
 #' for multiple testing.
 #'
-#' @param seuratObj A Seurat object.
-#' @param idClass Identity class.
+#' @inheritParams allGroups
+#' @inheritParams allComplements
 #' @param invert Whether to compute downregulated markers.
 #' @param logFCThr Fold change threshold for testing.
 #' @param minPct The minimum fraction of in-cluster cells in which tested
 #' genes need to be expressed.
 #' @param minPctRatio The minimum ratio of in-cluster cells over out-cluster
 #' cells in which a retained gene must be expressed.
-#' @param ids1 Selected class groups.
 #' @param ids2 Selected class groups used for comparison. Ignored
 #' if \code{invert} is \code{TRUE}.
 #' @param ... Additional arguments passed to \code{Seurat::FindMarkers}.
@@ -31,24 +30,24 @@ buildMarkerList <- function(seuratObj,
                             logFCThr = 0,
                             minPct = 0,
                             minPctRatio = 0,
-                            ids1 = sort(unique(seuratObj[[]][[idClass]])),
-                            ids2 = NULL,
+                            ids1 = allGroups(seuratObj, idClass),
+                            ids2 = allComplements(seuratObj, idClass, ids1),
                             ...){
     originalIds1 <- ids1
-    allIdentities <- sort(unique(seuratObj[[]][[idClass]]))
-    diffs <- lapply(ids1, function(x) setdiff(allIdentities, x))
+    originalIds2 <- ids2
     if (invert){
-        ids1 <- diffs
+        ids1 <- ids2
         ids2 <- originalIds1
         markerType <- 'downregulated'
-    } else{
-        if (is.null(ids2))
-            ids2 <- diffs
+    } else
         markerType <- 'upregulated'
-    }
-    markerList <- mapply(function(origId1, id1, id2) {
-        message('Finding ', markerType, ' markers for identity class ',
-                origId1, '...')
+
+    labels1 <- listToChar(originalIds1)
+    labels2 <- listToChar(originalIds2)
+
+    markerList <- mapply(function(label1, label2, id1, id2) {
+        message('Finding ', markerType, ' markers for ', label1, '
+                vs. ', label2, ' (', idClass, ')...')
         markers <- FindMarkers(seuratObj,
                                group.by=idClass,
                                ident.1=id1,
@@ -68,9 +67,13 @@ buildMarkerList <- function(seuratObj,
         }
         gc()
         return(markers)
-    }, originalIds1, ids1, ids2, SIMPLIFY=FALSE)
+    }, labels1, labels2, ids1, ids2, SIMPLIFY=FALSE)
     names(markerList) <- originalIds1
     markerList <- markerList[vapply(markerList, function(x) nrow(x) > 0,
                                     logical(1))]
     return(markerList)
 }
+
+
+
+

@@ -11,8 +11,8 @@ buildMarkerList(
   logFCThr = 0,
   minPct = 0,
   minPctRatio = 0,
-  ids1 = sort(unique(seuratObj[[]][[idClass]])),
-  ids2 = NULL,
+  ids1 = allGroups(seuratObj, idClass),
+  ids2 = allComplements(seuratObj, idClass, ids1),
   ...
 )
 }
