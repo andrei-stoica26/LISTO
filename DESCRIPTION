@@ -12,6 +12,7 @@ Imports:
     AnnotationDbi,
     clusterProfiler,
     DOSE,
+    EnhancedVolcano,
     hammers,
     henna,
     org.Dr.eg.db,

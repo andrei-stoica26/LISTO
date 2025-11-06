@@ -10,6 +10,7 @@ NULL
 #' @inheritParams allComplements
 #' @param id1 Selected group.
 #' @param id2 Group selected for comparison.
+#' @param onlyPos Whether only positive markers should be computed.
 #' @param logFCThr Fold change threshold for testing.
 #' @param minPct The minimum fraction of in-cluster cells in which tested
 #' genes need to be expressed.
@@ -27,6 +28,7 @@ buildMarkerListCore <- function(seuratObj,
                                 idClass = 'seurat_clusters',
                                 id1 = NULL,
                                 id2 = NULL,
+                                onlyPos = TRUE,
                                 logFCThr = 0,
                                 minPct = 0,
                                 minPctRatio = 0,
@@ -37,7 +39,7 @@ buildMarkerListCore <- function(seuratObj,
                            group.by=idClass,
                            ident.1=id1,
                            ident.2=id2,
-                           only.pos=TRUE,
+                           only.pos=onlyPos,
                            logfc.threshold=logFCThr,
                            min.pct=minPct,
                            ...)
@@ -53,18 +55,24 @@ buildMarkerListCore <- function(seuratObj,
     return(markers)
 }
 
-#' Find markers for Seurat identity groups
+#' Find upregulated or downregulated markers for Seurat identity groups
 #'
 #' This function finds upregulated or downregulated markers for Seurat object
 #' for groups belonging to a given identity class and performs an additional
 #' Bonferroni correction for multiple testing.
 #'
+#' @details The difference between \code{buildMarkerList} and
+#' \code{buildDEGList} is that \code{buildMarkerList}
+#' returns only upregulated or only downregulated markers, depending on the
+#' \code{invert} parameter. In contrast, \code{buildDEGList} returns all
+#' markers, both upregulated and downregulated.
+#'
 #' @inheritParams allComplements
 #' @inheritParams buildMarkerListCore
-#' @param ids2 Selected class groups used for comparison. Ignored
-#' if \code{invert} is \code{TRUE}.
+#' @param ids2 Selected class groups used for comparison. Defaults to the
+#' complements of \code{ids1}.
 #' @param invert Whether to compute downregulated markers rather than
-#' upregulated ones.
+#' upregulated ones (that is, swap \code{ids1} and \code{ids2})
 #'
 #' @return A list of marker data frames.
 #'
@@ -94,12 +102,56 @@ buildMarkerList <- function(seuratObj,
     markerList <- mapply(function(label1, label2, id1, id2) {
         message('Finding ', markerType, ' markers for ', label1,
                 ' vs. ', label2, ' (', idClass, ')...')
-        markers <- buildMarkerListCore(seuratObj, idClass, id1, id2,
+        markers <- buildMarkerListCore(seuratObj, idClass, id1, id2, TRUE,
                                        logFCThr, minPct, minPctRatio,
                                        length(labels1), ...)
         return(markers)
         }, labels1, labels2, ids1, ids2, SIMPLIFY=FALSE)
-    names(markerList) <- originalIds1
+    names(markerList) <- paste0(labels1, '_', labels2)
+    markerList <- markerList[vapply(markerList, function(x) nrow(x) > 0,
+                                    logical(1))]
+    return(markerList)
+}
+
+#' Find differentiallty expressed genes between identity groups
+#'
+#' This function finds markers (positive and negative) for groups belonging to
+#' a given Seurat identity class and performs an additional Bonferroni
+#' correction for multiple testing.
+#'
+#' @details The difference between \code{buildDEGList} and
+#' \code{buildMarkerList} is that \code{buildDEGList} returns all markers,
+#' both upregulated and downregulated. In constrast, \code{buildMarkerList}
+#' returns only upregulated or only downregulated markers, depending on the
+#' \code{invert} parameter.
+#'
+#' @inheritParams buildMarkerList
+#'
+#' @return A list of marker data frames.
+#'
+#' @export
+#'
+buildDEGList <- function(seuratObj,
+                         idClass = 'seurat_clusters',
+                         ids1 = allGroups(seuratObj, idClass),
+                         ids2 = allComplements(seuratObj, idClass, ids1),
+                         logFCThr = 0,
+                         minPct = 0,
+                         minPctRatio = 0,
+                         ...){
+
+    labels1 <- listToChar(ids1)
+    labels2 <- listToChar(ids2)
+
+    markerList <- mapply(function(label1, label2, id1, id2) {
+        message('Finding genes diffentially expressed between ', label1,
+                ' and ', label2, ' (', idClass, ')...')
+        markers <- buildMarkerListCore(seuratObj, idClass, id1, id2, FALSE,
+                                       logFCThr, minPct, minPctRatio,
+                                       length(labels1), ...)
+        return(markers)
+    }, labels1, labels2, ids1, ids2, SIMPLIFY=FALSE)
+    names(markerList) <- paste0(labels1, '_', labels2)
     markerList <- markerList[vapply(markerList, function(x) nrow(x) > 0,
                                     logical(1))]
     return(markerList)
@@ -135,7 +187,7 @@ buildPairedMarkerList <- function(seuratObj,
     markerList <- mapply(function(label1, label2, id1, id2) {
         message('Finding upregulated markers for ', label1,
                 ' vs. ', label2, ' (', idClass, ')...')
-        markers1 <- buildMarkerListCore(seuratObj, idClass, id1, id2,
+        markers1 <- buildMarkerListCore(seuratObj, idClass, id1, id2, TRUE,
                                         logFCThr, minPct, minPctRatio,
                                         length(labels1), ...)
         message('Finding upregulated markers for ', label2,

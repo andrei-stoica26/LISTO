@@ -30,8 +30,8 @@ cells in which a retained gene must be expressed.}
 
 \item{ids1}{Selected class groups.}
 
-\item{ids2}{Selected class groups used for comparison. Ignored
-if \code{invert} is \code{TRUE}.}
+\item{ids2}{Selected class groups used for comparison. Defaults to the
+complements of \code{ids1}.}
 
 \item{...}{Additional arguments passed to \code{Seurat::FindMarkers}.}
 }

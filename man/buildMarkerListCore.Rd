@@ -9,6 +9,7 @@ buildMarkerListCore(
   idClass = "seurat_clusters",
   id1 = NULL,
   id2 = NULL,
+  onlyPos = TRUE,
   logFCThr = 0,
   minPct = 0,
   minPctRatio = 0,
@@ -24,6 +25,8 @@ buildMarkerListCore(
 \item{id1}{Selected group.}
 
 \item{id2}{Group selected for comparison.}
+
+\item{onlyPos}{Whether only positive markers should be computed.}
 
 \item{logFCThr}{Fold change threshold for testing.}
 
