@@ -48,7 +48,7 @@ allGroups <- function(seuratObj, idClass)
 #'
 #' @keywords internal
 #'
-allComplements <- function(seuratObj, idClass, id1)
+allComplements <- function(seuratObj, idClass, ids1)
     return(lapply(ids1, function(x) setdiff(allGroups(seuratObj, idClass), x)))
 
 #' Join the elements of each vector in a list into a character

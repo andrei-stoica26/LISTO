@@ -92,8 +92,8 @@ buildMarkerList <- function(seuratObj,
     labels2 <- listToChar(originalIds2)
 
     markerList <- mapply(function(label1, label2, id1, id2) {
-        message('Finding ', markerType, ' markers for ', label1, '
-                vs. ', label2, ' (', idClass, ')...')
+        message('Finding ', markerType, ' markers for ', label1,
+                ' vs. ', label2, ' (', idClass, ')...')
         markers <- buildMarkerListCore(seuratObj, idClass, id1, id2,
                                        logFCThr, minPct, minPctRatio,
                                        length(labels1), ...)
@@ -133,13 +133,13 @@ buildPairedMarkerList <- function(seuratObj,
     labels2 <- listToChar(ids2)
 
     markerList <- mapply(function(label1, label2, id1, id2) {
-        message('Finding upregulated markers for ', label1, '
-                vs. ', label2, ' (', idClass, ')...')
+        message('Finding upregulated markers for ', label1,
+                ' vs. ', label2, ' (', idClass, ')...')
         markers1 <- buildMarkerListCore(seuratObj, idClass, id1, id2,
                                         logFCThr, minPct, minPctRatio,
                                         length(labels1), ...)
-        message('Finding upregulated markers for ', label2, '
-                vs. ', label1, ' (', idClass, ')...')
+        message('Finding upregulated markers for ', label2,
+                ' vs. ', label1, ' (', idClass, ')...')
         markers2 <- buildMarkerListCore(seuratObj, idClass, id2, id1,
                                         logFCThr, minPct, minPctRatio,
                                         length(labels1), ...)

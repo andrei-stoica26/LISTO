@@ -4,7 +4,7 @@
 \alias{allComplements}
 \title{Return all groups for an identity class in a Seurat object}
 \usage{
-allComplements(seuratObj, idClass, id1)
+allComplements(seuratObj, idClass, ids1)
 }
 \arguments{
 \item{seuratObj}{A Seurat object.}
