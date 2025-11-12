@@ -7,9 +7,10 @@
 mtCorrectDF(
   df,
   mtMethod = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none"),
+  nComp = nrow(df),
   pvalThr = 0.05,
-  colStr = "pval",
-  newColStr = "pvalAdj"
+  col = "pval",
+  newCol = "pvalAdj"
 )
 }
 \arguments{
@@ -18,11 +19,14 @@ mtCorrectDF(
 \item{mtMethod}{Multiple testing correction method. Choices are
 Bonferroni ('bf'), Benjamini-Hochberg('bh'), and Benjamini-Yekutieli ('by').}
 
+\item{nComp}{Number of comparisons. In most situations, this parameter
+should not be changed.}
+
 \item{pvalThr}{p-value threshold.}
 
-\item{colStr}{Name of the column of p-values.}
+\item{col}{Name of the column of p-values.}
 
-\item{newColStr}{Name of the column of adjusted p-values that will be
+\item{newCol}{Name of the column of adjusted p-values that will be
 created.}
 }
 \value{

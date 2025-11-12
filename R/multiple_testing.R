@@ -42,8 +42,8 @@ mtCorrectV <- function(pvals,
 #' @inheritParams mtCorrectV
 #' @param df A data frame with a p-values columnn.
 #' @param pvalThr p-value threshold.
-#' @param colStr Name of the column of p-values.
-#' @param newColStr Name of the column of adjusted p-values that will be
+#' @param col Name of the column of p-values.
+#' @param newCol Name of the column of adjusted p-values that will be
 #' created.
 #'
 #' @return A data frame with the p-value column corrected for multiple testing.
@@ -59,11 +59,12 @@ mtCorrectDF <- function(df,
                         mtMethod = c('holm', 'hochberg', 'hommel',
                                      'bonferroni', 'BH', 'BY',
                                      'fdr', 'none'),
+                        nComp = nrow(df),
                         pvalThr = 0.05,
-                        colStr = 'pval',
-                        newColStr = 'pvalAdj'){
-    df <- df[order(df[[colStr]]), ]
-    df[[newColStr]] <- mtCorrectV(df[[colStr]], mtMethod)
-    df <- df[df[, newColStr] < pvalThr, ]
+                        col = 'pval',
+                        newCol = 'pvalAdj'){
+    df <- df[order(df[[col]]), ]
+    df[[newCol]] <- mtCorrectV(df[[col]], mtMethod, 'identity', nComp)
+    df <- df[df[, newCol] < pvalThr, ]
     return(df)
 }
