@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{prepAlluvial}
 \alias{prepAlluvial}
-\title{Prepare dataframe for alluvial plot}
+\title{Prepare data frame with a p-value column for alluvial plot}
 \usage{
 prepAlluvial(
   df,
@@ -28,7 +28,6 @@ columns from the data frame that will be used.}
 A data frame with weight scores in lieu of p-values.
 }
 \description{
-This function extracts the relevant information from dataframe and adjusts
-p-values to be used as weights for the alluvia.
+This function prepares data frame with a p-value column for alluvial plot.
 }
 \keyword{internal}

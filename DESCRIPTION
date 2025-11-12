@@ -6,7 +6,8 @@ Authors@R: person('Andrei-Florian', 'Stoica',
       email='andreistoica@foxmail.com',
      role=c('aut','cre'),
      comment=c(ORCID='0000-0002-5253-0826'))
-Description: LISTO is an evolving tool for assessing overlaps of lists of items.
+Description: LISTO is an evolving tool for assessing overlaps of lists of 
+    items.
 License: MIT + file LICENSE
 Imports:
     henna,
@@ -17,8 +18,5 @@ Imports:
 Encoding: UTF-8
 RoxygenNote: 7.3.3
 Suggests: 
-    knitr,
-    rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
-VignetteBuilder: knitr

@@ -1,7 +1,6 @@
-#' Prepare dataframe for alluvial plot
+#' Prepare data frame with a p-value column for alluvial plot
 #'
-#' This function extracts the relevant information from dataframe and adjusts
-#' p-values to be used as weights for the alluvia.
+#' This function prepares data frame with a p-value column for alluvial plot.
 #'
 #' @param df A data frame.
 #' @param pvalCol Name of p-value column to be used by the alluvial plot.

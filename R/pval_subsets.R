@@ -11,7 +11,7 @@ NULL
 #' for two sets.
 #'
 #' @param a Character vector.
-#' @param b Chracter vector.
+#' @param b Character vector.
 #' @param n Number of elements of set from which \code{a} and \code{b} are
 #' selected.
 #' @param lowerTail Whether to calculate underenrichment (\code{TRUE}) or
@@ -19,7 +19,7 @@ NULL
 #'
 #' @export
 #'
-pvalOverlap <- function(a, b, n, lowerTail=FALSE){
+pvalSubsetsN <- function(a, b, n, lowerTail=FALSE){
     na <- length(a)
     nb <- length(b)
     nShared <- length(intersect(a, b))
@@ -30,33 +30,35 @@ pvalOverlap <- function(a, b, n, lowerTail=FALSE){
                    lower.tail=lowerTail))
 }
 
-#' Compute the p-value of intersection of two gene subsets of sets M and N
+#' Compute the p-value of intersection of two subsets of sets M and N
 #'
-#' This function computes the p-value of intersection of two gene subsets
+#' This function computes the p-value of intersection of two subsets
 #' of sets M and N.
 #'
 #' @details A thin wrapper around \code{pvalOverlapMNk}.
 #'
-#' @inheritParams pOverlapMN
+#' @inheritParams pvalSubsetsN
+#' @param m Set from which \code{a} is selected.
+#' @param n Set from which \code{b} is selected.
 #'
-#' @return The probability of intersection of the two gene subsets.
+#' @return The probability of intersection of the two subsets.
 #'
 #' @examples
-#' pvalOverlapMN(LETTERS[seq(4, 10)],
+#' pvalSubsetsMN(LETTERS[seq(4, 10)],
 #' LETTERS[seq(7, 15)],
 #' LETTERS[seq(19)],
 #' LETTERS[seq(6, 26)])
 #'
 #' @export
 #'
-pvalOverlapMN <- function(a, b, m, n){
+pvalSubsetsMN <- function(a, b, m, n){
     if (length(setdiff(a, m)))
         stop('`a` must be a subset of `m`.')
     if (length(setdiff(b, n)))
         stop('`b` must be a subset of `n`.')
-    return(pvalOverlapMNk(length(intersect(m, n)),
-                          length(intersect(a, n)),
-                          length(intersect(b, m)),
-                          length(intersect(a, b))
+    return(pvalCountsMN(length(intersect(m, n)),
+                        length(intersect(a, n)),
+                        length(intersect(b, m)),
+                        length(intersect(a, b))
     ))
 }

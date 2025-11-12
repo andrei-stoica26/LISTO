@@ -24,9 +24,6 @@ Bonferroni ('bf'), Benjamini-Hochberg('bh'), and Benjamini-Yekutieli ('by').}
 
 \item{newColStr}{Name of the column of adjusted p-values that will be
 created.}
-
-\item{...}{Additional arguments passed to the multiple testing correction
-method.}
 }
 \value{
 A data frame with the p-value column corrected for multiple testing.
