@@ -1,14 +1,10 @@
 # LISTO
-`LISTO` is an evolving tool for assessing the overlaps of marker lists.
+`LISTO` is an evolving tool for assessing the overlaps of lists of items.
 
 ## Installation
 
 To install `LISTO`, run the following R code:
 
 ```
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-    
-BiocManager::install("andrei-stoica26/LISTO")
+devtools::install_github("andrei-stoica26/LISTO")
 ```
-

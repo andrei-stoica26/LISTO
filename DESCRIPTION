@@ -1,19 +1,18 @@
 Package: LISTO
 Type: Package
-Title: A tool for assessing overlaps of marker lists
-Version: 0.1.0
+Title: A tool for assessing the significance of overlaps of lists of items
+Version: 0.1.5
 Authors@R: person('Andrei-Florian', 'Stoica', 
       email='andreistoica@foxmail.com',
      role=c('aut','cre'),
      comment=c(ORCID='0000-0002-5253-0826'))
-Description: LISTO is an evolving tool for assessing overlaps of marker lists.
+Description: LISTO is an evolving tool for assessing overlaps of lists of items.
 License: MIT + file LICENSE
 Imports:
-    hammers,
     henna,
+    parallel,
     primes,
     statisfactory,
-    Seurat,
     stats
 Encoding: UTF-8
 RoxygenNote: 7.3.3

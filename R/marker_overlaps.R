@@ -1,4 +1,3 @@
-#' @importFrom hammers mtCorrectDF mtCorrectV
 #' @importFrom parallel clusterExport makeCluster parSapply stopCluster
 #'
 NULL

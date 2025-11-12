@@ -1,93 +1,32 @@
-#' @importFrom stats setNames
+#' Prepare dataframe for alluvial plot
 #'
-NULL
-
-#' Extract two marker data frames from two named marker lists
+#' This function extracts the relevant information from dataframe and adjusts
+#' p-values to be used as weights for the alluvia.
 #'
-#' This function receives two named marker lists as input (they can be
-#' identical) and extracts a specified marker data frame from each. The two
-#' extracted marker data frames are grouped in a named list.
+#' @param df A data frame.
+#' @param pvalCol Name of p-value column to be used by the alluvial plot.
+#' @param colIndices A vector respresenting the indices of the two categorical
+#' columns from the data frame that will be used.
+#' @param weightExp Exponent used in constructing weight from p-values.
+#' @param pvalOffset Offset used to avoid zeros inside the logarithm function.
 #'
-#' @param markerList1 A named list of marker data frames.
-#' @param markerList2 A named list of marker data frames.
-#' @param name1 Name of the marker data frame that will be selected from
-#'  \code{markerList1}.
-#' @param name2 Name of the marker data frame that will be selected from
-#'  \code{markerList2}.
-#'
-#' @return A named list of two marker data frames.
-#'
-#' @export
-#'
-markerDFPair <- function(markerList1, markerList2, name1, name2)
-    return(setNames(list(markerList1[[name1]], markerList2[[name2]]),
-                    c(name1, name2)))
-
-#' Return all groups for an identity class in a Seurat object
-#'
-#' This function returns all groups for an identity class in a Seurat object.
-#'
-#' @param seuratObj A Seurat object.
-#' @param idClass Identity class.
-#'
-#' @return A character vector list of identity classes.
+#' @return A data frame with weight scores in lieu of p-values.
 #'
 #' @keywords internal
 #'
-allGroups <- function(seuratObj, idClass)
-    return(sort(unique(seuratObj[[]][[idClass]])))
-
-#' Return all groups for an identity class in a Seurat object
-#'
-#' This function returns all groups for an identity class in a Seurat object.
-#'
-#' @inheritParams allGroups
-#' @param ids1 Selected class groups.
-#'
-#' @return A character vector list of identity classes.
-#'
-#' @keywords internal
-#'
-allComplements <- function(seuratObj, idClass, ids1)
-    return(lapply(ids1, function(x) setdiff(allGroups(seuratObj, idClass), x)))
-
-#' Join the elements of each vector in a list into a character
-#'
-#' This function joins the elements of each vector in a list into a character.
-#'
-#' @param v Vector list.
-#' @param joinChar Character used when joining the elements of each vector in
-#' a list.
-#'
-#' @return A character vector.
-#'
-#' @examples
-#' v <- list(c(1, 2, 3), c(3, 4, 5), c('apple', 'banana'))
-#' listToChar(v)
-#'
-#' @export
-#'
-listToChar <- function (v, joinChar=', ')
-    return(vapply(v, function(x) paste0(x, collapse=joinChar), character(1)))
-
-#' Join two marker data frames
-#'
-#' This function joins two marker data frames.
-#'
-#' @param df1 A marker data frame.
-#' @param df2 A marker data frame.
-#' @param joinCol Column based on which the marker data frames will be joined.
-#'
-#' @return A data frame with the shared markers as rows and the join column
-#' from each of the two marker data frames as columns.
-#'
-#' @export
-#'
-sharedMarkers <- function(df1, df2, joinCol = 'avg_log2FC'){
-    shared <- intersect(rownames(df1), rownames(df2))
-    df <- data.frame(cbind(df1[shared, joinCol],
-                           df2[shared, joinCol]))
-    rownames(df) <- shared
-    colnames(df) <- paste0(joinCol, '_', c(1, 2))
-    return(df)
+prepAlluvial <- function(df,
+                         pvalCol = 'pvalAdj',
+                         colIndices = c(1, 2),
+                         weightExp = 1/2,
+                         pvalOffset = 1e-317){
+    pvals <- sort(df[[pvalCol]])
+    pvals[-1] <- -log(pvals[-1] + pvalOffset)
+    if (pvals[1])
+        pvals[1] <- -log(pvals[1]) else
+            if (length(pvals) > 2)
+                pvals[1] <- 2 * pvals[2] - pvals[3] else
+                    pvals[1] <- 1
+    resDF <- df[, colIndices]
+    resDF$weight <- pvals ^ weightExp
+    return(resDF)
 }

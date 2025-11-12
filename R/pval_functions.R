@@ -1,4 +1,4 @@
-#' @importFrom stats median phyper
+#' @importFrom stats median p.adjust phyper
 #'
 NULL
 
