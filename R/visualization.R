@@ -12,7 +12,7 @@ NULL
 #' @inheritParams sharedMarkers
 #' @param markerObj A list of two named marker data frames.
 #' @param title Plot title.
-#' @param markerNames Names of markers to be displayed on the plot.
+#' @param labeledMarkers Names of markers to be displayed on the plot.
 #' If \code{NULL}, the markers will be chosen based on the thresholds.
 #' @param thresh1 Join column threshold for the first marker data frame.
 #' @param thresh2 Join column threshold for the second marker data frame.
@@ -20,6 +20,9 @@ NULL
 #' @param isNeg2 Whether the second marker set represents negative markers.
 #' @param nameSuffix1 Suffix appended to \code{name1} on axes and legend.
 #' @param nameSuffix2 Suffix appended to \code{name2} on axes and legend.
+#' @param verbose Whether the output should specify how many of the markers in
+#' \code{labeledMarkers} are top markers. Ignored if \code{labeledMarkers}
+#' is NULL.
 #' @param ... Additional arguments passed to \code{henna::hullPlot}.
 #'
 #' @return A ggplot object.
@@ -28,7 +31,7 @@ NULL
 #'
 sharedMarkersPlot <- function(markerObj,
                               title = NULL,
-                              markerNames = NULL,
+                              labeledMarkers = NULL,
                               joinCol = 'avg_log2FC',
                               thresh1 = NULL,
                               thresh2 = NULL,
@@ -36,6 +39,7 @@ sharedMarkersPlot <- function(markerObj,
                               isNeg2 = FALSE,
                               nameSuffix1 = NULL,
                               nameSuffix2 = NULL,
+                              verbose = TRUE,
                               ...){
 
     sharedDF <- sharedMarkers(markerObj[[1]], markerObj[[2]], joinCol)
@@ -48,19 +52,14 @@ sharedMarkersPlot <- function(markerObj,
     if(isNeg2)
         name2 <- paste0(name2, ' (downregulated)')
 
-    if (is.null(markerNames))
-        labelDF <- sharedDF[sharedDF[, 1] > thresh1 &
-                                sharedDF[, 2] > thresh2, ] else {
-                                    foundMarkers <- intersect(
-                                        rownames(sharedDF), markerNames)
-                                    message(length(foundMarkers),
-                                            ' among the ',
-                                            length(markerNames),
-                                            ' markers are shared by the ',
-                                            name1, ' and ',
-                                            name2, ' markers.')
-                                    labelDF <- sharedDF[foundMarkers, ]
-                                }
+    if (is.null(labeledMarkers) & verbose){
+        topMarkers <- rownames(sharedDF[sharedDF[, 1] > thresh1 &
+                                            sharedDF[, 2] > thresh2, ])
+        foundMarkers <- intersect(topMarkers, labeledMarkers)
+        message(length(foundMarkers), ' among the ', length(labeledMarkers),
+                ' input markers are shared by the ', name1, ' and ',
+                name2, ' markers.')
+    }
 
     p <- hullPlot(sharedDF,
                   title,
@@ -72,7 +71,9 @@ sharedMarkersPlot <- function(markerObj,
                                          'Shared',
                                          paste0('Top only for ', name2),
                                          paste0('Top only for ', name1))),
-                  labelDF=labelDF,
+                  labeledPoints=labeledMarkers,
+                  labXThr=thresh1,
+                  labYThr=thresh2,
                   ...
                   )
     return(p)

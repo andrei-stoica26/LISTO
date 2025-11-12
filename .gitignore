@@ -3,5 +3,6 @@
 .Rproj.user
 R/.recipes.R
 R/.test_code.R
+R/.extras.R
 LISTO.Rproj
 inst/doc

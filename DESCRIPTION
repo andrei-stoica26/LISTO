@@ -9,19 +9,12 @@ Authors@R: person('Andrei-Florian', 'Stoica',
 Description: LISTO is an evolving tool for assessing overlaps of marker lists.
 License: MIT + file LICENSE
 Imports:
-    AnnotationDbi,
-    clusterProfiler,
-    DOSE,
     hammers,
     henna,
-    org.Dr.eg.db,
-    org.Hs.eg.db,
-    org.Mm.eg.db,
     primes,
     statisfactory,
     Seurat,
-    stats,
-    stringr
+    stats
 Encoding: UTF-8
 RoxygenNote: 7.3.3
 Suggests: 

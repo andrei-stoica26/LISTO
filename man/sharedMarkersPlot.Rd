@@ -7,7 +7,7 @@
 sharedMarkersPlot(
   markerObj,
   title = NULL,
-  markerNames = NULL,
+  labeledMarkers = NULL,
   joinCol = "avg_log2FC",
   thresh1 = NULL,
   thresh2 = NULL,
@@ -15,6 +15,7 @@ sharedMarkersPlot(
   isNeg2 = FALSE,
   nameSuffix1 = NULL,
   nameSuffix2 = NULL,
+  verbose = TRUE,
   ...
 )
 }
@@ -23,7 +24,7 @@ sharedMarkersPlot(
 
 \item{title}{Plot title.}
 
-\item{markerNames}{Names of markers to be displayed on the plot.
+\item{labeledMarkers}{Names of markers to be displayed on the plot.
 If \code{NULL}, the markers will be chosen based on the thresholds.}
 
 \item{joinCol}{Column based on which the marker data frames will be joined.}
@@ -39,6 +40,10 @@ If \code{NULL}, the markers will be chosen based on the thresholds.}
 \item{nameSuffix1}{Suffix appended to \code{name1} on axes and legend.}
 
 \item{nameSuffix2}{Suffix appended to \code{name2} on axes and legend.}
+
+\item{verbose}{Whether the output should specify how many of the markers in
+\code{labeledMarkers} are top markers. Ignored if \code{labeledMarkers}
+is NULL.}
 
 \item{...}{Additional arguments passed to \code{henna::hullPlot}.}
 }
