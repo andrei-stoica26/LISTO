@@ -55,8 +55,10 @@ pvalObjectsCore <- function(obj1,
             pvalFunArgs <- list(...)
             allItems1 <- pvalFunArgs[[1]]
             allItems2 <- pvalFunArgs[[2]]
-            clusterExport(clust, c('obj1', 'obj2', 'cutoffs',
-                                   'allItems1', 'allItems2'), envir=environment())
+            clusterExport(clust,
+                          c('obj1', 'obj2', 'cutoffs',
+                            'allItems1', 'allItems2'),
+                          envir=environment())
             pvals <- parSapply(clust, cutoffs, function(cutoff){
                 names1 <- rownames(obj1[obj1[[col]] > cutoff, ])
                 names2 <- rownames(obj2[obj2[[col]] > cutoff, ])
