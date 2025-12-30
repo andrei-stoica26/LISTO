@@ -39,12 +39,18 @@ mtCorrectV <- function(pvals,
 #' This function orders a data frame based on a column of p-values, performs
 #' multiple testing on the column, and filters the data-frame based on it.
 #'
-#' @inheritParams mtCorrectV
 #' @param df A data frame with a p-values columnn.
+#' @param mtMethod Multiple testing correction method. Choices are 'holm',
+#' 'hochberg', hommel', 'bonferroni', 'BH', 'BY', 'fdr' and 'none'. Default is
+#' 'holm'.
+#' @param doOrder Whether to increasingly order the data frame based on the
+#' adjusted p-values.
 #' @param pvalThr p-value threshold.
-#' @param col Name of the column of p-values.
-#' @param newCol Name of the column of adjusted p-values that will be
+#' @param colStr Name of the column of p-values.
+#' @param newColStr Name of the column of adjusted p-values that will be
 #' created.
+#' @param ... Additional arguments passed to the multiple testing correction
+#' method.
 #'
 #' @return A data frame with the p-value column corrected for multiple testing.
 #'
@@ -59,12 +65,17 @@ mtCorrectDF <- function(df,
                         mtMethod = c('holm', 'hochberg', 'hommel',
                                      'bonferroni', 'BH', 'BY',
                                      'fdr', 'none'),
-                        nComp = nrow(df),
+                        doOrder = TRUE,
                         pvalThr = 0.05,
-                        col = 'pval',
-                        newCol = 'pvalAdj'){
-    df <- df[order(df[[col]]), ]
-    df[[newCol]] <- mtCorrectV(df[[col]], mtMethod, 'identity', nComp)
-    df <- df[df[, newCol] < pvalThr, ]
+                        colStr = 'pval',
+                        newColStr = 'pvalAdj',
+                        ...){
+    mtMethod <- match.arg(mtMethod, c('holm', 'hochberg', 'hommel',
+                                      'bonferroni', 'BH', 'BY',
+                                      'fdr', 'none'))
+    df[[newColStr]] <- p.adjust(df[[colStr]], mtMethod, ...)
+    if (doOrder)
+        df <- df[order(df[[newColStr]]), ]
+    df <- df[df[, newColStr] < pvalThr, ]
     return(df)
 }
