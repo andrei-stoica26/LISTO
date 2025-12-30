@@ -30,9 +30,6 @@ in \code{obj1} are selected.}
 in \code{obj2} are selected.}
 
 \item{numCol}{The name of the numeric column used for data frame ordering.}
-
-\item{...}{Additional parameters passed to \code{pvalOverlap} or
-\code{pvalOverlapMN}.}
 }
 \value{
 A p-value.
