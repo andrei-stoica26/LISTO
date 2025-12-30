@@ -18,6 +18,17 @@ runLISTO <- function(list1,
             df <- expand.grid(names(list1), names(list2), names(list3))
     colnames(df) <- paste0('Group', seq(ncol(df)))
 
+    if (!is.null(list3)){
+        type <- '3N'
+        if (!is.null(universe2))
+            message('Three-way overlaps can be currently computed only for one',
+                    ' universe. `universe2` will be ignored.')
+    } else {
+        if (is.null(universe2))
+            type <- '2N' else
+                type <- '2MN'
+    }
+
     df$pval <- vapply(seq(nrow(df)),
                       function(i){
                           names1 <- df[i, 1]
@@ -35,9 +46,10 @@ runLISTO <- function(list1,
                                       names1, ', ', names2, ' and ', names3,
                                       '...')
                           }
-                          return(pvalObjects(obj1, obj2, obj3, universe1,
-                                             universe2, numCol, isHighTop,
-                                             maxCutoffs, mtMethod, nCores))
+                          return(pvalObjects(obj1, obj2, obj3,
+                                             universe1, universe2, numCol,
+                                             isHighTop, maxCutoffs, mtMethod,
+                                             nCores, type))
                       }, numeric(1))
     df <- mtCorrectDF(df, mtMethod, ...)
     return(df)

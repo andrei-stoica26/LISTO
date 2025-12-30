@@ -62,3 +62,14 @@ pvalSubsetsMN <- function(a, b, m, n){
                         length(intersect(a, b))
     ))
 }
+
+pvalThreeSubsetsN <- function(a, b, c, n){
+    na <- length(a)
+    nb <- length(b)
+    nShared <- length(intersect(a, b))
+    return (phyper(nShared - 1),
+                   na,
+                   n - na,
+                   nb,
+                   lower.tail=FALSE))
+}

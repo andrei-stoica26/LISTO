@@ -2,6 +2,11 @@
 #'
 NULL
 
+filterItems <- function(obj, numCol = NULL, cutoff = NULL, compFun = `>`){
+    if (is.null(numCol) | is(obj, 'character'))
+        return(obj)
+    return(rownames(obj[compFun(obj[[numCol]], cutoff), ]))
+}
 
 #' Compute the p-value of overlap for two marker data frames
 #'
@@ -23,52 +28,26 @@ NULL
 #'
 pvalObjectsCore <- function(obj1,
                             obj2,
-                            col,
-                            cutoffs,
-                            nDatasets = 1,
-                            nCores = 1,
-                            mtMethod = c('BY', 'holm', 'hochberg',
-                                         'hommel', 'bonferroni', 'BH',
-                                         'fdr', 'none'),
-                            ...){
+                            obj3 = NULL,
+                            universe1,
+                            universe2 = NULL,
+                            numCol = NULL,
+                            cutoff = NULL,
+                            compFun = `>`,
+                            type = c('2N', '2MN', '3N'){
 
-    mtMethod <- match.arg(mtMethod, c('BY', 'holm', 'hochberg',
-                                      'hommel', 'bonferroni', 'BH',
-                                      'fdr', 'none'))
+    names1 <- filterItems(obj1, numCol, cutoff, compFun)
+    names2 <- filterItems(obj2, numCol, cutoff, compFun)
+    if (type == '2N')
+        return(pvalSubsetsN(names1, names2, universe1)
 
-    if(nDatasets %in% c(1, 2))
-        stop('`nDatasets` must be either 1 or 2.')
+    if (type == '2MN')
+        return(pvalSubsetsMN(names1, names2, universe1, universe2)
 
-    if(nDatasets == 1)
-        pvalFun <- eval(as.name('pvalSubsetsN')) else
-            pvalFun <- eval(as.name('pvalSubsetsMN'))
-
-        if (nCores == 1 | nDatasets == 1){
-            pvals <- vapply(cutoffs, function(cutoff){
-                names1 <- rownames(obj1[obj1[[col]] > cutoff, ])
-                names2 <- rownames(obj2[obj2[[col]] > cutoff, ])
-                pval <- pvalFun(names1, names2, ...)
-            }, numeric(1))
-
-        } else{
-            clust <- makeCluster(nCores)
-            pvalFunArgs <- list(...)
-            allItems1 <- pvalFunArgs[[1]]
-            allItems2 <- pvalFunArgs[[2]]
-            clusterExport(clust,
-                          c('obj1', 'obj2', 'cutoffs',
-                            'allItems1', 'allItems2'),
-                          envir=environment())
-            pvals <- parSapply(clust, cutoffs, function(cutoff){
-                names1 <- rownames(obj1[obj1[[col]] > cutoff, ])
-                names2 <- rownames(obj2[obj2[[col]] > cutoff, ])
-                pval <- pvalFun(names1, names2, allItems1, allItems2)
-            })
-            stopCluster(clust)
-        }
-
-        pval <- mtCorrectV(pvals, mtMethod, 'median')
-        return(pval)
+    if (type == '3N'){
+        names3 <- filterItems(obj3, numCol, cutoff, compFun)
+        return(pvalThreeSubsetsN(names1, names2, names3, universe1)
+    }
 }
 
 #' Assess the overlap of two marker data frames.
@@ -84,38 +63,50 @@ pvalObjectsCore <- function(obj1,
 #' @param allItems2 All items in the second dataset. If \code{NULL}
 #' (as default), no second dataset will be used.
 #'
-#' @return A numeric value (hypergeometric p-value).
+#' @return A numeric value (p-value).
 #'
 #' @export
 #'
 pvalObjects <- function(obj1,
                         obj2,
-                        col,
-                        allItems1,
-                        allItems2 = NULL,
-                        nCores = 1,
+                        obj3 = NULL,
+                        universe1,
+                        universe2 = NULL,
+                        numCol = NULL,
                         isHighTop = TRUE,
-                        extraCutoff = 0,
-                        maxNCutoffs = 500,
+                        maxCutoffs = 500,
                         mtMethod = c('BY', 'holm', 'hochberg',
                                      'hommel', 'bonferroni', 'BH',
                                      'fdr', 'none'),
-                        verbose = FALSE){
+                        nCores = 1,
+                        type = c('2N', '2MN', '3N')){
 
     mtMethod <- match.arg(mtMethod, c('BY', 'holm', 'hochberg',
                                       'hommel', 'bonferroni', 'BH',
                                       'fdr', 'none'))
+    type <- match.arg(type, c('2N', '2MN', '3N'))
 
-    cutoffs <- generateCutoffs(obj1, obj2, col, isHighTop,
-                               extraCutoff, maxNCutoffs, verbose)
+    cutoffs <- generateCutoffs(obj1, obj2, obj3, numCol, isHighTop,
+                               maxCutoffs)
+    compFun <- ifelse(isHighTop, `>`, `<`)
 
-    if(is.null(allItems2)){
-        if(!is.numeric(allItems1))
-            allItems1 <- length(allItems1)
-        return(pvalObjectsCore(obj1, obj2, col, cutoffs, 1,
-                               1, mtMethod, allItems1))
+    if (nCores == 1){
+        pvals <- vapply(cutoffs, function(cutoff)
+            return(pvalObjectsCore(obj1, obj2, obj3, universe1, universe2,
+                                   numCol, cutoff, compFun, type)), numeric(1))
+
+    } else{
+        clust <- makeCluster(nCores)
+        clusterExport(clust,
+                      c('obj1', 'obj2', 'obj3',  'universe1', 'universe2',
+                        'numCol', 'cutoffs', 'compFun', 'type'),
+                      envir=environment())
+        pvals <- parSapply(clust, cutoffs, function(cutoff)
+            return(pvalObjectsCore(obj1, obj2, obj3, universe1, universe2,
+                                   numCol, cutoff, compFun, type)))
+        stopCluster(clust)
     }
 
-    return(pvalObjectsCore(obj1, obj2, col, cutoffs, 2, nCores,
-                           mtMethod, allItems1, allItems2))
+    pval <- mtCorrectV(pvals, mtMethod, 'median')
+    return(pval)
 }
