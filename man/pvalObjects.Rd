@@ -7,23 +7,28 @@
 pvalObjects(
   obj1,
   obj2,
-  col,
-  allItems1,
-  allItems2 = NULL,
-  nCores = 1,
+  obj3 = NULL,
+  universe1,
+  universe2 = NULL,
+  numCol = NULL,
   isHighTop = TRUE,
-  extraCutoff = 0,
-  maxNCutoffs = 500,
+  maxCutoffs = 500,
   mtMethod = c("BY", "holm", "hochberg", "hommel", "bonferroni", "BH", "fdr", "none"),
-  verbose = FALSE
+  nCores = 1,
+  type = c("2N", "2MN", "3N")
 )
 }
 \arguments{
-\item{obj1}{A data frame with at least one numeric column.}
+\item{isHighTop}{Whether higher values in the numeric column correspond to
+top-ranked items.}
 
-\item{obj2}{A data frame with at least one numeric column.}
+\item{maxCutoffs}{Maximum number of cutoffs. If the input data frames
+contain more cutoffs than this value, only \code{maxCutoffs} linearly
+spaced cutoffs will be selected from the original cutoff list.}
 
-\item{col}{Numeric column used for ranking items.}
+\item{mtMethod}{Multiple testing correction method.}
+
+\item{nCores}{Number of cores. Only used if \code{nDatasets} is 2.}
 
 \item{allItems1}{Either items in the first dataset or their number. If a
 second dataset is provided (that is, \code{allItems} is not \code{NULL}),
@@ -32,27 +37,9 @@ here.}
 
 \item{allItems2}{All items in the second dataset. If \code{NULL}
 (as default), no second dataset will be used.}
-
-\item{nCores}{Number of cores. Only used if \code{nDatasets} is 2.}
-
-\item{isHighTop}{Whether higher values in the numeric column correspond to
-top-ranked items.}
-
-\item{extraCutoff}{Cutoff to be placed at one end of the cutoff list.
-If \code{isHighTop} is \code{TRUE}, it must be lower than all the cutoffs
-present in the numeric column. If \code{isHighTop} is \code{FALSE}, it must
-be higher that all cutoffs present in the numeric column.}
-
-\item{maxNCutoffs}{Maximum number of cutoffs. If the two input data frames
-contain more cutoffs than this value, only \code{maxNCutoffs} linearly
-spaced cutoffs will be selected from the original cutoff list.}
-
-\item{mtMethod}{Multiple testing correction method.}
-
-\item{verbose}{Whether the output should be verbose.}
 }
 \value{
-A numeric value (hypergeometric p-value).
+A numeric value (p-value).
 }
 \description{
 This function assesses the overlap of two marker data frames.

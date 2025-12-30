@@ -7,21 +7,16 @@
 pvalObjectsCore(
   obj1,
   obj2,
-  col,
-  cutoffs,
-  nDatasets = 1,
-  nCores = 1,
-  mtMethod = c("BY", "holm", "hochberg", "hommel", "bonferroni", "BH", "fdr", "none"),
-  ...
+  obj3 = NULL,
+  universe1,
+  universe2 = NULL,
+  numCol = NULL,
+  cutoff = NULL,
+  compFun = `>`,
+  type = c("2N", "2MN", "3N")
 )
 }
 \arguments{
-\item{obj1}{A data frame with at least one numeric column.}
-
-\item{obj2}{A data frame with at least one numeric column.}
-
-\item{col}{Numeric column used for ranking items.}
-
 \item{cutoffs}{Cutoffs for assessing item overlaps.}
 
 \item{nDatasets}{Number of datasets. Choose between 1 (the two objects are

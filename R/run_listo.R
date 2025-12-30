@@ -1,6 +1,30 @@
+#' Assess the overlap of two lists of marker data frames.
+#'
+#' This function assesses the overlap of two lists of marker data frames.
+#'
+#' @inheritParams pvalObjects
+#' @param list1 A list containing character vectors or data frames having one
+#' numeric column.
+#' @param list2 A list containing character vectors or data frames having one
+#' numeric column.
+#' @param list3 A list containing character vectors or data frames having one
+#' numeric column.
+#' @param universe1 The set from which the items corresponding to the elements
+#' in \code{list1} are selected.
+#' @param universe2 The set from which the items corresponding to the elements
+#' in \code{list2} are selected.
+#' @param numCol The name of the numeric column used to order any data frames
+#' found in the input lists.
+#' @param mtMethod Multiple testing correction method.
+#' @param ... Additional arguments passed to \code{mtCorrectDF}.
+#'
+#' @return A data frame.
+#'
+#' @export
+#'
 runLISTO <- function(list1,
                      list2,
-                     list3 = NULL
+                     list3 = NULL,
                      universe1,
                      universe2 = NULL,
                      numCol = NULL,
@@ -9,7 +33,8 @@ runLISTO <- function(list1,
                      mtMethod = c('BY', 'holm', 'hochberg',
                                   'hommel', 'bonferroni', 'BH',
                                   'fdr', 'none'),
-                     nCores = 1){
+                     nCores = 1,
+                     ...){
     mtMethod <- match.arg(mtMethod, c('BY', 'holm', 'hochberg',
                                       'hommel', 'bonferroni', 'BH',
                                       'fdr', 'none'))

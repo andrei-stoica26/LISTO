@@ -10,6 +10,7 @@ Description: LISTO is an evolving tool for assessing overlaps of lists of
     items.
 License: MIT + file LICENSE
 Imports:
+    methods,
     parallel,
     primes,
     statisfactory,

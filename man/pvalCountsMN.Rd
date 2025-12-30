@@ -23,8 +23,9 @@ The probability that two subsets of sets M and N intersect in
 at least k points.
 }
 \description{
-This function computes the probability that two subsets of sets M and N
-intersect in at least k points.
+This function computes the probability that two subsets A and B of sets
+M and N intersect in at least k points. In addition to k, the intersection
+sizes of M and M, A and N, and B and M must pe provided as input.
 }
 \examples{
 pvalCountsMN (300, 23, 24, 6)

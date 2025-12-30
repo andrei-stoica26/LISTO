@@ -1,3 +1,4 @@
+#' @importFrom methods is
 #' @importFrom parallel clusterExport makeCluster parSapply stopCluster
 #'
 NULL
@@ -34,19 +35,19 @@ pvalObjectsCore <- function(obj1,
                             numCol = NULL,
                             cutoff = NULL,
                             compFun = `>`,
-                            type = c('2N', '2MN', '3N'){
+                            type = c('2N', '2MN', '3N')){
 
     names1 <- filterItems(obj1, numCol, cutoff, compFun)
     names2 <- filterItems(obj2, numCol, cutoff, compFun)
     if (type == '2N')
-        return(pvalSubsetsN(names1, names2, universe1)
+        return(pvalSubsetsN(names1, names2, universe1))
 
     if (type == '2MN')
-        return(pvalSubsetsMN(names1, names2, universe1, universe2)
+        return(pvalSubsetsMN(names1, names2, universe1, universe2))
 
     if (type == '3N'){
         names3 <- filterItems(obj3, numCol, cutoff, compFun)
-        return(pvalThreeSubsetsN(names1, names2, names3, universe1)
+        return(pvalThreeSubsetsN(names1, names2, names3, universe1))
     }
 }
 

@@ -7,27 +7,32 @@
 mtCorrectDF(
   df,
   mtMethod = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none"),
-  nComp = nrow(df),
+  doOrder = TRUE,
   pvalThr = 0.05,
-  col = "pval",
-  newCol = "pvalAdj"
+  colStr = "pval",
+  newColStr = "pvalAdj",
+  ...
 )
 }
 \arguments{
 \item{df}{A data frame with a p-values columnn.}
 
-\item{mtMethod}{Multiple testing correction method. Choices are
-Bonferroni ('bf'), Benjamini-Hochberg('bh'), and Benjamini-Yekutieli ('by').}
+\item{mtMethod}{Multiple testing correction method. Choices are 'holm',
+'hochberg', hommel', 'bonferroni', 'BH', 'BY', 'fdr' and 'none'. Default is
+'holm'.}
 
-\item{nComp}{Number of comparisons. In most situations, this parameter
-should not be changed.}
+\item{doOrder}{Whether to increasingly order the data frame based on the
+adjusted p-values.}
 
 \item{pvalThr}{p-value threshold.}
 
-\item{col}{Name of the column of p-values.}
+\item{colStr}{Name of the column of p-values.}
 
-\item{newCol}{Name of the column of adjusted p-values that will be
+\item{newColStr}{Name of the column of adjusted p-values that will be
 created.}
+
+\item{...}{Additional arguments passed to the multiple testing correction
+method.}
 }
 \value{
 A data frame with the p-value column corrected for multiple testing.

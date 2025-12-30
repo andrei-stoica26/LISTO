@@ -4,7 +4,7 @@
 \alias{pvalSubsetsN}
 \title{Calculate the hypergeometric p-value of enrichment for two sets}
 \usage{
-pvalSubsetsN(a, b, n, lowerTail = FALSE)
+pvalSubsetsN(a, b, n)
 }
 \arguments{
 \item{a}{Character vector.}

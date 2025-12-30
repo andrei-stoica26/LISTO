@@ -24,8 +24,6 @@ pvalLists(
 
 \item{list2}{List of data frames.}
 
-\item{col}{Numeric column used for ranking items.}
-
 \item{allItems1}{Either items in the first dataset or their number. If a
 second dataset is provided (that is, \code{allItems} is not \code{NULL}),
 the items in the first dataset rather than their number must be provided
@@ -39,18 +37,7 @@ here.}
 \item{isHighTop}{Whether higher values in the numeric column correspond to
 top-ranked items.}
 
-\item{extraCutoff}{Cutoff to be placed at one end of the cutoff list.
-If \code{isHighTop} is \code{TRUE}, it must be lower than all the cutoffs
-present in the numeric column. If \code{isHighTop} is \code{FALSE}, it must
-be higher that all cutoffs present in the numeric column.}
-
-\item{maxNCutoffs}{Maximum number of cutoffs. If the two input data frames
-contain more cutoffs than this value, only \code{maxNCutoffs} linearly
-spaced cutoffs will be selected from the original cutoff list.}
-
 \item{mtMethod}{Multiple testing correction method.}
-
-\item{verbose}{Whether the output should be verbose.}
 
 \item{...}{Additional arguments passed to \code{mtCorrectDF}.}
 }

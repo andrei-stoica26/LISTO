@@ -19,15 +19,15 @@ NULL
 #'
 #' @export
 #'
-pvalSubsetsN <- function(a, b, n, lowerTail=FALSE){
+pvalSubsetsN <- function(a, b, n){
     na <- length(a)
     nb <- length(b)
     nShared <- length(intersect(a, b))
-    return (phyper(nShared - (1 - lowerTail),
+    return (phyper(nShared - 1),
                    na,
                    n - na,
                    nb,
-                   lower.tail=lowerTail))
+                   lower.tail=FALSE)
 }
 
 #' Compute the p-value of intersection of two subsets of sets M and N
@@ -71,5 +71,5 @@ pvalThreeSubsetsN <- function(a, b, c, n){
                    na,
                    n - na,
                    nb,
-                   lower.tail=FALSE))
+                   lower.tail=FALSE)
 }
