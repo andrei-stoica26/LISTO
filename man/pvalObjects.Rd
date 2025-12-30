@@ -19,16 +19,30 @@ pvalObjects(
 )
 }
 \arguments{
+\item{obj1}{A data frame with a numeric column, or a character vector.}
+
+\item{obj2}{A data frame with a numeric column, or a character vector.}
+
+\item{obj3}{A data frame with a numeric column, or a character vector.}
+
+\item{universe1}{The set from which the items stored
+in \code{obj1} are selected.}
+
+\item{universe2}{The set from which the items stored
+in \code{obj2} are selected.}
+
+\item{numCol}{The name of the numeric column used for data frame ordering.}
+
 \item{isHighTop}{Whether higher values in the numeric column correspond to
 top-ranked items.}
 
 \item{maxCutoffs}{Maximum number of cutoffs. If the input data frames
 contain more cutoffs than this value, only \code{maxCutoffs} linearly
-spaced cutoffs will be selected from the original cutoff list.}
+spaced cutoffs will be selected from the generated cutoff list.}
 
 \item{mtMethod}{Multiple testing correction method.}
 
-\item{nCores}{Number of cores. Only used if \code{nDatasets} is 2.}
+\item{nCores}{Number of cores.}
 
 \item{allItems1}{Either items in the first dataset or their number. If a
 second dataset is provided (that is, \code{allItems} is not \code{NULL}),

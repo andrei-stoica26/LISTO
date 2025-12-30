@@ -3,6 +3,16 @@
 #'
 NULL
 
+#' Filter items based on a provided cutoff
+#'
+#' This function filters items based on a provided cutoff.
+#'
+#' @inheritParams getObjectValues
+#' @param cutoff Cutoff for assessing item overlaps.
+#' @param compFun Comparison function.
+#'
+#' @keywords internal
+#'
 filterItems <- function(obj, numCol = NULL, cutoff = NULL, compFun = `>`){
     if (is.null(numCol) | is(obj, 'character'))
         return(obj)
@@ -14,12 +24,11 @@ filterItems <- function(obj, numCol = NULL, cutoff = NULL, compFun = `>`){
 #' This function computes the p-value of overlap for two marker data frames.
 #'
 #' @inheritParams generateCutoffs
-#' @param cutoffs Cutoffs for assessing item overlaps.
-#' @param nDatasets Number of datasets. Choose between 1 (the two objects are
-#' selected from the same dataset) and 2 (the two objects are selected
-#' from different datasets).
-#' @param nCores Number of cores. Only used if \code{nDatasets} is 2.
-#' @param mtMethod Multiple testing correction method.
+#' @param universe1 The set from which the items stored
+#' in \code{obj1} are selected.
+#' @param universe2 The set from which the items stored
+#' in \code{obj2} are selected.
+#'
 #' @param ... Additional parameters passed to \code{pvalOverlap} or
 #' \code{pvalOverlapMN}.
 #'
@@ -63,6 +72,8 @@ pvalObjectsCore <- function(obj1,
 #' here.
 #' @param allItems2 All items in the second dataset. If \code{NULL}
 #' (as default), no second dataset will be used.
+#' @param mtMethod Multiple testing correction method.
+#' @param nCores Number of cores.
 #'
 #' @return A numeric value (p-value).
 #'

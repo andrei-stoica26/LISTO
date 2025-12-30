@@ -7,9 +7,9 @@
 pvalSubsetsMN(a, b, m, n)
 }
 \arguments{
-\item{a}{Character vector.}
+\item{a}{A character vector.}
 
-\item{b}{Character vector.}
+\item{b}{A character vector.}
 
 \item{m}{Set from which \code{a} is selected.}
 

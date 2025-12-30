@@ -10,8 +10,8 @@ NULL
 #' @details This function calculates the hypergeometric p-value of enrichment
 #' for two sets.
 #'
-#' @param a Character vector.
-#' @param b Character vector.
+#' @param a A character vector.
+#' @param b A character vector.
 #' @param n Number of elements of set from which \code{a} and \code{b} are
 #' selected.
 #' @param lowerTail Whether to calculate underenrichment (\code{TRUE}) or

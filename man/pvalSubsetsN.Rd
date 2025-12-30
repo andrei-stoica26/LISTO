@@ -7,9 +7,9 @@
 pvalSubsetsN(a, b, n)
 }
 \arguments{
-\item{a}{Character vector.}
+\item{a}{A character vector.}
 
-\item{b}{Character vector.}
+\item{b}{A character vector.}
 
 \item{n}{Number of elements of set from which \code{a} and \code{b} are
 selected.}

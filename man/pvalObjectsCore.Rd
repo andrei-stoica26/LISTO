@@ -17,15 +17,19 @@ pvalObjectsCore(
 )
 }
 \arguments{
-\item{cutoffs}{Cutoffs for assessing item overlaps.}
+\item{obj1}{A data frame with a numeric column, or a character vector.}
 
-\item{nDatasets}{Number of datasets. Choose between 1 (the two objects are
-selected from the same dataset) and 2 (the two objects are selected
-from different datasets).}
+\item{obj2}{A data frame with a numeric column, or a character vector.}
 
-\item{nCores}{Number of cores. Only used if \code{nDatasets} is 2.}
+\item{obj3}{A data frame with a numeric column, or a character vector.}
 
-\item{mtMethod}{Multiple testing correction method.}
+\item{universe1}{The set from which the items stored
+in \code{obj1} are selected.}
+
+\item{universe2}{The set from which the items stored
+in \code{obj2} are selected.}
+
+\item{numCol}{The name of the numeric column used for data frame ordering.}
 
 \item{...}{Additional parameters passed to \code{pvalOverlap} or
 \code{pvalOverlapMN}.}
