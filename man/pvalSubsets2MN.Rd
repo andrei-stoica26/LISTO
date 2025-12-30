@@ -7,6 +7,10 @@
 pvalSubsets2MN(a, b, m, n)
 }
 \arguments{
+\item{a}{A character vector.}
+
+\item{b}{A character vector.}
+
 \item{m}{Set from which \code{a} is selected.}
 
 \item{n}{Set from which \code{b} is selected.}

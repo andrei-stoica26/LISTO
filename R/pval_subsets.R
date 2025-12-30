@@ -31,7 +31,7 @@ pvalSubsets2N <- function(a, b, n){
 #'
 #' @details A thin wrapper around \code{pvalOverlapMNk}.
 #'
-#' @inheritParams pvalSubsetsN
+#' @inheritParams pvalSubsets2N
 #' @param m Set from which \code{a} is selected.
 #' @param n Set from which \code{b} is selected.
 #'
@@ -50,15 +50,9 @@ pvalSubsets2MN <- function(a, b, m, n){
         stop('`a` must be a subset of `m`.')
     if (length(setdiff(b, n)))
         stop('`b` must be a subset of `n`.')
-    return(pvalCountsMN(length(intersect(m, n)),
-                        length(intersect(a, n)),
-                        length(intersect(b, m)),
-                        length(intersect(a, b))
+    return(pvalCounts2MN(length(intersect(m, n)),
+                         length(intersect(a, n)),
+                         length(intersect(b, m)),
+                         length(intersect(a, b))
     ))
-}
-
-pvalSubsets3N <- function(a, b, c, n){
-
-    sum(sapply(max(a + b - N, k):min(a, b, N + k - c),
-               function(x) dhyper(x, a, N - a, b) * dhyper(k, x, N - x, c)))
 }
