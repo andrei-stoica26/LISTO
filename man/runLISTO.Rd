@@ -34,8 +34,7 @@ in \code{list1} are selected.}
 \item{universe2}{The set from which the items corresponding to the elements
 in \code{list2} are selected.}
 
-\item{numCol}{The name of the numeric column used to order any data frames
-found in the input lists.}
+\item{numCol}{The name of the numeric column used for data frame ordering.}
 
 \item{isHighTop}{Whether higher values in the numeric column correspond to
 top-ranked items.}

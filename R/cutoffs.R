@@ -64,7 +64,7 @@ generateCutoffs <- function(obj1,
     cutoffs <- unique(c(cutoffs, extraCutoff))
     nCutoffs <- length(cutoffs)
     if (nCutoffs > maxCutoffs){
-        message(nCutoff, 'cutoffs found in the input data frames. Only ',
+        message(nCutoffs, 'cutoffs found in the input data frames. Only ',
                 maxCutoffs, ' will be used. To change this behavior, set a ',
                 'higher value to `maxCutoffs`.')
         cutoffs <- cutoffs[seq(1, nCutoffs, length.out=maxCutoffs)]

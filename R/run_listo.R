@@ -13,8 +13,6 @@
 #' in \code{list1} are selected.
 #' @param universe2 The set from which the items corresponding to the elements
 #' in \code{list2} are selected.
-#' @param numCol The name of the numeric column used to order any data frames
-#' found in the input lists.
 #' @param mtMethod Multiple testing correction method.
 #' @param ... Additional arguments passed to \code{mtCorrectDF}.
 #'
@@ -38,21 +36,20 @@ runLISTO <- function(list1,
     mtMethod <- match.arg(mtMethod, c('BY', 'holm', 'hochberg',
                                       'hommel', 'bonferroni', 'BH',
                                       'fdr', 'none'))
-    if(is.null(list3))
-        df <- expand.grid(names(list1), names(list2)) else
-            df <- expand.grid(names(list1), names(list2), names(list3))
-    colnames(df) <- paste0('Group', seq(ncol(df)))
 
-    if (!is.null(list3)){
-        type <- '3N'
-        if (!is.null(universe2))
-            message('Three-way overlaps can be currently computed only for one',
-                    ' universe. `universe2` will be ignored.')
-    } else {
+    if (is.null(list3)){
+        df <- expand.grid(names(list1), names(list2))
         if (is.null(universe2))
             type <- '2N' else
                 type <- '2MN'
+    } else {
+        df <- expand.grid(names(list1), names(list2), names(list3))
+        type <- '3N'
+        if (!is.null(universe2))
+            message('Three-way overlaps can be currently computed only for',
+                    ' one universe. `universe2` will be ignored.')
     }
+    colnames(df) <- paste0('Group', seq(ncol(df)))
 
     df$pval <- vapply(seq(nrow(df)),
                       function(i){

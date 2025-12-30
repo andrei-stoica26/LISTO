@@ -14,8 +14,6 @@ NULL
 #' @param b A character vector.
 #' @param n Number of elements of set from which \code{a} and \code{b} are
 #' selected.
-#' @param lowerTail Whether to calculate underenrichment (\code{TRUE}) or
-#' overenrichment (\code{FALSE}).
 #'
 #' @export
 #'

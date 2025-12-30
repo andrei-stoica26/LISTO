@@ -13,9 +13,6 @@ pvalSubsetsN(a, b, n)
 
 \item{n}{Number of elements of set from which \code{a} and \code{b} are
 selected.}
-
-\item{lowerTail}{Whether to calculate underenrichment (\code{TRUE}) or
-overenrichment (\code{FALSE}).}
 }
 \description{
 This function calculates the hypergeometric p-value of enrichment for

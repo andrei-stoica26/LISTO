@@ -66,14 +66,11 @@ pvalObjectsCore <- function(obj1,
 #'
 #' @inheritParams generateCutoffs
 #' @inheritParams pvalObjectsCore
-#' @param allItems1 Either items in the first dataset or their number. If a
-#' second dataset is provided (that is, \code{allItems} is not \code{NULL}),
-#' the items in the first dataset rather than their number must be provided
-#' here.
-#' @param allItems2 All items in the second dataset. If \code{NULL}
-#' (as default), no second dataset will be used.
 #' @param mtMethod Multiple testing correction method.
 #' @param nCores Number of cores.
+#' @param type Type of overlap assessment. Choose between: two sets belonging
+#' to the same universe ('2N'), two sets belonging to different universes
+#' ('2MN'), three sets belonging to the same universe ('3MN').
 #'
 #' @return A numeric value (p-value).
 #'
