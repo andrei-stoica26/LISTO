@@ -29,9 +29,6 @@ filterItems <- function(obj, numCol = NULL, cutoff = NULL, compFun = `>`){
 #' @param universe2 The set from which the items stored
 #' in \code{obj2} are selected.
 #'
-#' @param ... Additional parameters passed to \code{pvalOverlap} or
-#' \code{pvalOverlapMN}.
-#'
 #' @return A p-value.
 #'
 #' @keywords internal
@@ -49,14 +46,14 @@ pvalObjectsCore <- function(obj1,
     names1 <- filterItems(obj1, numCol, cutoff, compFun)
     names2 <- filterItems(obj2, numCol, cutoff, compFun)
     if (type == '2N')
-        return(pvalSubsetsN(names1, names2, universe1))
+        return(pvalSubsets2N(names1, names2, universe1))
 
     if (type == '2MN')
-        return(pvalSubsetsMN(names1, names2, universe1, universe2))
+        return(pvalSubsets2MN(names1, names2, universe1, universe2))
 
     if (type == '3N'){
         names3 <- filterItems(obj3, numCol, cutoff, compFun)
-        return(pvalThreeSubsetsN(names1, names2, names3, universe1))
+        return(pvalSubsets3N(names1, names2, names3, universe1))
     }
 }
 

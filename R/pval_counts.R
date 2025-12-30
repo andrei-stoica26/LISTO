@@ -15,7 +15,7 @@
 #'
 #' @export
 #'
-pvalCountsMN <- function(intMN, intAN, intBM, k){
+pvalCounts2MN <- function(intMN, intAN, intBM, k){
     denom <- -1 * vChoose(intMN, intBM)
     pval <- sum(vapply(seq(k, min(intAN, intBM)), function(i){
         exponents <- vSum(vNumeratorMN(intMN, intAN, intBM, i), denom)
@@ -24,3 +24,9 @@ pvalCountsMN <- function(intMN, intAN, intBM, k){
     }, numeric(1)))
     return(pval)
 }
+
+
+
+TestThreeSetsExact <- function(a, b, c, N)
+    #Must return 1
+    return(sum(sapply(0:min(a,b,c), function(x) ThreeSetsExact(a, b, c, x, N))))

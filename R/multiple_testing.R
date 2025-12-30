@@ -1,3 +1,8 @@
+#' @importFrom stats dhyper median p.adjust phyper
+#'
+NULL
+
+
 #' Perform multiple testing correction on a vector of p-values
 #'
 #' This function perform multiple testing correction on a vector of p-values.

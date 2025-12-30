@@ -1,7 +1,3 @@
-#' @importFrom stats median p.adjust phyper
-#'
-NULL
-
 #' Calculate the hypergeometric p-value of enrichment for two sets
 #'
 #' This function calculates the hypergeometric p-value of enrichment for
@@ -17,7 +13,7 @@ NULL
 #'
 #' @export
 #'
-pvalSubsetsN <- function(a, b, n){
+pvalSubsets2N <- function(a, b, n){
     na <- length(a)
     nb <- length(b)
     nShared <- length(intersect(a, b))
@@ -42,14 +38,14 @@ pvalSubsetsN <- function(a, b, n){
 #' @return The probability of intersection of the two subsets.
 #'
 #' @examples
-#' pvalSubsetsMN(LETTERS[seq(4, 10)],
+#' pvalSubsets2MN(LETTERS[seq(4, 10)],
 #' LETTERS[seq(7, 15)],
 #' LETTERS[seq(19)],
 #' LETTERS[seq(6, 26)])
 #'
 #' @export
 #'
-pvalSubsetsMN <- function(a, b, m, n){
+pvalSubsets2MN <- function(a, b, m, n){
     if (length(setdiff(a, m)))
         stop('`a` must be a subset of `m`.')
     if (length(setdiff(b, n)))
@@ -61,13 +57,8 @@ pvalSubsetsMN <- function(a, b, m, n){
     ))
 }
 
-pvalThreeSubsetsN <- function(a, b, c, n){
-    na <- length(a)
-    nb <- length(b)
-    nShared <- length(intersect(a, b))
-    return (phyper(nShared - 1),
-                   na,
-                   n - na,
-                   nb,
-                   lower.tail=FALSE)
+pvalSubsets3N <- function(a, b, c, n){
+
+    sum(sapply(max(a + b - N, k):min(a, b, N + k - c),
+               function(x) dhyper(x, a, N - a, b) * dhyper(k, x, N - x, c)))
 }
