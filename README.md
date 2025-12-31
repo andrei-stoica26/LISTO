@@ -1,17 +1,18 @@
 # LISTO
-`LISTO` is an evolving tool for performing comprehensive overlap assessments
-on **lists comprising sets of strings** (such as lists of gene sets). 
 
-While `LISTO` has been developed with scRNA-seq data analysis in mind, the 
-methodology is fully applicable for the same problem arising in any other 
-setting. Therefore, `LISTO` interacts with general R objects (list of vectors 
-and data frames) rather than with scRNAseq objects.
+`LISTO` is a tool for performing **comprehensive overlap assessments**
+on lists comprising sets of strings, such as lists of gene sets. It can 
+assess:
 
-The strings can be provided as **character vectors**, or as the 
-**rownames of a data frame with a numeric column designated for ranking**. 
-In the latter setting, the numeric columns will be used for generating cutoffs, 
-p-values corresponding to each cutoff will be computed, and the median of these 
-p-values will be taken as the p-value of the overlap
+- Overlaps of pairs of sets of strings selected from the same
+universe.
+- Overlaps of pairs of sets of strings selected from different universes.
+- Overlaps of triplets of sets of strings selected from the same universe. 
+
+While `LISTO` has been developed with scRNA-seq data analysis in mind, 
+the methodology is fully applicable for the same problem arising in any other 
+setting, and the implementation uses general R objects (data frames, 
+character vectors), rather than scRNA-seq-specific objects.
 
 ## Installation
 
@@ -27,44 +28,33 @@ This section will elaborate on the functionality and usage of `LISTO`. It
 discusses first the overlaps of individual **elements**, then the details of how
 the **lists** of elements must be provided as input.
 
-### Elements
 
-Each **element** taking part in an individual overlap assessed by `LISTO` is a 
+### Items
+
+Each **item** taking part in an individual overlap assessed by `LISTO` is a 
 **set of strings**. Each overlap assessment of sets of strings answers the 
 question of whether the sets intersect each other to a statistically 
 significant extent.
 
-### Number of elements in an overlap
-
-`LISTO` currently supports assessments of overlaps of **two** sets of strings.
-Partial support will be provided for assessments of overlaps of **three** 
-sets of strings as well.
-
-### Selection of elements in an overlap
-
-
-
-
 ### Lists
 
+The `runLISTO` function runs the entire LISTO pipeline. It requires two lists
+as input. Each list can store two types of elements:
 
+- Character vectors.
+- Data frames with a numeric column specified by the `numCol` parameter. 
 
+A third list, containing the same type of elements, can be optionally provided.
 
-The elements included in the overlap assessments must be provided as **lists**.
+### Extracting items from lists
 
-Each individual element included in the list must have one of the following 
-two input formats:
+Items to be used in the overlap assessments are extracted from the input
+lists as follows:
 
-- A character vector.
-    - In this setting, the elements of the vector will be used in the overlap
-    assessments.
-- A data frame with a numeric column used for ranking.
-    - In this setting, the rownames of the data frame will be used in the
-    overlap assessments.
-    
-The **number** of provided lists must be 2 or 3. The following settings will be
-supported by `LISTO`:
+- **Character vectors**: They are used as such.
 
-- 2 lists comprising sets of strings selected from the same set. 
-    - Example: Two lists of marker data frames (cluster markers and 
-    experimental condition markers) from the same scRNA-seq dataset.
+- **Data frames**: The rownames of the data frame are selected, and overlaps
+are calculated based on cutoffs determined by the distinct values in the
+column specified by `numCol`. The **median** of the resulting p-values 
+is taken to be the p-value of the corresponding overlap.
+

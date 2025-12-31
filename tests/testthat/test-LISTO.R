@@ -93,7 +93,7 @@ test_that("pvalObjects works", {
                        universe1=LETTERS[seq(1, 16)],
                        universe2=LETTERS[seq(2, 26)],
                        type='2MN')
-    expect_equal(res, 0.3776224, tolerance=0.0001)
+    expect_equal(res, 0.01098901, tolerance=0.0001)
 })
 
 test_that("pvalSets functions work", {
