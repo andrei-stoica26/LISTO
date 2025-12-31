@@ -46,12 +46,16 @@ mtCorrectV <- function(pvals,
 #'
 #' @inheritParams mtCorrectV
 #' @param df A data frame with a p-values columnn.
-#' @param doOrder Whether to increasingly order the data frame based on the
-#' adjusted p-values.
-#' @param pvalThr p-value threshold.
 #' @param colStr Name of the column of p-values.
 #' @param newColStr Name of the column of adjusted p-values that will be
 #' created.
+#' @param doOrder Whether to increasingly order the data frame based on the
+#' adjusted p-values.
+#' @param doFilter Whether to filter the data frame based on the adjusted
+#' p-values.
+#' @param pvalThr p-value threshold used for filtering. Ignored
+#' if \code{doFilter} is \code{FALSE}.
+#'
 #' @param ... Additional arguments passed to the multiple testing correction
 #' method.
 #'
@@ -67,16 +71,18 @@ mtCorrectV <- function(pvals,
 mtCorrectDF <- function(df,
                         mtMethod = c('BY', 'holm', 'hochberg', 'hommel',
                                      'bonferroni', 'BH', 'fdr', 'none'),
-                        doOrder = TRUE,
-                        pvalThr = 0.05,
                         colStr = 'pval',
                         newColStr = 'pvalAdj',
+                        doOrder = TRUE,
+                        doFilter = TRUE,
+                        pvalThr = 0.05,
                         ...){
     mtMethod <- match.arg(mtMethod, c('BY', 'holm', 'hochberg', 'hommel',
                                       'bonferroni', 'BH', 'fdr', 'none'))
     df[[newColStr]] <- p.adjust(df[[colStr]], mtMethod, ...)
     if (doOrder)
         df <- df[order(df[[newColStr]]), ]
-    df <- df[df[, newColStr] < pvalThr, ]
+    if (doFilter)
+        df <- df[df[, newColStr] < pvalThr, ]
     return(df)
 }

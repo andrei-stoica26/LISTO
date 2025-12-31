@@ -10,10 +10,13 @@
 #' numeric column.
 #' @param list3 A list containing character vectors, or data frames having a
 #' numeric column.
-#' @param universe1 The set from which the items corresponding to the elements
-#' in \code{list1} are selected.
-#' @param universe2 The set from which the items corresponding to the elements
-#' in \code{list2} are selected.
+#' @param universe1 Character vector; the set from which the items corresponding
+#' to the elements in \code{list1} are selected.
+#' @param universe2 Character vector; the set from which the items
+#' corresponding to the elements in \code{list2} are selected.
+#' @param doFilter Logical; whether to filter the data frame based on the
+#' adjusted p-values.
+#' @param verbose Logical; whether the output should be verbose.
 #' @param ... Additional arguments passed to \code{mtCorrectDF}.
 #'
 #' @return A data frame.
@@ -31,7 +34,9 @@ runLISTO <- function(list1,
                      mtMethod = c('BY', 'holm', 'hochberg',
                                   'hommel', 'bonferroni', 'BH',
                                   'fdr', 'none'),
+                     filterResults = FALSE,
                      nCores = 1,
+                     verbose = FALSE,
                      ...){
     mtMethod <- match.arg(mtMethod, c('BY', 'holm', 'hochberg',
                                       'hommel', 'bonferroni', 'BH',
@@ -59,20 +64,22 @@ runLISTO <- function(list1,
                           obj2 <- list2[[names2]]
                           if(is.null(list3)){
                               obj3 <- NULL
-                              message('Assessing overlap between sets ',
-                                      names1, ' and ', names2, '...')
+                              if (verbose)
+                                  message('Assessing overlap between sets ',
+                                          names1, ' and ', names2, '...')
                           } else {
                               names3 <- df[i, 3]
                               obj3 <- list3[[names3]]
-                              message('Assessing overlap between sets ',
-                                      names1, ', ', names2, ' and ', names3,
-                                      '...')
+                              if (verbose)
+                                  message('Assessing overlap between sets ',
+                                          names1, ', ', names2, ' and ',
+                                          names3, '...')
                           }
                           return(pvalObjects(obj1, obj2, obj3,
                                              universe1, universe2, numCol,
                                              isHighTop, maxCutoffs, mtMethod,
                                              nCores, type))
                       }, numeric(1))
-    df <- mtCorrectDF(df, mtMethod, ...)
+    df <- mtCorrectDF(df, mtMethod, doFilter=filterResults, ...)
     return(df)
 }

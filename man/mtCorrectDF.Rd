@@ -7,10 +7,11 @@
 mtCorrectDF(
   df,
   mtMethod = c("BY", "holm", "hochberg", "hommel", "bonferroni", "BH", "fdr", "none"),
-  doOrder = TRUE,
-  pvalThr = 0.05,
   colStr = "pval",
   newColStr = "pvalAdj",
+  doOrder = TRUE,
+  doFilter = TRUE,
+  pvalThr = 0.05,
   ...
 )
 }
@@ -21,15 +22,19 @@ mtCorrectDF(
 'BY' (default) 'holm', hochberg', hommel', 'bonferroni', 'BH',  'fdr' and
 'none'.}
 
-\item{doOrder}{Whether to increasingly order the data frame based on the
-adjusted p-values.}
-
-\item{pvalThr}{p-value threshold.}
-
 \item{colStr}{Name of the column of p-values.}
 
 \item{newColStr}{Name of the column of adjusted p-values that will be
 created.}
+
+\item{doOrder}{Whether to increasingly order the data frame based on the
+adjusted p-values.}
+
+\item{doFilter}{Whether to filter the data frame based on the adjusted
+p-values.}
+
+\item{pvalThr}{p-value threshold used for filtering. Ignored
+if \code{doFilter} is \code{FALSE}.}
 
 \item{...}{Additional arguments passed to the multiple testing correction
 method.}

@@ -22,8 +22,8 @@ buildSeuratMarkerList <- function(seuratObj,
         markers <- lapply(groups,
                           function(x){
                               message('Computing markers for ', x, '...')
-                              Seurat::FindMarkers(scObj,
-                                                  group.by='label',
+                              Seurat::FindMarkers(seuratObj,
+                                                  group.by=col,
                                                   ident.1=x,
                                                   only.pos=TRUE,
                                                   min.pct=minPct,

@@ -14,7 +14,9 @@ runLISTO(
   isHighTop = TRUE,
   maxCutoffs = 500,
   mtMethod = c("BY", "holm", "hochberg", "hommel", "bonferroni", "BH", "fdr", "none"),
+  filterResults = FALSE,
   nCores = 1,
+  verbose = FALSE,
   ...
 )
 }
@@ -28,11 +30,11 @@ numeric column.}
 \item{list3}{A list containing character vectors, or data frames having a
 numeric column.}
 
-\item{universe1}{The set from which the items corresponding to the elements
-in \code{list1} are selected.}
+\item{universe1}{Character vector; the set from which the items corresponding
+to the elements in \code{list1} are selected.}
 
-\item{universe2}{The set from which the items corresponding to the elements
-in \code{list2} are selected.}
+\item{universe2}{Character vector; the set from which the items
+corresponding to the elements in \code{list2} are selected.}
 
 \item{numCol}{The name of the numeric column used for data frame ordering.}
 
@@ -49,7 +51,12 @@ spaced cutoffs will be selected from the generated cutoff list.}
 sets belonging to the same universe, it is recommended not to use
 parallelization (that is, leave this parameter as 1).}
 
+\item{verbose}{Logical; whether the output should be verbose.}
+
 \item{...}{Additional arguments passed to \code{mtCorrectDF}.}
+
+\item{doFilter}{Logical; whether to filter the data frame based on the
+adjusted p-values.}
 }
 \value{
 A data frame.
