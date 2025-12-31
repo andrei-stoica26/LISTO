@@ -64,16 +64,8 @@ createExtData <- function(){
 
         qs2::qs_save(donorMarkers, 'inst/extdata/donorMarkers.qs2')
         qs2::qs_save(labelMarkers, 'inst/extdata/labelMarkers.qs2')
-        qs2::qs_save(labelMarkers, 'inst/extdata/signatures.qs2')
+        qs2::qs_save(signatures, 'inst/extdata/signatures.qs2')
+        qs2::qs_save(rownames(scObj), 'inst/extdata/universe1.qs2')
+        qs2::qs_save(Reduce(union, signatures), 'inst/extdata/universe2.qs2')
     }
 }
-
-createExtData()
-
-x <- runLISTO(donorMarkers, labelMarkers, universe1=rownames(scObj), numCol='avg_log2FC')
-
-a <- rownames(labelMarkers[['acinar']])
-b <- signatures[['acinarMarkers']]
-n <- rownames(scObj)
-pvalSets2N(a, b, n)
-

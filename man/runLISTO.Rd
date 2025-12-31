@@ -12,7 +12,7 @@ runLISTO(
   universe2 = NULL,
   numCol = NULL,
   isHighTop = TRUE,
-  maxCutoffs = 500,
+  maxCutoffs = 5000,
   mtMethod = c("BY", "holm", "hochberg", "hommel", "bonferroni", "BH", "fdr", "none"),
   filterResults = FALSE,
   nCores = 1,
@@ -64,4 +64,15 @@ A data frame.
 \description{
 This function assesses the overlap of two or three lists of objects
 (character vectors, or data frames having at least one numeric column).
+}
+\examples{
+donorPath <- system.file('extdata', 'donorMarkers.qs2', package='LISTO')
+donorMarkers <- qs2::qs_read(donorPath)
+labelPath <- system.file('extdata', 'labelMarkers.qs2', package='LISTO')
+labelMarkers <- qs2::qs_read(labelPath)
+universe1Path <- system.file('extdata', 'universe1.qs2', package='LISTO')
+universe1 <- qs2::qs_read(universe1Path)
+x <-  runLISTO(donorMarkers, labelMarkers, universe1=universe1,
+numCol='avg_log2FC')
+
 }
