@@ -51,3 +51,11 @@ test_that("probCounts3N works", {
                       numeric(1)))
     expect_equal(res, 1, tolerance=0.0001)
 })
+
+test_that("buildSeuratMarkerList works", {
+    res <- buildSeuratMarkerList(seuratObj, 'Cell_Cycle', logFCThr=0.1)
+    expect_true(is(res$G0, 'data.frame'))
+    expect_equal(res$G0$p_val_adj[1], 0.8366238, tolerance=0.0001)
+    expect_equal(length(res), 4)
+})
+

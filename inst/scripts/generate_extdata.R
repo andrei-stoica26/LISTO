@@ -1,8 +1,8 @@
 # A self-contained script to generate the data in extdata
 #
 createExtData <- function(){
-    if (requireNamespace(c('LISTO', 'qs2', 'scRNAseq','scuttle', 'Seurat'),
-                         quietly=TRUE)){
+    if (requireNamespace(c('LISTO', 'qs2', 'scRNAseq','scuttle', 'Seurat',
+                           'withr'), quietly=TRUE)){
         scObj <- scRNAseq::BaronPancreasData('human')
         scObj <- scuttle::logNormCounts(scObj)
         scObj <- Seurat::as.Seurat(scObj)
@@ -67,5 +67,12 @@ createExtData <- function(){
         qs2::qs_save(signatures, 'inst/extdata/signatures.qs2')
         qs2::qs_save(rownames(scObj), 'inst/extdata/universe1.qs2')
         qs2::qs_save(Reduce(union, signatures), 'inst/extdata/universe2.qs2')
+
+        seuratObj <- withr::with_seed(1, scuttle::mockSCE(ngenes=500))
+        seuratObj <- Seurat::as.Seurat(seuratObj, data=NULL)
+        seuratObj <- Seurat::NormalizeData(seuratObj)
+        qs2::qs_save(seuratObj, 'inst/extdata/seuratObj.qs2')
     }
 }
+
+createExtData()

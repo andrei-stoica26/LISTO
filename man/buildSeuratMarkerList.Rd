@@ -18,7 +18,16 @@ genes need to be expressed.}
 
 \item{...}{Additional arguments passed to \code{Seurat::FindMarkers}.}
 }
+\value{
+A list of marker data frames.
+}
 \description{
 This function builds a Seurat marker list ready to be used by LISTO.
 Requires Seurat (not automatically installed with LISTO).
+}
+\examples{
+seuratPath <- system.file('extdata', 'seuratObj.qs2', package='LISTO')
+seuratObj <- qs2::qs_read(seuratPath)
+a <- buildSeuratMarkerList(seuratObj, 'Cell_Cycle', logFCThr=0.1)
+
 }

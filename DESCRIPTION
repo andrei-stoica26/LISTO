@@ -22,7 +22,8 @@ Suggests:
     scRNAseq,
     scuttle,
     Seurat,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    withr
 URL: https://github.com/andrei-stoica26/LISTO
 BugReports: https://github.com/andrei-stoica26/LISTO/issues
 Config/testthat/edition: 3

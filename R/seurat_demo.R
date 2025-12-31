@@ -10,6 +10,13 @@
 #' genes need to be expressed.
 #' @param ... Additional arguments passed to \code{Seurat::FindMarkers}.
 #'
+#' @return A list of marker data frames.
+#'
+#' @examples
+#' seuratPath <- system.file('extdata', 'seuratObj.qs2', package='LISTO')
+#' seuratObj <- qs2::qs_read(seuratPath)
+#' a <- buildSeuratMarkerList(seuratObj, 'Cell_Cycle', logFCThr=0.1)
+#'
 #' @export
 #'
 buildSeuratMarkerList <- function(seuratObj,
