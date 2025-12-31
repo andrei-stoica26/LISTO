@@ -14,7 +14,8 @@ pvalObjects(
   isHighTop = TRUE,
   maxCutoffs = 5000,
   mtMethod = c("BY", "holm", "hochberg", "hommel", "bonferroni", "BH", "fdr", "none"),
-  nCores = 1
+  nCores = 1,
+  type = c("2N", "2MN", "3N")
 )
 }
 \arguments{
@@ -44,6 +45,10 @@ spaced cutoffs will be selected from the generated cutoff list.}
 \item{nCores}{Number of cores. If performing an overlap assessment between
 sets belonging to the same universe, it is recommended not to use
 parallelization (that is, leave this parameter as 1).}
+
+\item{type}{Type of overlap assessment. Choose between: two sets belonging
+to the same universe ('2N'), two sets belonging to different universes
+('2MN'), three sets belonging to the same universe ('3MN').}
 }
 \value{
 A numeric value (p-value).

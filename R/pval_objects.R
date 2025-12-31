@@ -69,6 +69,9 @@ pvalObjectsCore <- function(obj1,
 #' @param nCores Number of cores. If performing an overlap assessment between
 #' sets belonging to the same universe, it is recommended not to use
 #' parallelization (that is, leave this parameter as 1).
+#' @param type Type of overlap assessment. Choose between: two sets belonging
+#' to the same universe ('2N'), two sets belonging to different universes
+#' ('2MN'), three sets belonging to the same universe ('3MN').
 #'
 #' @return A numeric value (p-value).
 #'
@@ -88,18 +91,14 @@ pvalObjects <- function(obj1,
                         mtMethod = c('BY', 'holm', 'hochberg',
                                      'hommel', 'bonferroni', 'BH',
                                      'fdr', 'none'),
-                        nCores = 1){
+                        nCores = 1,
+                        type = c('2N', '2MN', '3N')){
 
     checkNumColAll(list(obj1, obj2, obj3), numCol)
     mtMethod <- match.arg(mtMethod, c('BY', 'holm', 'hochberg',
                                       'hommel', 'bonferroni', 'BH',
                                       'fdr', 'none'))
-
-    if (is.null(obj3)){
-        if (is.null(universe2))
-            type <- '2N' else
-                type <- '2MN'
-            } else type <- '3N'
+    type <- match.arg(type, c('2N', '2MN', '3N'))
 
     cutoffs <- generateCutoffs(obj1, obj2, obj3, numCol, isHighTop,
                                maxCutoffs)
