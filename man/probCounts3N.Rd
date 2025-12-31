@@ -2,7 +2,7 @@
 % Please edit documentation in R/prob_counts.R
 \name{probCounts3N}
 \alias{probCounts3N}
-\title{Compute the probability that three subsets of a set intersect in k
+\title{Compute the probability that three subsets of given sizes intersect in k
 points}
 \usage{
 probCounts3N(a, b, c, n, k)
@@ -19,11 +19,11 @@ probCounts3N(a, b, c, n, k)
 \item{k}{Size of the intersection.}
 }
 \value{
-The probability that three subsets of a set intersect in k points.
+A numeric value in [0, 1].
 }
 \description{
-This function compute the probability that three subsets of a set intersect
-in k points
+This function computes the probability that three subsets of of given sizes
+intersect in k points.
 }
 \examples{
 probCounts3N(8, 6, 10, 20, 3)

@@ -19,12 +19,12 @@ and M.}
 \item{k}{Number of elements in the intersection of sets A and B.}
 }
 \value{
-The probability that two subsets of sets M and N intersect in k
-points.
+A numeric value in [0, 1].
 }
 \description{
 This function computes the probability that two subsets of sets M and N
-intersect in k points.
+intersect in k points. Intersection sizes (M with N, A with N and B with M)
+must be provided.
 }
 \examples{
 probCounts2MN(8, 6, 4, 2)

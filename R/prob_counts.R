@@ -7,12 +7,12 @@ NULL
 #' points
 #'
 #' This function computes the probability that two subsets of sets M and N
-#' intersect in k points.
+#' intersect in k points. Intersection sizes (M with N, A with N and B with M)
+#' must be provided.
 #'
 #' @inheritParams vNumeratorMN
 #'
-#' @return The probability that two subsets of sets M and N intersect in k
-#' points.
+#' @return A numeric value in [0, 1].
 #'
 #' @examples
 #' probCounts2MN(8, 6, 4, 2)
@@ -26,11 +26,11 @@ probCounts2MN <- function(intMN, intAN, intBM, k){
     return(powerProduct(primes, exponents))
 }
 
-#' Compute the probability that three subsets of a set intersect in k
+#' Compute the probability that three subsets of given sizes intersect in k
 #' points
 #'
-#' This function compute the probability that three subsets of a set intersect
-#' in k points
+#' This function computes the probability that three subsets of of given sizes
+#' intersect in k points.
 #'
 #' @param a Size of the first subset.
 #' @param b Size of the second subset.
@@ -38,7 +38,7 @@ probCounts2MN <- function(intMN, intAN, intBM, k){
 #' @param n Size of the set.
 #' @param k Size of the intersection.
 #'
-#' @return The probability that three subsets of a set intersect in k points.
+#' @return A numeric value in [0, 1].
 #'
 #' @examples
 #' probCounts3N(8, 6, 10, 20, 3)
