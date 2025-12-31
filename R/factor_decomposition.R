@@ -1,10 +1,12 @@
 #' Generate the prime factor decomposition of n factorial.
 #'
-#' This function generates the prime factor decomposition of n!.
+#' This function generates the prime factor decomposition of n factorial.
 #'
 #' @param n A positive integer.
 #'
-#' @return A vector in which positions represent prime numbers and values
+#' @return A vector in which positions represent prime numbers (that is, the
+#' first position corresponds to 2, the second position corresponds to 3,
+#' the third position corresponds to 5, etc.) and values
 #' represent their exponents in the factorial decomposition.
 #'
 #' @examples

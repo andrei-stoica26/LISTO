@@ -2,7 +2,7 @@
 % Please edit documentation in R/pval_objects.R
 \name{pvalObjects}
 \alias{pvalObjects}
-\title{Assess the overlap of two marker data frames.}
+\title{Assess the overlap of two or three objects}
 \usage{
 pvalObjects(
   obj1,
@@ -42,7 +42,9 @@ spaced cutoffs will be selected from the generated cutoff list.}
 
 \item{mtMethod}{Multiple testing correction method.}
 
-\item{nCores}{Number of cores.}
+\item{nCores}{Number of cores. If performing an overlap assessment between
+sets belonging to the same universe, it is recommended not to use
+parallelization (that is, leave this parameter as 1).}
 
 \item{type}{Type of overlap assessment. Choose between: two sets belonging
 to the same universe ('2N'), two sets belonging to different universes
@@ -52,5 +54,10 @@ to the same universe ('2N'), two sets belonging to different universes
 A numeric value (p-value).
 }
 \description{
-This function assesses the overlap of two marker data frames.
+This function assesses the overlap of two or three objects
+(character vectors, or data frames having a numeric column).
+}
+\examples{
+pvalObjects(LETTERS[seq(2, 7)], LETTERS[seq(3, 19)], universe1=LETTERS)
+
 }

@@ -2,11 +2,11 @@
 % Please edit documentation in R/multiple_testing.R
 \name{mtCorrectDF}
 \alias{mtCorrectDF}
-\title{Perform multiple testing correction on a data frame column}
+\title{Perform multiple testing correction on a data frame}
 \usage{
 mtCorrectDF(
   df,
-  mtMethod = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none"),
+  mtMethod = c("BY", "holm", "hochberg", "hommel", "bonferroni", "BH", "fdr", "none"),
   doOrder = TRUE,
   pvalThr = 0.05,
   colStr = "pval",
@@ -17,9 +17,9 @@ mtCorrectDF(
 \arguments{
 \item{df}{A data frame with a p-values columnn.}
 
-\item{mtMethod}{Multiple testing correction method. Choices are 'holm',
-'hochberg', hommel', 'bonferroni', 'BH', 'BY', 'fdr' and 'none'. Default is
-'holm'.}
+\item{mtMethod}{Multiple testing correction method. Choices are
+'BY' (default) 'holm', hochberg', hommel', 'bonferroni', 'BH',  'fdr' and
+'none'.}
 
 \item{doOrder}{Whether to increasingly order the data frame based on the
 adjusted p-values.}
@@ -39,7 +39,8 @@ A data frame with the p-value column corrected for multiple testing.
 }
 \description{
 This function orders a data frame based on a column of p-values, performs
-multiple testing on the column, and filters the data-frame based on it.
+multiple testing correction on the column, and filters the data-frame
+based on the adjusted p-values.
 }
 \examples{
 df <- data.frame(elem = c('A', 'B', 'C', 'D', 'E'),

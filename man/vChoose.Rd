@@ -12,7 +12,9 @@ vChoose(n, k)
 \item{k}{Number of selected elements.}
 }
 \value{
-A vector in which positions represent prime numbers and values
+A vector in which positions represent prime numbers (that is, the
+first position corresponds to 2, the second position corresponds to 3,
+the third position corresponds to 5, etc.) and values
 represent their exponents in the factorial decomposition.
 }
 \description{
@@ -20,6 +22,6 @@ This function computes the prime factor decomposition of the
 binomial coefficient.
 }
 \examples{
-choose(8, 4)
+vChoose(8, 4)
 
 }

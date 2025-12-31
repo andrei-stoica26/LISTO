@@ -6,7 +6,7 @@
 \usage{
 mtCorrectV(
   pvals,
-  mtMethod = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none"),
+  mtMethod = c("BY", "holm", "hochberg", "hommel", "bonferroni", "BH", "fdr", "none"),
   mtStat = c("identity", "median", "mean", "max", "min"),
   nComp = length(pvals)
 )
@@ -15,7 +15,8 @@ mtCorrectV(
 \item{pvals}{A numeric vector.}
 
 \item{mtMethod}{Multiple testing correction method. Choices are
-Bonferroni ('bf'), Benjamini-Hochberg('bh'), and Benjamini-Yekutieli ('by').}
+'BY' (default) 'holm', hochberg', hommel', 'bonferroni', 'BH',  'fdr' and
+'none'.}
 
 \item{mtStat}{A statistics to be optionally computed. Choices are 'identity'
 (no statistics will be computed and the adjusted p-values will be returned
@@ -28,7 +29,7 @@ should not be changed.}
 A numeric vector.
 }
 \description{
-This function perform multiple testing correction on a vector of p-values.
+This function performs multiple testing correction on a vector of p-values.
 }
 \examples{
 pvals <- c(0.032, 0.001, 0.0045, 0.051, 0.048)

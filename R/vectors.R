@@ -29,11 +29,13 @@ vSum <- function(...){
 #' @param n Total number of elements.
 #' @param k Number of selected elements.
 #'
-#' @return A vector in which positions represent prime numbers and values
+#' @return A vector in which positions represent prime numbers (that is, the
+#' first position corresponds to 2, the second position corresponds to 3,
+#' the third position corresponds to 5, etc.) and values
 #' represent their exponents in the factorial decomposition.
 #'
 #' @examples
-#' choose(8, 4)
+#' vChoose(8, 4)
 #'
 #' @export
 #'

@@ -1,19 +1,19 @@
-#' Assess the overlap of two lists of marker data frames.
+#' Assess the overlap of two or three lists of objects.
 #'
-#' This function assesses the overlap of two lists of marker data frames.
+#' This function assesses the overlap of two or three lists of objects
+#' (character vectors, or data frames having at least one numeric column).
 #'
 #' @inheritParams pvalObjects
-#' @param list1 A list containing character vectors or data frames having one
+#' @param list1 A list containing character vectors, or data frames having
+#' a numeric column.
+#' @param list2 A list containing character vectors, or data frames having a
 #' numeric column.
-#' @param list2 A list containing character vectors or data frames having one
-#' numeric column.
-#' @param list3 A list containing character vectors or data frames having one
+#' @param list3 A list containing character vectors, or data frames having a
 #' numeric column.
 #' @param universe1 The set from which the items corresponding to the elements
 #' in \code{list1} are selected.
 #' @param universe2 The set from which the items corresponding to the elements
 #' in \code{list2} are selected.
-#' @param mtMethod Multiple testing correction method.
 #' @param ... Additional arguments passed to \code{mtCorrectDF}.
 #'
 #' @return A data frame.

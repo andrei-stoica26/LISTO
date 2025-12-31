@@ -2,7 +2,7 @@
 % Please edit documentation in R/pval_sets.R
 \name{pvalSets2N}
 \alias{pvalSets2N}
-\title{Calculate the hypergeometric p-value of enrichment for two sets}
+\title{Calculate the p-value of intersection for two sets}
 \usage{
 pvalSets2N(a, b, n)
 }
@@ -15,10 +15,12 @@ pvalSets2N(a, b, n)
 selected.}
 }
 \description{
-This function calculates the hypergeometric p-value of enrichment for
-two sets.
+This function calculates the p-value of intersection for two sets.
 }
 \details{
-This function calculates the hypergeometric p-value of enrichment
-for two sets.
+A thin wrapper around \code{stats::phyper}.
+}
+\examples{
+pvalSets2N(LETTERS[seq(4, 10)], LETTERS[seq(7, 15)], LETTERS)
+
 }

@@ -19,9 +19,9 @@ filterItems <- function(obj, numCol = NULL, cutoff = NULL, compFun = `>`){
     return(rownames(obj[compFun(obj[[numCol]], cutoff), ]))
 }
 
-#' Compute the p-value of overlap for two marker data frames
+#' Compute the p-value of overlap for two or three objects
 #'
-#' This function computes the p-value of overlap for two marker data frames.
+#' This function computes the p-value of overlap for two or three objects.
 #'
 #' @inheritParams generateCutoffs
 #' @param universe1 The set from which the items stored
@@ -57,19 +57,26 @@ pvalObjectsCore <- function(obj1,
     }
 }
 
-#' Assess the overlap of two marker data frames.
+#' Assess the overlap of two or three objects
 #'
-#' This function assesses the overlap of two marker data frames.
+#' This function assesses the overlap of two or three objects
+#' (character vectors, or data frames having a numeric column).
 #'
 #' @inheritParams generateCutoffs
 #' @inheritParams pvalObjectsCore
+#' @inheritParams mtCorrectV
 #' @param mtMethod Multiple testing correction method.
-#' @param nCores Number of cores.
+#' @param nCores Number of cores. If performing an overlap assessment between
+#' sets belonging to the same universe, it is recommended not to use
+#' parallelization (that is, leave this parameter as 1).
 #' @param type Type of overlap assessment. Choose between: two sets belonging
 #' to the same universe ('2N'), two sets belonging to different universes
 #' ('2MN'), three sets belonging to the same universe ('3MN').
 #'
 #' @return A numeric value (p-value).
+#'
+#' @examples
+#' pvalObjects(LETTERS[seq(2, 7)], LETTERS[seq(3, 19)], universe1=LETTERS)
 #'
 #' @export
 #'
@@ -102,6 +109,9 @@ pvalObjects <- function(obj1,
                                    numCol, cutoff, compFun, type)), numeric(1))
 
     } else{
+        if (type == '2N')
+            warning('Parallelization is not recommended for 2N overlap ',
+                    'assessments. `nCores` should be set back to 1')
         clust <- makeCluster(nCores)
         clusterExport(clust,
                       c('obj1', 'obj2', 'obj3',  'universe1', 'universe2',

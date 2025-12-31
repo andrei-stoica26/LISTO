@@ -22,7 +22,7 @@ probCounts3N(a, b, c, n, k)
 A numeric value in [0, 1].
 }
 \description{
-This function computes the probability that three subsets of of given sizes
+This function computes the probability that three subsets of given sizes
 intersect in k points.
 }
 \examples{

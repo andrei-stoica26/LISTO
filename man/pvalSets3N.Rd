@@ -29,6 +29,6 @@ A thin wrapper around \code{pvalCounts3N}.
 pvalSets3N(LETTERS[seq(4, 10)],
 LETTERS[seq(7, 15)],
 LETTERS[seq(19)],
-LETTERS[seq(1, 26)])
+LETTERS)
 
 }

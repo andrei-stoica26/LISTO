@@ -2,7 +2,7 @@
 % Please edit documentation in R/pval_objects.R
 \name{pvalObjectsCore}
 \alias{pvalObjectsCore}
-\title{Compute the p-value of overlap for two marker data frames}
+\title{Compute the p-value of overlap for two or three objects}
 \usage{
 pvalObjectsCore(
   obj1,
@@ -35,6 +35,6 @@ in \code{obj2} are selected.}
 A p-value.
 }
 \description{
-This function computes the p-value of overlap for two marker data frames.
+This function computes the p-value of overlap for two or three objects.
 }
 \keyword{internal}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/run_listo.R
 \name{runLISTO}
 \alias{runLISTO}
-\title{Assess the overlap of two lists of marker data frames.}
+\title{Assess the overlap of two or three lists of objects.}
 \usage{
 runLISTO(
   list1,
@@ -19,13 +19,13 @@ runLISTO(
 )
 }
 \arguments{
-\item{list1}{A list containing character vectors or data frames having one
+\item{list1}{A list containing character vectors, or data frames having
+a numeric column.}
+
+\item{list2}{A list containing character vectors, or data frames having a
 numeric column.}
 
-\item{list2}{A list containing character vectors or data frames having one
-numeric column.}
-
-\item{list3}{A list containing character vectors or data frames having one
+\item{list3}{A list containing character vectors, or data frames having a
 numeric column.}
 
 \item{universe1}{The set from which the items corresponding to the elements
@@ -45,7 +45,9 @@ spaced cutoffs will be selected from the generated cutoff list.}
 
 \item{mtMethod}{Multiple testing correction method.}
 
-\item{nCores}{Number of cores.}
+\item{nCores}{Number of cores. If performing an overlap assessment between
+sets belonging to the same universe, it is recommended not to use
+parallelization (that is, leave this parameter as 1).}
 
 \item{...}{Additional arguments passed to \code{mtCorrectDF}.}
 }
@@ -53,5 +55,6 @@ spaced cutoffs will be selected from the generated cutoff list.}
 A data frame.
 }
 \description{
-This function assesses the overlap of two lists of marker data frames.
+This function assesses the overlap of two or three lists of objects
+(character vectors, or data frames having at least one numeric column).
 }

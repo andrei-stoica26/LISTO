@@ -6,3 +6,4 @@ R/.test_code.R
 R/.extras.R
 LISTO.Rproj
 inst/doc
+*.pdf

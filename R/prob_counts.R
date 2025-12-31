@@ -29,7 +29,7 @@ probCounts2MN <- function(intMN, intAN, intBM, k){
 #' Compute the probability that three subsets of given sizes intersect in k
 #' points
 #'
-#' This function computes the probability that three subsets of of given sizes
+#' This function computes the probability that three subsets of given sizes
 #' intersect in k points.
 #'
 #' @param a Size of the first subset.

@@ -1,15 +1,16 @@
-#' Calculate the hypergeometric p-value of enrichment for two sets
+#' Calculate the p-value of intersection for two sets
 #'
-#' This function calculates the hypergeometric p-value of enrichment for
-#' two sets.
+#' This function calculates the p-value of intersection for two sets.
 #'
-#' @details This function calculates the hypergeometric p-value of enrichment
-#' for two sets.
+#' @details A thin wrapper around \code{stats::phyper}.
 #'
 #' @param a A character vector.
 #' @param b A character vector.
 #' @param n Set from which \code{a} and \code{b} are
 #' selected.
+#'
+#' @examples
+#' pvalSets2N(LETTERS[seq(4, 10)], LETTERS[seq(7, 15)], LETTERS)
 #'
 #' @export
 #'
@@ -18,11 +19,11 @@ pvalSets2N <- function(a, b, n){
     nb <- length(b)
     nShared <- length(intersect(a, b))
     nn <- length(n)
-    return (phyper(nShared - 1),
+    return (phyper(nShared - 1,
                    na,
                    nn - na,
                    nb,
-                   lower.tail=FALSE)
+                   lower.tail=FALSE))
 }
 
 #' Compute the p-value of intersection of two subsets of sets M and N
@@ -75,7 +76,7 @@ pvalSets2MN <- function(a, b, m, n){
 #' pvalSets3N(LETTERS[seq(4, 10)],
 #' LETTERS[seq(7, 15)],
 #' LETTERS[seq(19)],
-#' LETTERS[seq(1, 26)])
+#' LETTERS)
 #'
 #' @export
 #'
