@@ -14,7 +14,7 @@
 #' to the elements in \code{list1} are selected.
 #' @param universe2 Character vector; the set from which the items
 #' corresponding to the elements in \code{list2} are selected.
-#' @param doFilter Logical; whether to filter the data frame based on the
+#' @param filterResults Logical; whether to filter the results based on the
 #' adjusted p-values.
 #' @param verbose Logical; whether the output should be verbose.
 #' @param ... Additional arguments passed to \code{mtCorrectDF}.

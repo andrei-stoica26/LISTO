@@ -47,6 +47,9 @@ spaced cutoffs will be selected from the generated cutoff list.}
 
 \item{mtMethod}{Multiple testing correction method.}
 
+\item{filterResults}{Logical; whether to filter the results based on the
+adjusted p-values.}
+
 \item{nCores}{Number of cores. If performing an overlap assessment between
 sets belonging to the same universe, it is recommended not to use
 parallelization (that is, leave this parameter as 1).}
@@ -54,9 +57,6 @@ parallelization (that is, leave this parameter as 1).}
 \item{verbose}{Logical; whether the output should be verbose.}
 
 \item{...}{Additional arguments passed to \code{mtCorrectDF}.}
-
-\item{doFilter}{Logical; whether to filter the data frame based on the
-adjusted p-values.}
 }
 \value{
 A data frame.
