@@ -1,19 +1,18 @@
 Package: LISTO
 Type: Package
 Title: A tool for performing comprehensive overlap assessments
+Version: 0.5.0
+Authors@R: person('Andrei-Florian', 'Stoica', 
+      email='andreistoica@foxmail.com',
+     role=c('aut','cre'),
+     comment=c(ORCID='0000-0002-5253-0826'))
+Description: A tool for performing comprehensive overlap assessments
     on lists comprising sets of strings, such as lists of gene sets. It can 
     assess overlaps of pair of sets of strings selected from the same
     universe or from different universes, and overlaps of triplets of
     sets of strings selected from the same universe. Designed 
     for single-cell RNA-sequencing data analysis applications but well-suited 
     for other purposes as well.
-Version: 0.5.0
-Authors@R: person('Andrei-Florian', 'Stoica', 
-      email='andreistoica@foxmail.com',
-     role=c('aut','cre'),
-     comment=c(ORCID='0000-0002-5253-0826'))
-Description: LISTO is an evolving tool for assessing overlaps of lists of 
-    items.
 License: MIT + file LICENSE
 Imports:
     methods,
