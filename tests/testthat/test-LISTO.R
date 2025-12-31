@@ -75,7 +75,6 @@ test_that("pvalCounts functions work", {
                  tolerance=0.0001)
     expect_equal(pvalCounts3N(300, 200, 250, 400, 180), 5.101079e-62,
                                tolerance=0.0001)
-
 })
 
 test_that("pvalObjects works", {
@@ -86,11 +85,50 @@ test_that("pvalObjects works", {
     res <- pvalObjects(LETTERS[seq(2, 7)],
                        LETTERS[seq(3, 19)],
                        LETTERS[seq(4, 8)],
-                       universe1=LETTERS)
-
+                       universe1=LETTERS,
+                       type='3N')
+    expect_equal(res, 0.0007643267, tolerance=0.0001)
+    res <- pvalObjects(LETTERS[seq(2, 7)],
+                       LETTERS[seq(3, 8)],
+                       universe1=LETTERS[seq(1, 16)],
+                       universe2=LETTERS[seq(2, 26)],
+                       type='2MN')
+    expect_equal(res, 0.3776224, tolerance=0.0001)
 })
 
+test_that("pvalSets functions work", {
+    res <- pvalSets2N(LETTERS[seq(4, 10)], LETTERS[seq(7, 15)], LETTERS)
+    expect_equal(res, 0.1585284, tolerance=0.0001)
+    res <- pvalSets2MN(LETTERS[seq(4, 10)],
+                       LETTERS[seq(7, 15)],
+                       LETTERS[seq(19)],
+                       LETTERS[seq(6, 26)])
+    expect_equal(res, 0.3776224, tolerance=0.0001)
+    res <- pvalSets3N(LETTERS[seq(4, 10)],
+                      LETTERS[seq(7, 15)],
+                      LETTERS[seq(19)],
+                      LETTERS)
+    expect_equal(res, 0.05096209, tolerance=0.0001)
+})
 
+test_that("runLISTO works", {
+    res <-  runLISTO(donorMarkers, labelMarkers, universe1=universe1,
+                     numCol='avg_log2FC', verbose=FALSE)
+    expect_equal(dim(res), c(length(donorMarkers) * length(labelMarkers), 4))
+    expect_equal(res[1, 4], 1.636216e-51, tolerance=0.0001)
+    res <- runLISTO(donorMarkers, signatures, universe1=universe1,
+                    universe2=universe2, numCol='avg_log2FC',
+                    verbose=FALSE)
+    expect_equal(dim(res), c(length(donorMarkers) * length(signatures), 4))
+    expect_equal(res[1, 4], 9.317070e-41, tolerance=0.0001)
+    res <-  runLISTO(donorMarkers, labelMarkers, signatures,
+                     universe1=universe1, numCol='avg_log2FC',
+                     verbose=FALSE)
+    expect_equal(dim(res), c(length(donorMarkers) *
+                                 length(labelMarkers) *
+                                 length(signatures), 5))
+    expect_equal(res[1, 4], 1.259111e-86, tolerance=0.0001)
+})
 
 test_that("vector functions work", {
     res <- vSum(c(1, 4), c(2, 8, 6), c(1, 7), c(10, 4, 6, 7))

@@ -28,7 +28,7 @@
 #' labelMarkers <- qs2::qs_read(labelPath)
 #' universe1Path <- system.file('extdata', 'universe1.qs2', package='LISTO')
 #' universe1 <- qs2::qs_read(universe1Path)
-#' x <-  runLISTO(donorMarkers, labelMarkers, universe1=universe1,
+#' res <-  runLISTO(donorMarkers, labelMarkers, universe1=universe1,
 #' numCol='avg_log2FC')
 #'
 #' @export
@@ -46,7 +46,7 @@ runLISTO <- function(list1,
                                   'fdr', 'none'),
                      filterResults = FALSE,
                      nCores = 1,
-                     verbose = FALSE,
+                     verbose = TRUE,
                      ...){
     mtMethod <- match.arg(mtMethod, c('BY', 'holm', 'hochberg',
                                       'hommel', 'bonferroni', 'BH',
