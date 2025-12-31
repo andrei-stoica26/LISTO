@@ -18,6 +18,7 @@ Imports:
 Encoding: UTF-8
 RoxygenNote: 7.3.3
 Suggests: 
+    Seurat,
     testthat (>= 3.0.0)
 URL: https://github.com/andrei-stoica26/LISTO
 BugReports: https://github.com/andrei-stoica26/LISTO/issues
