@@ -1,0 +1,8 @@
+donorPath <- system.file('extdata', 'donorMarkers.qs2', package='LISTO')
+donorMarkers <- qs2::qs_read(donorPath)
+labelPath <- system.file('extdata', 'labelMarkers.qs2', package='LISTO')
+labelMarkers <- qs2::qs_read(labelPath)
+universe1Path <- system.file('extdata', 'universe1.qs2', package='LISTO')
+universe1 <- qs2::qs_read(universe1Path)
+universe2Path <- system.file('extdata', 'universe2.qs2', package='LISTO')
+universe2 <- qs2::qs_read(universe1Path)

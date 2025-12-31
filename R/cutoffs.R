@@ -39,7 +39,7 @@ generateCutoffs <- function(obj1,
                             obj3 = NULL,
                             numCol = NULL,
                             isHighTop = TRUE,
-                            maxCutoffs = 500){
+                            maxCutoffs = 5000){
 
     values1 <- getObjectValues(obj1, numCol, isHighTop)
     values2 <- getObjectValues(obj2, numCol, isHighTop)
@@ -64,7 +64,7 @@ generateCutoffs <- function(obj1,
     cutoffs <- unique(c(cutoffs, extraCutoff))
     nCutoffs <- length(cutoffs)
     if (nCutoffs > maxCutoffs){
-        message(nCutoffs, 'cutoffs found in the input data frames. Only ',
+        message(nCutoffs, ' cutoffs found in the input data frames. Only ',
                 maxCutoffs, ' will be used. To change this behavior, set a ',
                 'higher value to `maxCutoffs`.')
         cutoffs <- cutoffs[seq(1, nCutoffs, length.out=maxCutoffs)]

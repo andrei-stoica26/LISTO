@@ -10,7 +10,7 @@ generateCutoffs(
   obj3 = NULL,
   numCol = NULL,
   isHighTop = TRUE,
-  maxCutoffs = 500
+  maxCutoffs = 5000
 )
 }
 \arguments{
