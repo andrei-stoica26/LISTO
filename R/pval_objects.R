@@ -94,6 +94,7 @@ pvalObjects <- function(obj1,
                         nCores = 1,
                         type = c('2N', '2MN', '3N')){
 
+    checkNumColAll(list(obj1, obj2, obj3), numCol)
     mtMethod <- match.arg(mtMethod, c('BY', 'holm', 'hochberg',
                                       'hommel', 'bonferroni', 'BH',
                                       'fdr', 'none'))

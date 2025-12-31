@@ -80,5 +80,10 @@ signatures <- list(acinarMarkers = c('PRSS1', 'KLK1', 'CTRC', 'PNLIP', 'AKR1C3',
                                        'SERPING1', 'TSPAN8', 'CLDN1', 'S100A10',
                                        'PIGR'))
 
-x <- runLISTO(donorMarkers, donorMarkers, universe1=rownames(scObj))
+x <- runLISTO(donorMarkers, labelMarkers, universe1=rownames(scObj), numCol='avg_log2FC')
+
+a <- rownames(labelMarkers[['acinar']])
+b <- signatures[['acinarMarkers']]
+n <- rownames(scObj)
+pvalSets2N(a, b, n)
 
