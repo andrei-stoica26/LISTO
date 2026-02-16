@@ -11,8 +11,8 @@ universe.
 
 While `LISTO` has been developed with scRNA-seq data analysis in mind, 
 the methodology is fully applicable for the same problem arising in any other 
-setting, and the implementation uses general R objects (data frames, 
-character vectors), rather than scRNA-seq-specific objects.
+setting. Thus, the implementation of `LISTO` uses general R objects 
+(data frames, character vectors), rather than scRNA-seq-specific objects.
 
 ## Installation
 

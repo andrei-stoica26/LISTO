@@ -11,7 +11,7 @@ Description: A tool for performing comprehensive overlap assessments
     assess overlaps of pair of sets of strings selected from the same
     universe or from different universes, and overlaps of triplets of
     sets of strings selected from the same universe. Designed 
-    for single-cell RNA-sequencing data analysis applications but well-suited 
+    for single-cell RNA-sequencing data analysis applications but suitable
     for other purposes as well.
 License: MIT + file LICENSE
 Imports:
