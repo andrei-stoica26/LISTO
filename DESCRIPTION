@@ -1,7 +1,7 @@
 Package: LISTO
 Type: Package
-Title: A tool for performing comprehensive overlap assessments
-Version: 0.5.0
+Title: A tool for Performing Comprehensive Overlap Assessments
+Version: 0.5.5
 Authors@R: person('Andrei-Florian', 'Stoica', 
       email='andreistoica@foxmail.com',
      role=c('aut','cre'),

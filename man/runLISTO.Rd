@@ -67,9 +67,9 @@ This function assesses the overlap of two or three lists of objects
 }
 \examples{
 donorPath <- system.file('extdata', 'donorMarkers.qs2', package='LISTO')
-donorMarkers <- qs2::qs_read(donorPath)
+donorMarkers <- qs2::qs_read(donorPath)[seq(3)]
 labelPath <- system.file('extdata', 'labelMarkers.qs2', package='LISTO')
-labelMarkers <- qs2::qs_read(labelPath)
+labelMarkers <- qs2::qs_read(labelPath)[seq(3)]
 universe1Path <- system.file('extdata', 'universe1.qs2', package='LISTO')
 universe1 <- qs2::qs_read(universe1Path)
 res <-  runLISTO(donorMarkers, labelMarkers, universe1=universe1,
