@@ -6,7 +6,8 @@
 #'
 #' @inheritParams vNumeratorMN
 #'
-#' @return A p-value.
+#' @return A numeric value in [0, 1] representing the probability that two
+#' subsets of sets M and N intersect in at least k points.
 #'
 #' @examples
 #' pvalCounts2MN (300, 23, 24, 6)
@@ -34,7 +35,8 @@ pvalCounts2MN <- function(intMN, intAN, intBM, k){
 #' @param n Size of the set comprising the subsets.
 #' @param k Size of the intersection.
 #'
-#' @return A p-value.
+#' @return A numeric value in [0, 1] representing the probability that
+#' three subsets of a set intersect in at least k points.
 #'
 #' @examples
 #' pvalCounts3N (300, 200, 250, 400, 180)

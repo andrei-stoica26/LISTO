@@ -40,7 +40,8 @@ if \code{doFilter} is \code{FALSE}.}
 method.}
 }
 \value{
-A data frame with the p-value column corrected for multiple testing.
+A data frame in which the p-value column has been corrected for
+multiple testing.
 }
 \description{
 This function orders a data frame based on a column of p-values, performs

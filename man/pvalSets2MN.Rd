@@ -16,7 +16,8 @@ pvalSets2MN(a, b, m, n)
 \item{n}{Set from which \code{b} is selected.}
 }
 \value{
-A numeric value in [0, 1].
+A numeric value in [0, 1] representing the p-value of intersection
+of two subsets of sets M and N.
 }
 \description{
 This function computes the p-value of intersection of two subsets

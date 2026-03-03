@@ -51,7 +51,8 @@ to the same universe ('2N'), two sets belonging to different universes
 ('2MN'), three sets belonging to the same universe ('3MN').}
 }
 \value{
-A numeric value (p-value).
+A numeric value in [0, 1] representing the p-value of the
+overlap of the two objects.
 }
 \description{
 This function assesses the overlap of two or three objects

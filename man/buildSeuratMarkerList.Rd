@@ -19,7 +19,8 @@ genes need to be expressed.}
 \item{...}{Additional arguments passed to \code{Seurat::FindMarkers}.}
 }
 \value{
-A list of marker data frames.
+A list consisting of data frames generated with
+\code{Seurat::FindMarkers}.
 }
 \description{
 This function builds a Seurat marker list ready to be used by LISTO.

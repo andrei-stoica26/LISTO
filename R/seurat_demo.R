@@ -10,7 +10,8 @@
 #' genes need to be expressed.
 #' @param ... Additional arguments passed to \code{Seurat::FindMarkers}.
 #'
-#' @return A list of marker data frames.
+#' @return A list consisting of data frames generated with
+#' \code{Seurat::FindMarkers}.
 #'
 #' @examples
 #' seuratPath <- system.file('extdata', 'seuratObj.qs2', package='LISTO')
@@ -40,5 +41,5 @@ buildSeuratMarkerList <- function(seuratObj,
         names(markers) <- groups
         return(markers)
     } else
-        print('Install Seurat to use `buildSeuratMarkerList`.')
+        message('Install Seurat to use `buildSeuratMarkerList`.')
 }

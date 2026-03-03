@@ -2,7 +2,6 @@
 #'
 NULL
 
-
 #' Perform multiple testing correction on a vector of p-values
 #'
 #' This function performs multiple testing correction on a vector of p-values.
@@ -17,7 +16,9 @@ NULL
 #' @param nComp Number of comparisons. In most situations, this parameter
 #' should not be changed.
 #'
-#' @return A numeric vector.
+#' @return If \code{mtStat} is 'identity' (as default), a numeric vector of
+#' p-values corrected for multiple testing. Otherwise, a statistic based on
+#' these corrected p-values defined by \code{mtStat}.
 #'
 #' @examples
 #' pvals <- c(0.032, 0.001, 0.0045, 0.051, 0.048)
@@ -59,7 +60,8 @@ mtCorrectV <- function(pvals,
 #' @param ... Additional arguments passed to the multiple testing correction
 #' method.
 #'
-#' @return A data frame with the p-value column corrected for multiple testing.
+#' @return A data frame in which the p-value column has been corrected for
+#' multiple testing.
 #'
 #' @examples
 #' df <- data.frame(elem = c('A', 'B', 'C', 'D', 'E'),

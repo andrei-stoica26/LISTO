@@ -19,7 +19,8 @@ probCounts3N(a, b, c, n, k)
 \item{k}{Size of the intersection.}
 }
 \value{
-A numeric value in [0, 1].
+A numeric value in [0, 1] representing the probability that three
+subsets of given sizes intersect in k points.
 }
 \description{
 This function computes the probability that three subsets of given sizes

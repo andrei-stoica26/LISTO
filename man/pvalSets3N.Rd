@@ -17,7 +17,8 @@ pvalSets3N(a, b, c, n)
 selected.}
 }
 \value{
-A numeric value in [0, 1].
+A numeric value in [0, 1] representing the p-value of intersection
+of three subsets.
 }
 \description{
 This function computes the p-value of intersection of three subsets.

@@ -30,8 +30,8 @@ numeric column.}
 \item{list3}{A list containing character vectors, or data frames having a
 numeric column.}
 
-\item{universe1}{Character vector; the set from which the items corresponding
-to the elements in \code{list1} are selected.}
+\item{universe1}{Character vector; the set from which the items
+corresponding to the elements in \code{list1} are selected.}
 
 \item{universe2}{Character vector; the set from which the items
 corresponding to the elements in \code{list2} are selected.}
@@ -59,7 +59,11 @@ parallelization (that is, leave this parameter as 1).}
 \item{...}{Additional arguments passed to \code{mtCorrectDF}.}
 }
 \value{
-A data frame.
+A data frame listing the p-value and adjusted p-value for each
+overlap. Combinations of overlaps are represented through the first two
+(or three if \code{list3} is not \code{NULL}) columns, while the penultimate
+column records the overlap p-values and the last column records the adjusted
+overlap p-values.
 }
 \description{
 This function assesses the overlap of two or three lists of objects

@@ -26,7 +26,9 @@ as such), 'median', 'mean', 'max' and 'min'.}
 should not be changed.}
 }
 \value{
-A numeric vector.
+If \code{mtStat} is 'identity' (as default), a numeric vector of
+p-values corrected for multiple testing. Otherwise, a statistic based on
+these corrected p-values defined by \code{mtStat}.
 }
 \description{
 This function performs multiple testing correction on a vector of p-values.

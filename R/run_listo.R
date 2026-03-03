@@ -10,8 +10,8 @@
 #' numeric column.
 #' @param list3 A list containing character vectors, or data frames having a
 #' numeric column.
-#' @param universe1 Character vector; the set from which the items corresponding
-#' to the elements in \code{list1} are selected.
+#' @param universe1 Character vector; the set from which the items
+#' corresponding to the elements in \code{list1} are selected.
 #' @param universe2 Character vector; the set from which the items
 #' corresponding to the elements in \code{list2} are selected.
 #' @param filterResults Logical; whether to filter the results based on the
@@ -19,7 +19,11 @@
 #' @param verbose Logical; whether the output should be verbose.
 #' @param ... Additional arguments passed to \code{mtCorrectDF}.
 #'
-#' @return A data frame.
+#' @return A data frame listing the p-value and adjusted p-value for each
+#' overlap. Combinations of overlaps are represented through the first two
+#' (or three if \code{list3} is not \code{NULL}) columns, while the penultimate
+#' column records the overlap p-values and the last column records the adjusted
+#' overlap p-values.
 #'
 #' @examples
 #' donorPath <- system.file('extdata', 'donorMarkers.qs2', package='LISTO')

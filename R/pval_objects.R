@@ -73,7 +73,8 @@ pvalObjectsCore <- function(obj1,
 #' to the same universe ('2N'), two sets belonging to different universes
 #' ('2MN'), three sets belonging to the same universe ('3MN').
 #'
-#' @return A numeric value (p-value).
+#' @return A numeric value in [0, 1] representing the p-value of the
+#' overlap of the two objects.
 #'
 #' @examples
 #' pvalObjects(LETTERS[seq(2, 7)], LETTERS[seq(3, 19)], universe1=LETTERS)

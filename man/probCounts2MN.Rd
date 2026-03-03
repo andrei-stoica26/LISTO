@@ -19,7 +19,8 @@ and M.}
 \item{k}{Number of elements in the intersection of sets A and B.}
 }
 \value{
-A numeric value in [0, 1].
+A numeric value in [0, 1] representing the probability that two
+subsets of sets M and N intersect in k points.
 }
 \description{
 This function computes the probability that two subsets of sets M and N

@@ -9,6 +9,9 @@
 #' @param n Set from which \code{a} and \code{b} are
 #' selected.
 #'
+#' @return A numeric value in [0, 1] representing the p-value of intersection
+#' for two sets.
+#'
 #' @examples
 #' pvalSets2N(LETTERS[seq(4, 10)], LETTERS[seq(7, 15)], LETTERS)
 #'
@@ -37,7 +40,8 @@ pvalSets2N <- function(a, b, n){
 #' @param m Set from which \code{a} is selected.
 #' @param n Set from which \code{b} is selected.
 #'
-#' @return A numeric value in [0, 1].
+#' @return A numeric value in [0, 1] representing the p-value of intersection
+#' of two subsets of sets M and N.
 #'
 #' @examples
 #' pvalSets2MN(LETTERS[seq(4, 10)],
@@ -70,7 +74,8 @@ pvalSets2MN <- function(a, b, m, n){
 #' @param n Set from which \code{a}, \code{b} and \code{c} are
 #' selected.
 #'
-#' @return A numeric value in [0, 1].
+#' @return A numeric value in [0, 1] representing the p-value of intersection
+#' of three subsets.
 #'
 #' @examples
 #' pvalSets3N(LETTERS[seq(4, 10)],

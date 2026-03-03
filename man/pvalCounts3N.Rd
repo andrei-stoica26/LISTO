@@ -18,7 +18,8 @@ pvalCounts3N(lenA, lenB, lenC, n, k)
 \item{k}{Size of the intersection.}
 }
 \value{
-A p-value.
+A numeric value in [0, 1] representing the probability that
+three subsets of a set intersect in at least k points.
 }
 \description{
 This function computes the probability that three subsets of a set intersect

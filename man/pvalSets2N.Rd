@@ -14,6 +14,10 @@ pvalSets2N(a, b, n)
 \item{n}{Set from which \code{a} and \code{b} are
 selected.}
 }
+\value{
+A numeric value in [0, 1] representing the p-value of intersection
+for two sets.
+}
 \description{
 This function calculates the p-value of intersection for two sets.
 }
