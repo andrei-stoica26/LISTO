@@ -14,7 +14,7 @@ runLISTO(
   isHighTop = TRUE,
   maxCutoffs = 5000,
   mtMethod = c("BY", "holm", "hochberg", "hommel", "bonferroni", "BH", "fdr", "none"),
-  filterResults = FALSE,
+  pvalThr = NULL,
   nCores = 1,
   verbose = TRUE,
   ...
@@ -47,8 +47,8 @@ spaced cutoffs will be selected from the generated cutoff list.}
 
 \item{mtMethod}{Multiple testing correction method.}
 
-\item{filterResults}{Logical; whether to filter the results based on the
-adjusted p-values.}
+\item{pvalThr}{Threshold to filter the results based on the adjusted
+p-values. If \code{NULL} as default, no filtering will be performed.}
 
 \item{nCores}{Number of cores. If performing an overlap assessment between
 sets belonging to the same universe, it is recommended not to use

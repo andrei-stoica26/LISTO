@@ -14,8 +14,8 @@
 #' corresponding to the elements in \code{list1} are selected.
 #' @param universe2 Character vector; the set from which the items
 #' corresponding to the elements in \code{list2} are selected.
-#' @param filterResults Logical; whether to filter the results based on the
-#' adjusted p-values.
+#' @param pvalThr Threshold to filter the results based on the adjusted
+#' p-values. If \code{NULL} as default, no filtering will be performed.
 #' @param verbose Logical; whether the output should be verbose.
 #' @param ... Additional arguments passed to \code{mtCorrectDF}.
 #'
@@ -48,7 +48,7 @@ runLISTO <- function(list1,
                      mtMethod = c('BY', 'holm', 'hochberg',
                                   'hommel', 'bonferroni', 'BH',
                                   'fdr', 'none'),
-                     filterResults = FALSE,
+                     pvalThr = NULL,
                      nCores = 1,
                      verbose = TRUE,
                      ...){
@@ -94,6 +94,6 @@ runLISTO <- function(list1,
                                              isHighTop, maxCutoffs, mtMethod,
                                              nCores, type))
                       }, numeric(1))
-    df <- mtCorrectDF(df, mtMethod, doFilter=filterResults, ...)
+    df <- mtCorrectDF(df, mtMethod, pvalThr=pvalThr, ...)
     return(df)
 }

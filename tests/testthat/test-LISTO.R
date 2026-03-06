@@ -42,16 +42,21 @@ test_that("factorization functions work", {
 })
 
 test_that("multiple testing functions work", {
-    pvals <- c(0.032, 0.001, 0.0045, 0.051, 0.048)
+    pvals <- c(0.032, 0.001, 0.0045, 0.051, 0.048, 0.33)
     res <- mtCorrectV(pvals)
-    expect_equal(res, c(0.11645000, 0.01141667, 0.02568750, 0.11645000,
-                        0.11645000), tolerance=0.0001)
-    res <- mtCorrectV(pvals, 'hochberg', 'median')
-    expect_equal(res, 0.051, tolerance=0.0001)
-    df <- data.frame(elem = c('A', 'B', 'C', 'D', 'E'),
+    expect_equal(res, c(0.149940, 0.014700, 0.033075, 0.149940, 0.149940,
+                        0.808500), tolerance=0.0001)
+    res <- mtCorrectV(pvals, 'hochberg', 'mean')
+    expect_equal(res, 0.11075, tolerance=0.0001)
+    res <- mtCorrectV(pvals, 'bonferroni', nComp=4)
+    expect_equal(res, c(0.128, 0.004, 0.018, 0.204, 0.192, 1.000))
+    df <- data.frame(elem = c(LETTERS[seq(6)]),
     pval = pvals)
     res <- mtCorrectDF(df)
-    expect_equal(res$pvalAdj, c(0.01141667, 0.02568750), tolerance=0.0001)
+    expect_equal(res$pvalAdj, c(0.014700, 0.033075), tolerance=0.0001)
+    res <- mtCorrectDF(df, 'bonferroni', nComp=3)
+    expect_equal(res$pvalAdj, c(0.0030, 0.0135), tolerance=0.0001)
+    expect_error(mtCorrectDF(df, 'holm', nComp=3))
 })
 
 test_that("probCounts2MN works", {

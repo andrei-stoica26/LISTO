@@ -2,21 +2,20 @@
 % Please edit documentation in R/multiple_testing.R
 \name{mtCorrectDF}
 \alias{mtCorrectDF}
-\title{Perform multiple testing correction on a data frame}
+\title{Perform multiple testing correction on a data frame column}
 \usage{
 mtCorrectDF(
   df,
   mtMethod = c("BY", "holm", "hochberg", "hommel", "bonferroni", "BH", "fdr", "none"),
   colStr = "pval",
   newColStr = "pvalAdj",
-  doOrder = TRUE,
-  doFilter = TRUE,
   pvalThr = 0.05,
-  ...
+  doOrder = TRUE,
+  nComp = nrow(df)
 )
 }
 \arguments{
-\item{df}{A data frame with a p-values columnn.}
+\item{df}{A data frame with a p-values column.}
 
 \item{mtMethod}{Multiple testing correction method. Choices are
 'BY' (default) 'holm', hochberg', hommel', 'bonferroni', 'BH',  'fdr' and
@@ -27,26 +26,21 @@ mtCorrectDF(
 \item{newColStr}{Name of the column of adjusted p-values that will be
 created.}
 
+\item{pvalThr}{p-value threshold used for filtering. If \code{NULL}, no
+filtering will be performed.}
+
 \item{doOrder}{Whether to increasingly order the data frame based on the
 adjusted p-values.}
 
-\item{doFilter}{Whether to filter the data frame based on the adjusted
-p-values.}
-
-\item{pvalThr}{p-value threshold used for filtering. Ignored
-if \code{doFilter} is \code{FALSE}.}
-
-\item{...}{Additional arguments passed to the multiple testing correction
-method.}
+\item{nComp}{Number of comparisons. In most situations, this parameter
+should not be changed.}
 }
 \value{
-A data frame in which the p-value column has been corrected for
-multiple testing.
+A data frame with the p-value column corrected for multiple testing.
 }
 \description{
 This function orders a data frame based on a column of p-values, performs
-multiple testing correction on the column, and filters the data-frame
-based on the adjusted p-values.
+multiple testing on the column, and filters the data-frame based on it.
 }
 \examples{
 df <- data.frame(elem = c('A', 'B', 'C', 'D', 'E'),
