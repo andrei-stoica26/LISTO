@@ -1,6 +1,6 @@
 # LISTO
 
-`LISTO` is a tool for performing **comprehensive overlap assessments**
+`LISTO` is a tool for performing comprehensive overlap assessments
 on lists comprising sets of strings, such as lists of gene sets. It can 
 assess:
 
@@ -16,23 +16,31 @@ setting. Thus, the implementation of `LISTO` uses general R objects
 
 ## Installation
 
-To install `LISTO`, run the following R code:
+To install the version of `LISTO` currently available on CRAN (`0.6.5`), run the 
+following R code:
 
 ```
-devtools::install_github("andrei-stoica26/LISTO")
+install.packages("LISTO")
+```
+
+Alternatively, you can install the most recent development version (`0.7.1`) 
+using this code: 
+
+```
+pak::pak("andrei-stoica26/LISTO")
 ```
 
 ## Description and usage
 
 This section will elaborate on the functionality and usage of `LISTO`. It 
-discusses first the overlaps of individual **elements**, then the details of how
-the **lists** of elements must be provided as input.
+discusses first the overlaps of individual elements, then the details of how
+the lists of elements must be provided as input.
 
 
 ### Items
 
-Each **item** taking part in an individual overlap assessed by `LISTO` is a 
-**set of strings**. Each overlap assessment of sets of strings answers the 
+Each item taking part in an individual overlap assessed by `LISTO` is a 
+set of strings. Each overlap assessment of sets of strings answers the 
 question of whether the sets intersect each other to a statistically 
 significant extent.
 
@@ -51,10 +59,10 @@ A third list, containing the same type of elements, can be optionally provided.
 Items to be used in the overlap assessments are extracted from the input
 lists as follows:
 
-- **Character vectors**: They are used as such.
+- Character vectors: They are used as such.
 
-- **Data frames**: The rownames of the data frame are selected, and overlaps
+- Data frames: The rownames of the data frame are selected, and overlaps
 are calculated based on cutoffs determined by the distinct values in the
-column specified by `numCol`. The **median** of the resulting p-values 
+column specified by `numCol`. The median of the resulting p-values 
 is taken to be the p-value of the corresponding overlap.
 
