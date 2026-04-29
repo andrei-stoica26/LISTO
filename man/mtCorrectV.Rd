@@ -15,7 +15,7 @@ mtCorrectV(
 \item{pvals}{A numeric vector.}
 
 \item{mtMethod}{Multiple testing correction method. Choices are
-'BY' (default) 'holm', hochberg', hommel', 'bonferroni', 'BH',  'fdr' and
+'BY' (default), 'holm', hochberg', hommel', 'bonferroni', 'BH',  'fdr' and
 'none'.}
 
 \item{mtStat}{A statistics to be optionally computed. Choices are 'identity'

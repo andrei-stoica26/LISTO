@@ -31,7 +31,7 @@ bfCorrectV <- function(pvals, nComp)
 #'
 #' @inheritParams bfCorrectV
 #' @param mtMethod Multiple testing correction method. Choices are
-#' 'BY' (default) 'holm', hochberg', hommel', 'bonferroni', 'BH',  'fdr' and
+#' 'BY' (default), 'holm', hochberg', hommel', 'bonferroni', 'BH',  'fdr' and
 #' 'none'.
 #'
 #' @return Adjusted p-values.
@@ -54,9 +54,6 @@ mtCorrectHelper <- function(pvals, mtMethod, nComp){
 #' This function performs multiple testing correction on a vector of p-values.
 #'
 #' @inheritParams mtCorrectHelper
-#' @param mtMethod Multiple testing correction method. Choices are
-#' 'BY' (default) 'holm', hochberg', hommel', 'bonferroni', 'BH',  'fdr' and
-#' 'none'.
 #' @param mtStat A statistics to be optionally computed. Choices are 'identity'
 #' (no statistics will be computed and the adjusted p-values will be returned
 #' as such), 'median', 'mean', 'max' and 'min'.

@@ -59,8 +59,8 @@ pvalObjectsCore <- function(obj1,
 
 #' Assess the overlap of two or three objects
 #'
-#' This function assesses the overlap of two or three objects
-#' (character vectors, or data frames having a numeric column).
+#' This function assesses the statistical significance of the overlap of two
+#' or three objects (character vectors, or data frames having a numeric column).
 #'
 #' @inheritParams generateCutoffs
 #' @inheritParams pvalObjectsCore

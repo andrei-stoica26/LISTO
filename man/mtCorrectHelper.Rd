@@ -10,7 +10,7 @@ mtCorrectHelper(pvals, mtMethod, nComp)
 \item{pvals}{A numeric vector.}
 
 \item{mtMethod}{Multiple testing correction method. Choices are
-'BY' (default) 'holm', hochberg', hommel', 'bonferroni', 'BH',  'fdr' and
+'BY' (default), 'holm', hochberg', hommel', 'bonferroni', 'BH',  'fdr' and
 'none'.}
 
 \item{nComp}{Number of comparisons. In most situations, this parameter

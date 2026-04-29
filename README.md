@@ -16,22 +16,20 @@ setting. Thus, the implementation of `LISTO` uses general R objects
 
 ## Installation
 
-To install the version of `LISTO` currently available on CRAN, run the 
-following R code:
+To install the version of `LISTO` currently available on CRAN (`0.7.3`), 
+run the following R code :
 
 ```r
 install.packages("LISTO")
 ```
 
-Alternatively, you can install the most recent development version using 
-this code: 
+Alternatively, you can install the most recent development version (`0.7.4`), 
+using this code: 
 
 ```r
 pak::pak("andrei-stoica26/LISTO")
 
 ```
-
-Currently, both version are the same (`0.7.3`).
 
 ## Description and usage
 

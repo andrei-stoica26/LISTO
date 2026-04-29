@@ -21,13 +21,13 @@ runLISTO(
 )
 }
 \arguments{
-\item{list1}{A list containing character vectors, or data frames having
+\item{list1}{A list containing character vectors or data frames having
 a numeric column.}
 
-\item{list2}{A list containing character vectors, or data frames having a
+\item{list2}{A list containing character vectors or data frames having a
 numeric column.}
 
-\item{list3}{A list containing character vectors, or data frames having a
+\item{list3}{A list containing character vectors or data frames having a
 numeric column.}
 
 \item{universe1}{Character vector; the set from which the items

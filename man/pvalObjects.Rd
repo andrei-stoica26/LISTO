@@ -55,8 +55,8 @@ A numeric value in [0, 1] representing the p-value of the
 overlap of the two objects.
 }
 \description{
-This function assesses the overlap of two or three objects
-(character vectors, or data frames having a numeric column).
+This function assesses the statistical significance of the overlap of two
+or three objects (character vectors, or data frames having a numeric column).
 }
 \examples{
 pvalObjects(LETTERS[seq(2, 7)], LETTERS[seq(3, 19)], universe1=LETTERS)

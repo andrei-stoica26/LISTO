@@ -18,7 +18,7 @@ mtCorrectDF(
 \item{df}{A data frame with a p-values column.}
 
 \item{mtMethod}{Multiple testing correction method. Choices are
-'BY' (default) 'holm', hochberg', hommel', 'bonferroni', 'BH',  'fdr' and
+'BY' (default), 'holm', hochberg', hommel', 'bonferroni', 'BH',  'fdr' and
 'none'.}
 
 \item{colStr}{Name of the column of p-values.}

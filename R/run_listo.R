@@ -4,11 +4,11 @@
 #' (character vectors, or data frames having at least one numeric column).
 #'
 #' @inheritParams pvalObjects
-#' @param list1 A list containing character vectors, or data frames having
+#' @param list1 A list containing character vectors or data frames having
 #' a numeric column.
-#' @param list2 A list containing character vectors, or data frames having a
+#' @param list2 A list containing character vectors or data frames having a
 #' numeric column.
-#' @param list3 A list containing character vectors, or data frames having a
+#' @param list3 A list containing character vectors or data frames having a
 #' numeric column.
 #' @param universe1 Character vector; the set from which the items
 #' corresponding to the elements in \code{list1} are selected.
