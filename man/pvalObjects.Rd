@@ -19,11 +19,11 @@ pvalObjects(
 )
 }
 \arguments{
-\item{obj1}{A data frame with a numeric column, or a character vector.}
+\item{obj1}{A data frame with a numeric column or a character vector.}
 
-\item{obj2}{A data frame with a numeric column, or a character vector.}
+\item{obj2}{A data frame with a numeric column or a character vector.}
 
-\item{obj3}{A data frame with a numeric column, or a character vector.}
+\item{obj3}{A data frame with a numeric column or a character vector.}
 
 \item{universe1}{The set from which the items stored
 in \code{obj1} are selected.}
@@ -34,7 +34,7 @@ in \code{obj2} are selected.}
 \item{numCol}{The name of the numeric column used for data frame ordering.}
 
 \item{isHighTop}{Whether higher values in the numeric column correspond to
-top-ranked items.}
+better-ranked items.}
 
 \item{maxCutoffs}{Maximum number of cutoffs. If the input data frames
 contain more cutoffs than this value, only \code{maxCutoffs} linearly

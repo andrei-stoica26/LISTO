@@ -2,10 +2,10 @@
 #'
 #' This function extracts numeric values from an input object.
 #'
-#' @param obj A data frame with a numeric column, or a character vector.
+#' @param obj A data frame with a numeric column or a character vector.
 #' @param numCol The name of the numeric column used for data frame ordering.
 #' @param isHighTop Whether higher values in the numeric column correspond to
-#' top-ranked items.
+#' better-ranked items.
 #'
 #' @keywords internal
 #'
@@ -23,9 +23,9 @@ getObjectValues <- function(obj, numCol = NULL, isHighTop = TRUE){
 #' This function generates cutoffs for filtering overlaps
 #'
 #' @inheritParams getObjectValues
-#' @param obj1 A data frame with a numeric column, or a character vector.
-#' @param obj2 A data frame with a numeric column, or a character vector.
-#' @param obj3 A data frame with a numeric column, or a character vector.
+#' @param obj1 A data frame with a numeric column or a character vector.
+#' @param obj2 A data frame with a numeric column or a character vector.
+#' @param obj3 A data frame with a numeric column or a character vector.
 #' @param maxCutoffs Maximum number of cutoffs. If the input data frames
 #' contain more cutoffs than this value, only \code{maxCutoffs} linearly
 #' spaced cutoffs will be selected from the generated cutoff list.

@@ -96,10 +96,8 @@ pvalObjects <- function(obj1,
                         type = c('2N', '2MN', '3N')){
 
     checkNumColAll(list(obj1, obj2, obj3), numCol)
-    mtMethod <- match.arg(mtMethod, c('BY', 'holm', 'hochberg',
-                                      'hommel', 'bonferroni', 'BH',
-                                      'fdr', 'none'))
-    type <- match.arg(type, c('2N', '2MN', '3N'))
+    mtMethod <- match.arg(mtMethod)
+    type <- match.arg(type)
 
     cutoffs <- generateCutoffs(obj1, obj2, obj3, numCol, isHighTop,
                                maxCutoffs)

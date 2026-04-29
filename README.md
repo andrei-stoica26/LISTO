@@ -23,7 +23,7 @@ run the following R code :
 install.packages("LISTO")
 ```
 
-Alternatively, you can install the most recent development version (`0.7.4`), 
+Alternatively, you can install the most recent development version (`0.7.5`), 
 using this code: 
 
 ```r

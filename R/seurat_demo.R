@@ -41,5 +41,5 @@ buildSeuratMarkerList <- function(seuratObj,
         names(markers) <- groups
         return(markers)
     } else
-        message('Install Seurat to use `buildSeuratMarkerList`.')
+        stop('Install Seurat to use `buildSeuratMarkerList`.')
 }

@@ -52,9 +52,7 @@ runLISTO <- function(list1,
                      nCores = 1,
                      verbose = TRUE,
                      ...){
-    mtMethod <- match.arg(mtMethod, c('BY', 'holm', 'hochberg',
-                                      'hommel', 'bonferroni', 'BH',
-                                      'fdr', 'none'))
+    mtMethod <- match.arg(mtMethod)
 
     if (is.null(list3)){
         df <- expand.grid(names(list1), names(list2))

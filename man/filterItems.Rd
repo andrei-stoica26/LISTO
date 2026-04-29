@@ -7,7 +7,7 @@
 filterItems(obj, numCol = NULL, cutoff = NULL, compFun = `>`)
 }
 \arguments{
-\item{obj}{A data frame with a numeric column, or a character vector.}
+\item{obj}{A data frame with a numeric column or a character vector.}
 
 \item{numCol}{The name of the numeric column used for data frame ordering.}
 
