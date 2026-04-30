@@ -14,6 +14,9 @@ getObjectValues(obj, numCol = NULL, isHighTop = TRUE)
 \item{isHighTop}{Whether higher values in the numeric column correspond to
 better-ranked items.}
 }
+\value{
+A numeric vector.
+}
 \description{
 This function extracts numeric values from an input object.
 }

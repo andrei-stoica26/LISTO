@@ -7,6 +7,8 @@
 #' @param isHighTop Whether higher values in the numeric column correspond to
 #' better-ranked items.
 #'
+#' @return A numeric vector.
+#'
 #' @keywords internal
 #'
 getObjectValues <- function(obj, numCol = NULL, isHighTop = TRUE){
