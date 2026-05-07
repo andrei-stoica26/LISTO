@@ -1,5 +1,4 @@
 #' @importFrom primes generate_n_primes generate_primes
-#' @importFrom statisfactory psum
 #'
 NULL
 

@@ -1,3 +1,7 @@
+#' @importFrom statisfactory psum
+#'
+NULL
+
 #' Add numeric vectors of different lenghts
 #'
 #' This function adds numeric vectors of different lengths by filling shorter
