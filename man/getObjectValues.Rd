@@ -4,15 +4,12 @@
 \alias{getObjectValues}
 \title{Extract numeric values from an input object}
 \usage{
-getObjectValues(obj, numCol = NULL, isHighTop = TRUE)
+getObjectValues(obj, numCol = NULL)
 }
 \arguments{
 \item{obj}{A data frame with a numeric column or a character vector.}
 
 \item{numCol}{The name of the numeric column used for data frame ordering.}
-
-\item{isHighTop}{Whether higher values in the numeric column correspond to
-better-ranked items.}
 }
 \value{
 A numeric vector.

@@ -12,7 +12,7 @@ pvalObjects(
   universe2 = NULL,
   numCol = NULL,
   isHighTop = TRUE,
-  maxCutoffs = 5000,
+  maxCutoffs = 500,
   mtMethod = c("BY", "holm", "hochberg", "hommel", "bonferroni", "BH", "fdr", "none"),
   nCores = 1,
   type = c("2N", "2MN", "3N")

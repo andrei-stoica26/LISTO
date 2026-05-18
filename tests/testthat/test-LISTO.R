@@ -19,21 +19,23 @@ test_that("getObjectValues works", {
     df <- data.frame(fruit = c('apple', 'banana', 'cherry'),
                       cost = c(6, 5, 3))
     expect_identical(getObjectValues(df, 'cost'), c(6, 5, 3))
-    expect_identical(getObjectValues(df, NULL), -Inf)
-    expect_identical(getObjectValues(LETTERS, 'cost', FALSE), Inf)
+    expect_identical(getObjectValues(df, NULL), c(-Inf, Inf))
+    expect_identical(getObjectValues(LETTERS, 'cost'), c(-Inf, Inf))
 })
 
 test_that("generateCutoffs works", {
-    res <- generateCutoffs(donorMarkers[[1]],
-                           donorMarkers[[2]],
-                           numCol='avg_log2FC')
-    expect_equal(res[1], 2.743160, tolerance=0.0001)
-    res <- generateCutoffs(donorMarkers[[2]],
-                           donorMarkers[[3]],
-                           labelMarkers[[1]],
-                           numCol='avg_log2FC')
-    expect_equal(res[1], 3.501303, tolerance=0.0001)
-
+    df1 <- data.frame(fruit = c("apple", "banana", "cherry", "plum", "orange"),
+                      cost = c(6, 5, 3, 4, 5))
+    df2 <- data.frame(fruit = c("watermelon", "grape", "banana", "apricot",
+                                "melon", "peach"),
+                      cost = c(8, 1, 4, 3, 6, 7))
+    v1 <- c("banana", "apple", "sour cherry", "lemon", "pineapple")
+    v2 <- c("cherry", "melon", "grape")
+    expect_identical(generateCutoffs(df1, df2, numCol='cost'),
+                     c(5, 4, 3, 1, -Inf))
+    expect_identical(generateCutoffs(df1, v1, numCol='cost'),
+                     c(5, 4, 3, -Inf))
+    expect_identical(generateCutoffs(v1, v2), -Inf)
 })
 
 test_that("factorization functions work", {
@@ -123,12 +125,12 @@ test_that("runLISTO works", {
     expect_equal(res[1, 4], 1.636216e-51, tolerance=0.0001)
     res <- runLISTO(donorMarkers, signatures, universe1=universe1,
                     universe2=universe2, numCol='avg_log2FC',
-                    verbose=FALSE)
+                    verbose=FALSE, maxCutoffs=20)
     expect_equal(dim(res), c(length(donorMarkers) * length(signatures), 4))
     expect_equal(res[1, 4], 9.317070e-41, tolerance=0.0001)
     res <-  runLISTO(donorMarkers, labelMarkers, signatures,
                      universe1=universe1, numCol='avg_log2FC',
-                     verbose=FALSE)
+                     verbose=FALSE, maxCutoffs=20)
     expect_equal(dim(res), c(length(donorMarkers) *
                                  length(labelMarkers) *
                                  length(signatures), 5))

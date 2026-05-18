@@ -10,3 +10,4 @@ universe2Path <- system.file('extdata', 'universe2.qs2', package='LISTO')
 universe2 <- qs2::qs_read(universe1Path)
 seuratPath <- system.file('extdata', 'seuratObj.qs2', package='LISTO')
 seuratObj <- qs2::qs_read(seuratPath)
+
